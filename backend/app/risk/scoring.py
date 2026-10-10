@@ -5,7 +5,8 @@ and EvidenceRefs to its source records. No black-box numbers.
 """
 
 from collections.abc import Sequence
-from datetime import datetime
+from datetime import date, datetime
+from decimal import Decimal, InvalidOperation
 
 from app.core.formatting import format_money
 from app.repository import Repository
@@ -14,6 +15,7 @@ from app.schemas import (
     Confidence,
     Direction,
     Document,
+    DocumentType,
     EntityType,
     EvidenceRef,
     GpsPing,
@@ -152,6 +154,44 @@ def _gps_pings_for_shipment(
     return related
 
 
+def _past_due_invoice_documents(
+    repo: Repository,
+    client_id: str,
+    now: datetime,
+) -> list[tuple[Document, int]]:
+    """Find confidently extracted, linked past-due invoices not already represented as invoices."""
+    known_numbers = {invoice.number for invoice in repo.invoices.list(client_id=client_id)}
+    latest_by_number: dict[str, Document] = {}
+    for document in repo.documents.list(client_id=client_id):
+        fields = document.extracted_fields
+        number = fields.get("invoice_number")
+        if (
+            document.doc_type != DocumentType.invoice
+            or document.extraction_confidence is None
+            or document.extraction_confidence < 0.8
+            or not number
+            or number in known_numbers
+            or not fields.get("due_date")
+        ):
+            continue
+        try:
+            due_date = date.fromisoformat(fields["due_date"])
+        except ValueError:
+            continue
+        if due_date >= now.date():
+            continue
+        previous = latest_by_number.get(number)
+        if previous is None or (document.received_at, document.id) > (
+            previous.received_at,
+            previous.id,
+        ):
+            latest_by_number[number] = document
+    return [
+        (document, (now.date() - date.fromisoformat(document.extracted_fields["due_date"])).days)
+        for document in latest_by_number.values()
+    ]
+
+
 def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProfile:
     client = repo.clients.require(client_id)
     invoices = [i for i in repo.invoices.list(client_id=client_id) if i.status != InvoiceStatus.cancelled]
@@ -168,6 +208,7 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
     paid = [i for i in invoices if i.status == InvoiceStatus.paid and i.id in paid_on]
     delays = {i.id: _days(paid_on[i.id], i.due_at) for i in paid}
     overdue = [i for i in invoices if i.status in (InvoiceStatus.issued, InvoiceStatus.partially_paid) and i.due_at < now]
+    past_due_documents = _past_due_invoice_documents(repo, client_id, now)
     currency = invoices[0].total.currency if invoices else "EUR"
     overdue_minor = sum(i.total.amount_minor - paid_sum.get(i.id, 0) for i in overdue)
     fines = [x for x in incidents if x.type == IncidentType.fine]
@@ -283,15 +324,56 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
                     ],
                 )
             )
-    if overdue:
-        worst = max(_days(now, i.due_at) for i in overdue)
+    if overdue or past_due_documents:
+        worst = max(
+            [
+                *(_days(now, invoice.due_at) for invoice in overdue),
+                *(days for _, days in past_due_documents),
+            ]
+        )
         invoice_email_ids = {invoice.id: _emails_for_invoice(repo, client_id, invoice) for invoice in overdue}
+        document_amounts: dict[str, int] = {}
+        for document, _ in past_due_documents:
+            fields = document.extracted_fields
+            amount = fields.get("total_amount")
+            currency_code = fields.get("currency", "EUR").upper()
+            if (
+                not amount
+                or len(currency_code) != 3
+                or not currency_code.isascii()
+                or not currency_code.isalpha()
+            ):
+                continue
+            try:
+                amount_minor = int((Decimal(amount) * 100).quantize(Decimal(1)))
+            except (InvalidOperation, ValueError):
+                continue
+            document_amounts[currency_code] = document_amounts.get(currency_code, 0) + amount_minor
+        document_amount_text = ", ".join(
+            format_money(Money.of(amount, currency_code), Language.en)
+            for currency_code, amount in sorted(document_amounts.items())
+        )
+        verified_overdue = (
+            f"{len(overdue)} unpaid invoice(s) past due, "
+            f"{format_money(metrics.overdue_amount, Language.en)} in total; "
+            if overdue
+            else ""
+        )
+        unverified_documents = (
+            f"{len(past_due_documents)} linked invoice PDF(s) show a past-due date"
+            f"{f' and total {document_amount_text}' if document_amount_text else ''}; "
+            "payment status is not recorded for those documents; "
+            if past_due_documents
+            else ""
+        )
         factors.append(
             RiskFactor(
                 code=RiskFactorCode.currently_overdue,
                 label="Has overdue invoices",
-                impact=min(30, 10 + worst // 3),
-                explanation=f"{len(overdue)} unpaid invoice(s) past due, {format_money(metrics.overdue_amount, Language.en)} in total; oldest {worst} days overdue.",
+                impact=min(30, 10 + worst // 3) if overdue else min(20, 5 + worst // 7),
+                explanation=(
+                    f"{verified_overdue}{unverified_documents}oldest due date was {worst} days ago."
+                ),
                 evidence=[
                     *[
                         EvidenceRef(
@@ -316,6 +398,10 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
                         EvidenceRef(entity_type=EntityType.email, entity_id=email_id)
                         for email_ids in invoice_email_ids.values()
                         for email_id in email_ids
+                    ],
+                    *[
+                        EvidenceRef(entity_type=EntityType.document, entity_id=document.id)
+                        for document, _ in past_due_documents
                     ],
                 ],
             )
@@ -538,7 +624,7 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
 
     factors.sort(key=lambda f: abs(f.impact), reverse=True)
     score = max(0, min(100, BASE_SCORE + sum(f.impact for f in factors)))
-    level = RiskLevel.unknown if not invoices else RiskLevel.high if score >= 65 else RiskLevel.medium if score >= 40 else RiskLevel.low
+    level = RiskLevel.unknown if not invoices and not past_due_documents else RiskLevel.high if score >= 65 else RiskLevel.medium if score >= 40 else RiskLevel.low
     confidence = Confidence.low if len(paid) < MIN_PAID_INVOICES else Confidence.high if len(paid) >= 8 else Confidence.medium
     codes = {f.code for f in factors}
     tone = (

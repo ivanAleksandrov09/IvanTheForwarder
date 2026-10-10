@@ -74,7 +74,11 @@ Read **[CONVENTIONS.md](CONVENTIONS.md)** before your first commit. Architecture
 ## Module notes
 <!-- Each owner adds a short section here: what works, how to try it, env vars, known gaps. -->
 ### Connectors (A)
-TODO(owner A)
+The folder watcher reads PDF files placed in `docs/incoming/`. In mock mode, searchable invoices are parsed locally
+for invoice number, customer, total, currency, and due date; a uniquely matched past-due invoice PDF adds an
+explainable risk factor. Documents with ambiguous customer matches are stored but do not affect a client's score.
+Scanned PDFs and other document types need `LLM_MODE=live`, `LLM_PROVIDER=anthropic`, and a valid API key for
+full extraction. The dashboard refreshes risk profiles automatically.
 ### Risk & events (B)
 Client risk is a transparent score: start at 30, add the impact of each listed factor, then clamp to 0–100.
 Every factor includes its measured values and links to the supporting invoices, shipments, incidents, or emails.

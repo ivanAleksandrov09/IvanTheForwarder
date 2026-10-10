@@ -1,102 +1,932 @@
 [
   {
-    "id": "gps_00000002",
-    "truck_id": "trk_0003",
-    "shipment_id": "shp_0901",
-    "recorded_at": "2026-10-15T07:15:00Z",
-    "lat": 44.5102,
-    "lon": 19.4086,
-    "speed_kmh": 75.0,
-    "heading_deg": null
-  },
-  {
-    "id": "gps_00000005",
-    "truck_id": "trk_0004",
-    "shipment_id": "shp_0902",
-    "recorded_at": "2026-10-15T07:15:00Z",
-    "lat": 44.5345,
-    "lon": 21.0059,
-    "speed_kmh": 75.0,
-    "heading_deg": null
-  },
-  {
-    "id": "gps_00000008",
-    "truck_id": "trk_0005",
-    "shipment_id": "shp_0903",
-    "recorded_at": "2026-10-15T07:15:00Z",
-    "lat": 43.8504,
-    "lon": 25.1756,
-    "speed_kmh": 75.0,
-    "heading_deg": null
-  },
-  {
-    "id": "gps_00000003",
-    "truck_id": "trk_0003",
-    "shipment_id": "shp_0901",
-    "recorded_at": "2026-10-15T07:20:00Z",
-    "lat": 46.3226,
-    "lon": 15.4953,
-    "speed_kmh": 75.0,
-    "heading_deg": null
-  },
-  {
-    "id": "gps_00000006",
-    "truck_id": "trk_0004",
-    "shipment_id": "shp_0902",
-    "recorded_at": "2026-10-15T07:20:00Z",
-    "lat": 46.3714,
-    "lon": 18.6898,
-    "speed_kmh": 75.0,
-    "heading_deg": null
-  },
-  {
-    "id": "gps_00000009",
-    "truck_id": "trk_0005",
-    "shipment_id": "shp_0903",
-    "recorded_at": "2026-10-15T07:20:00Z",
-    "lat": 43.2741,
-    "lon": 24.2488,
-    "speed_kmh": 75.0,
-    "heading_deg": null
-  },
-  {
-    "id": "gps_00000001",
-    "truck_id": "trk_0002",
+    "id": "gps_00010000",
+    "truck_id": "trk_0001",
     "shipment_id": null,
-    "recorded_at": "2026-10-15T07:25:00Z",
+    "recorded_at": "2026-10-15T07:15:00Z",
     "lat": 42.665,
     "lon": 23.461,
     "speed_kmh": 0.0,
     "heading_deg": null
   },
   {
-    "id": "gps_00000004",
+    "id": "gps_00020000",
+    "truck_id": "trk_0002",
+    "shipment_id": null,
+    "recorded_at": "2026-10-15T07:15:00Z",
+    "lat": 42.665,
+    "lon": 23.461,
+    "speed_kmh": 0.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00030000",
     "truck_id": "trk_0003",
     "shipment_id": "shp_0901",
-    "recorded_at": "2026-10-15T07:25:00Z",
-    "lat": 48.1351,
-    "lon": 11.582,
-    "speed_kmh": 65.0,
-    "heading_deg": null
-  },
-  {
-    "id": "gps_00000007",
-    "truck_id": "trk_0004",
-    "shipment_id": "shp_0902",
-    "recorded_at": "2026-10-15T07:25:00Z",
-    "lat": 48.2082,
-    "lon": 16.3738,
-    "speed_kmh": 65.0,
-    "heading_deg": null
-  },
-  {
-    "id": "gps_00000010",
-    "truck_id": "trk_0005",
-    "shipment_id": "shp_0903",
-    "recorded_at": "2026-10-15T07:25:00Z",
+    "recorded_at": "2026-10-14T16:00:00Z",
     "lat": 42.6977,
     "lon": 23.3219,
-    "speed_kmh": 65.0,
+    "speed_kmh": 0.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00030001",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T16:20:00Z",
+    "lat": 42.6977,
+    "lon": 23.3219,
+    "speed_kmh": 0.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00030002",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T16:40:00Z",
+    "lat": 42.6977,
+    "lon": 23.3219,
+    "speed_kmh": 0.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00030003",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T17:00:00Z",
+    "lat": 42.6977,
+    "lon": 23.3219,
+    "speed_kmh": 0.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00030004",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T17:20:00Z",
+    "lat": 42.6977,
+    "lon": 23.3219,
+    "speed_kmh": 0.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00030005",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T17:40:00Z",
+    "lat": 42.6977,
+    "lon": 23.3219,
+    "speed_kmh": 0.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00030006",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T18:00:00Z",
+    "lat": 42.6977,
+    "lon": 23.3219,
+    "speed_kmh": 2.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00030007",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T18:20:00Z",
+    "lat": 42.6977,
+    "lon": 23.3219,
+    "speed_kmh": 2.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00030008",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T18:40:00Z",
+    "lat": 42.73794,
+    "lon": 23.26042,
+    "speed_kmh": 36.5,
+    "heading_deg": 311.6
+  },
+  {
+    "id": "gps_00030009",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T19:00:00Z",
+    "lat": 42.81971,
+    "lon": 23.13411,
+    "speed_kmh": 43.8,
+    "heading_deg": 311.6
+  },
+  {
+    "id": "gps_00030010",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T19:20:00Z",
+    "lat": 42.90003,
+    "lon": 23.00933,
+    "speed_kmh": 36.5,
+    "heading_deg": 311.6
+  },
+  {
+    "id": "gps_00030011",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T19:40:00Z",
+    "lat": 42.98048,
+    "lon": 22.8817,
+    "speed_kmh": 41.7,
+    "heading_deg": 311.6
+  },
+  {
+    "id": "gps_00030012",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T20:00:00Z",
+    "lat": 42.9896,
+    "lon": 22.8711,
+    "speed_kmh": 2.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00030013",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T20:20:00Z",
+    "lat": 42.9896,
+    "lon": 22.8711,
+    "speed_kmh": 0.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00030014",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T20:40:00Z",
+    "lat": 43.02101,
+    "lon": 22.77536,
+    "speed_kmh": 48.7,
+    "heading_deg": 295.3
+  },
+  {
+    "id": "gps_00030015",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T21:00:00Z",
+    "lat": 43.08818,
+    "lon": 22.58344,
+    "speed_kmh": 51.9,
+    "heading_deg": 295.3
+  },
+  {
+    "id": "gps_00030016",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T21:20:00Z",
+    "lat": 43.15332,
+    "lon": 22.39328,
+    "speed_kmh": 55.9,
+    "heading_deg": 295.3
+  },
+  {
+    "id": "gps_00030017",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T21:40:00Z",
+    "lat": 43.21588,
+    "lon": 22.20354,
+    "speed_kmh": 55.9,
+    "heading_deg": 295.3
+  },
+  {
+    "id": "gps_00030018",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T22:00:00Z",
+    "lat": 43.27998,
+    "lon": 22.00931,
+    "speed_kmh": 52.2,
+    "heading_deg": 295.3
+  },
+  {
+    "id": "gps_00030019",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T22:20:00Z",
+    "lat": 43.39359,
+    "lon": 21.8225,
+    "speed_kmh": 73.0,
+    "heading_deg": 325.1
+  },
+  {
+    "id": "gps_00030020",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T22:40:00Z",
+    "lat": 43.57366,
+    "lon": 21.64528,
+    "speed_kmh": 72.2,
+    "heading_deg": 325.1
+  },
+  {
+    "id": "gps_00030021",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T23:00:00Z",
+    "lat": 43.75448,
+    "lon": 21.46814,
+    "speed_kmh": 72.0,
+    "heading_deg": 325.1
+  },
+  {
+    "id": "gps_00030022",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T23:20:00Z",
+    "lat": 43.93535,
+    "lon": 21.28651,
+    "speed_kmh": 70.8,
+    "heading_deg": 325.1
+  },
+  {
+    "id": "gps_00030023",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-14T23:40:00Z",
+    "lat": 44.11788,
+    "lon": 21.11166,
+    "speed_kmh": 78.4,
+    "heading_deg": 325.1
+  },
+  {
+    "id": "gps_00030024",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T00:00:00Z",
+    "lat": 44.29797,
+    "lon": 20.93031,
+    "speed_kmh": 72.1,
+    "heading_deg": 325.1
+  },
+  {
+    "id": "gps_00030025",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T00:20:00Z",
+    "lat": 44.48085,
+    "lon": 20.7506,
+    "speed_kmh": 72.5,
+    "heading_deg": 325.1
+  },
+  {
+    "id": "gps_00030026",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T00:40:00Z",
+    "lat": 44.6607,
+    "lon": 20.57417,
+    "speed_kmh": 68.3,
+    "heading_deg": 325.1
+  },
+  {
+    "id": "gps_00030027",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T01:00:00Z",
+    "lat": 44.7866,
+    "lon": 20.4489,
+    "speed_kmh": 0.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00030028",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T01:20:00Z",
+    "lat": 44.7866,
+    "lon": 20.4489,
+    "speed_kmh": 0.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00030029",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T01:40:00Z",
+    "lat": 44.78907,
+    "lon": 20.43718,
+    "speed_kmh": 44.9,
+    "heading_deg": 286.3
+  },
+  {
+    "id": "gps_00030030",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T02:00:00Z",
+    "lat": 44.83054,
+    "lon": 20.23438,
+    "speed_kmh": 52.5,
+    "heading_deg": 286.3
+  },
+  {
+    "id": "gps_00030031",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T02:20:00Z",
+    "lat": 44.87219,
+    "lon": 20.026,
+    "speed_kmh": 51.3,
+    "heading_deg": 286.3
+  },
+  {
+    "id": "gps_00030032",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T02:40:00Z",
+    "lat": 44.91317,
+    "lon": 19.82109,
+    "speed_kmh": 47.0,
+    "heading_deg": 286.3
+  },
+  {
+    "id": "gps_00030033",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T03:00:00Z",
+    "lat": 44.95567,
+    "lon": 19.61402,
+    "speed_kmh": 49.0,
+    "heading_deg": 286.3
+  },
+  {
+    "id": "gps_00030034",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T03:20:00Z",
+    "lat": 44.99524,
+    "lon": 19.40911,
+    "speed_kmh": 46.4,
+    "heading_deg": 286.3
+  },
+  {
+    "id": "gps_00030035",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T03:40:00Z",
+    "lat": 45.03676,
+    "lon": 19.20127,
+    "speed_kmh": 45.6,
+    "heading_deg": 286.3
+  },
+  {
+    "id": "gps_00030036",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T04:00:00Z",
+    "lat": 45.05672,
+    "lon": 19.10011,
+    "speed_kmh": 0.0,
+    "heading_deg": 277.9
+  },
+  {
+    "id": "gps_00030037",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T04:20:00Z",
+    "lat": 45.05675,
+    "lon": 19.09974,
+    "speed_kmh": 2.0,
+    "heading_deg": 277.9
+  },
+  {
+    "id": "gps_00030038",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T04:40:00Z",
+    "lat": 45.05679,
+    "lon": 19.09937,
+    "speed_kmh": 0.0,
+    "heading_deg": 277.9
+  },
+  {
+    "id": "gps_00030039",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T05:00:00Z",
+    "lat": 45.05683,
+    "lon": 19.09899,
+    "speed_kmh": 2.0,
+    "heading_deg": 277.9
+  },
+  {
+    "id": "gps_00030040",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T05:20:00Z",
+    "lat": 45.05686,
+    "lon": 19.09862,
+    "speed_kmh": 0.0,
+    "heading_deg": 277.9
+  },
+  {
+    "id": "gps_00030041",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T05:40:00Z",
+    "lat": 45.0569,
+    "lon": 19.09825,
+    "speed_kmh": 0.0,
+    "heading_deg": 277.9
+  },
+  {
+    "id": "gps_00030042",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T06:00:00Z",
+    "lat": 45.05694,
+    "lon": 19.09788,
+    "speed_kmh": 2.0,
+    "heading_deg": 277.9
+  },
+  {
+    "id": "gps_00030043",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T06:20:00Z",
+    "lat": 45.05697,
+    "lon": 19.0975,
+    "speed_kmh": 0.0,
+    "heading_deg": 277.9
+  },
+  {
+    "id": "gps_00030044",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T06:40:00Z",
+    "lat": 45.05701,
+    "lon": 19.09713,
+    "speed_kmh": 0.0,
+    "heading_deg": 277.9
+  },
+  {
+    "id": "gps_00030045",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T07:00:00Z",
+    "lat": 45.05705,
+    "lon": 19.09676,
+    "speed_kmh": 0.0,
+    "heading_deg": 277.9
+  },
+  {
+    "id": "gps_00030046",
+    "truck_id": "trk_0003",
+    "shipment_id": "shp_0901",
+    "recorded_at": "2026-10-15T07:20:00Z",
+    "lat": 45.05708,
+    "lon": 19.09639,
+    "speed_kmh": 0.0,
+    "heading_deg": 277.9
+  },
+  {
+    "id": "gps_00040000",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-14T23:00:00Z",
+    "lat": 42.6995,
+    "lon": 23.32028,
+    "speed_kmh": 35.6,
+    "heading_deg": 311.6
+  },
+  {
+    "id": "gps_00040001",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-14T23:20:00Z",
+    "lat": 42.77996,
+    "lon": 23.19785,
+    "speed_kmh": 45.6,
+    "heading_deg": 311.6
+  },
+  {
+    "id": "gps_00040002",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-14T23:40:00Z",
+    "lat": 42.85848,
+    "lon": 23.07105,
+    "speed_kmh": 38.0,
+    "heading_deg": 311.6
+  },
+  {
+    "id": "gps_00040003",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T00:00:00Z",
+    "lat": 42.93993,
+    "lon": 22.94655,
+    "speed_kmh": 41.4,
+    "heading_deg": 311.6
+  },
+  {
+    "id": "gps_00040004",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T00:20:00Z",
+    "lat": 42.9896,
+    "lon": 22.8711,
+    "speed_kmh": 2.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00040005",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T00:40:00Z",
+    "lat": 42.9896,
+    "lon": 22.8711,
+    "speed_kmh": 2.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00040006",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T01:00:00Z",
+    "lat": 43.10017,
+    "lon": 22.72003,
+    "speed_kmh": 54.7,
+    "heading_deg": 316.7
+  },
+  {
+    "id": "gps_00040007",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T01:20:00Z",
+    "lat": 43.22663,
+    "lon": 22.55158,
+    "speed_kmh": 54.7,
+    "heading_deg": 316.7
+  },
+  {
+    "id": "gps_00040008",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T01:40:00Z",
+    "lat": 43.35051,
+    "lon": 22.38465,
+    "speed_kmh": 63.9,
+    "heading_deg": 316.7
+  },
+  {
+    "id": "gps_00040009",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T02:00:00Z",
+    "lat": 43.47496,
+    "lon": 22.21537,
+    "speed_kmh": 56.6,
+    "heading_deg": 316.7
+  },
+  {
+    "id": "gps_00040010",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T02:20:00Z",
+    "lat": 43.60149,
+    "lon": 22.04616,
+    "speed_kmh": 55.3,
+    "heading_deg": 316.7
+  },
+  {
+    "id": "gps_00040011",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T02:40:00Z",
+    "lat": 43.7255,
+    "lon": 21.88035,
+    "speed_kmh": 53.4,
+    "heading_deg": 316.7
+  },
+  {
+    "id": "gps_00040012",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T03:00:00Z",
+    "lat": 43.85096,
+    "lon": 21.70992,
+    "speed_kmh": 52.9,
+    "heading_deg": 316.7
+  },
+  {
+    "id": "gps_00040013",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T03:20:00Z",
+    "lat": 43.97523,
+    "lon": 21.54372,
+    "speed_kmh": 63.3,
+    "heading_deg": 316.7
+  },
+  {
+    "id": "gps_00040014",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T03:40:00Z",
+    "lat": 44.10151,
+    "lon": 21.37238,
+    "speed_kmh": 59.9,
+    "heading_deg": 316.7
+  },
+  {
+    "id": "gps_00040015",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T04:00:00Z",
+    "lat": 44.22599,
+    "lon": 21.20612,
+    "speed_kmh": 59.5,
+    "heading_deg": 316.7
+  },
+  {
+    "id": "gps_00040016",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T04:20:00Z",
+    "lat": 44.35127,
+    "lon": 21.03831,
+    "speed_kmh": 54.3,
+    "heading_deg": 316.7
+  },
+  {
+    "id": "gps_00040017",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T04:40:00Z",
+    "lat": 44.47317,
+    "lon": 20.86789,
+    "speed_kmh": 62.7,
+    "heading_deg": 316.7
+  },
+  {
+    "id": "gps_00040018",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T05:00:00Z",
+    "lat": 44.59838,
+    "lon": 20.69967,
+    "speed_kmh": 62.4,
+    "heading_deg": 316.7
+  },
+  {
+    "id": "gps_00040019",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T05:20:00Z",
+    "lat": 44.72612,
+    "lon": 20.53338,
+    "speed_kmh": 61.4,
+    "heading_deg": 316.7
+  },
+  {
+    "id": "gps_00040020",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T05:40:00Z",
+    "lat": 44.82833,
+    "lon": 20.39726,
+    "speed_kmh": 32.4,
+    "heading_deg": 318.1
+  },
+  {
+    "id": "gps_00040021",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T06:00:00Z",
+    "lat": 44.90858,
+    "lon": 20.29641,
+    "speed_kmh": 38.7,
+    "heading_deg": 318.1
+  },
+  {
+    "id": "gps_00040022",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T06:20:00Z",
+    "lat": 44.98538,
+    "lon": 20.19153,
+    "speed_kmh": 35.8,
+    "heading_deg": 318.1
+  },
+  {
+    "id": "gps_00040023",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T06:40:00Z",
+    "lat": 45.06535,
+    "lon": 20.08813,
+    "speed_kmh": 32.8,
+    "heading_deg": 318.1
+  },
+  {
+    "id": "gps_00040024",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T07:00:00Z",
+    "lat": 45.14583,
+    "lon": 19.98688,
+    "speed_kmh": 40.0,
+    "heading_deg": 318.1
+  },
+  {
+    "id": "gps_00040025",
+    "truck_id": "trk_0004",
+    "shipment_id": "shp_0902",
+    "recorded_at": "2026-10-15T07:20:00Z",
+    "lat": 45.22636,
+    "lon": 19.88289,
+    "speed_kmh": 38.1,
+    "heading_deg": 318.1
+  },
+  {
+    "id": "gps_00050000",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T02:00:00Z",
+    "lat": 44.42818,
+    "lon": 26.10219,
+    "speed_kmh": 45.0,
+    "heading_deg": 191.2
+  },
+  {
+    "id": "gps_00050001",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T02:20:00Z",
+    "lat": 44.30683,
+    "lon": 26.06887,
+    "speed_kmh": 40.5,
+    "heading_deg": 191.2
+  },
+  {
+    "id": "gps_00050002",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T02:40:00Z",
+    "lat": 44.18865,
+    "lon": 26.03527,
+    "speed_kmh": 36.3,
+    "heading_deg": 191.2
+  },
+  {
+    "id": "gps_00050003",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T03:00:00Z",
+    "lat": 44.06506,
+    "lon": 26.00239,
+    "speed_kmh": 39.7,
+    "heading_deg": 191.2
+  },
+  {
+    "id": "gps_00050004",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T03:20:00Z",
+    "lat": 43.94527,
+    "lon": 25.9714,
+    "speed_kmh": 38.7,
+    "heading_deg": 191.2
+  },
+  {
+    "id": "gps_00050005",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T03:40:00Z",
+    "lat": 43.8869,
+    "lon": 25.9536,
+    "speed_kmh": 2.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00050006",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T04:00:00Z",
+    "lat": 43.8869,
+    "lon": 25.9536,
+    "speed_kmh": 0.0,
+    "heading_deg": null
+  },
+  {
+    "id": "gps_00050007",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T04:20:00Z",
+    "lat": 43.79302,
+    "lon": 25.74961,
+    "speed_kmh": 64.0,
+    "heading_deg": 238.8
+  },
+  {
+    "id": "gps_00050008",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T04:40:00Z",
+    "lat": 43.69946,
+    "lon": 25.54389,
+    "speed_kmh": 56.3,
+    "heading_deg": 238.8
+  },
+  {
+    "id": "gps_00050009",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T05:00:00Z",
+    "lat": 43.60781,
+    "lon": 25.3347,
+    "speed_kmh": 57.3,
+    "heading_deg": 238.8
+  },
+  {
+    "id": "gps_00050010",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T05:20:00Z",
+    "lat": 43.51299,
+    "lon": 25.13071,
+    "speed_kmh": 61.2,
+    "heading_deg": 238.8
+  },
+  {
+    "id": "gps_00050011",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T05:40:00Z",
+    "lat": 43.42144,
+    "lon": 24.92608,
+    "speed_kmh": 60.0,
+    "heading_deg": 238.8
+  },
+  {
+    "id": "gps_00050012",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T06:00:00Z",
+    "lat": 43.32806,
+    "lon": 24.72017,
+    "speed_kmh": 58.8,
+    "heading_deg": 238.8
+  },
+  {
+    "id": "gps_00050013",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T06:20:00Z",
+    "lat": 43.23217,
+    "lon": 24.51383,
+    "speed_kmh": 58.0,
+    "heading_deg": 238.8
+  },
+  {
+    "id": "gps_00050014",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T06:40:00Z",
+    "lat": 43.14057,
+    "lon": 24.30852,
+    "speed_kmh": 56.4,
+    "heading_deg": 238.8
+  },
+  {
+    "id": "gps_00050015",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T07:00:00Z",
+    "lat": 43.04739,
+    "lon": 24.10089,
+    "speed_kmh": 61.3,
+    "heading_deg": 238.8
+  },
+  {
+    "id": "gps_00050016",
+    "truck_id": "trk_0005",
+    "shipment_id": "shp_0903",
+    "recorded_at": "2026-10-15T07:20:00Z",
+    "lat": 42.95247,
+    "lon": 23.89768,
+    "speed_kmh": 58.7,
+    "heading_deg": 238.8
+  },
+  {
+    "id": "gps_00060000",
+    "truck_id": "trk_0006",
+    "shipment_id": null,
+    "recorded_at": "2026-10-15T07:15:00Z",
+    "lat": 42.665,
+    "lon": 23.461,
+    "speed_kmh": 0.0,
     "heading_deg": null
   }
 ]

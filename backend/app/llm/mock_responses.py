@@ -120,7 +120,26 @@ def _cover(ctx: dict) -> str:
     return json.dumps({"subject": subject, "body": body, "language": lang, "tone": ctx.get("tone", "formal"), "rationale": "[MOCK] Cover email prepared from stored document facts."}, ensure_ascii=False)
 
 
+def _email_extract(ctx: dict) -> str:
+    """Keyword guess so mock mode still returns schema-valid output. Live mode uses the real model."""
+    text = f"{ctx.get('subject', '')} {ctx.get('body', '')}".lower()
+    intent = "other"
+    for words, name in [
+        (("оферта", "цена", "quote", "rate", "teklif", "fiyat"), "quote_request"),
+        (("плащан", "payment", "plata"), "payment_promise"),
+        (("рекламация", "complaint", "penalty"), "complaint"),
+    ]:
+        if any(w in text for w in words):
+            intent = name
+            break
+    return json.dumps(
+        {"intent": intent, "summary": f"[MOCK] {ctx.get('subject', '')}"[:200], "urgent": "urgent" in text or "спешно" in text},
+        ensure_ascii=False,
+    )
+
+
 MOCK_RESPONSES: dict[str, MockValue] = {
+    "email.extract": _email_extract,
     "system.ping": lambda ctx: (
         "Здравейте! Аз съм Иван, AI асистентът на Вашата спедиция (mock режим – без външен API)."
         if ctx.get("language", "bg") == "bg"

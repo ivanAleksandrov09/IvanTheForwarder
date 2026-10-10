@@ -1,15 +1,27 @@
 """Read access to gathered data + connector control. Owner: A."""
 
+import imaplib
+import json
+
 from fastapi import APIRouter, Depends, HTTPException
 
+from app.connectors import mailbox_store
+from app.connectors.email_imap import ImapEmailConnector
 from app.connectors.ingest import sync
-from app.deps import get_connectors, get_repo
+from app.connectors.registry import use_imap, use_mock_email
+from app.core.config import get_settings
+from app.deps import get_connectors, get_llm, get_repo, get_seed
+from app.llm import LLMClient
 from app.repository import Repository
 from app.schemas import (
     Client,
     ConnectorInfo,
     Document,
     Email,
+    EmailExtraction,
+    MailboxLoginRequest,
+    MailboxProvider,
+    MailboxStatus,
     GpsPing,
     Incident,
     Invoice,
@@ -82,6 +94,64 @@ def list_payments(client_id: str | None = None, repo: Repository = Depends(get_r
 @router.get("/incidents")
 def list_incidents(client_id: str | None = None, repo: Repository = Depends(get_repo)) -> list[Incident]:
     return repo.incidents.list(client_id=client_id) if client_id else repo.incidents.list()
+
+
+def _mailbox_status(connectors) -> MailboxStatus:
+    connector = connectors.get(SourceType.email)
+    creds = mailbox_store.load(get_settings())
+    live = isinstance(connector, ImapEmailConnector) and creds is not None
+    return MailboxStatus(
+        connected=live,
+        email=creds.username if live else None,
+        provider=creds.provider if live and creds.provider in MailboxProvider._value2member_map_ else None,
+        last_sync_at=connector.last_sync_at if connector else None,
+        last_error=connector.last_error if connector else None,
+    )
+
+
+@router.get("/connectors/email/mailbox")
+def mailbox_status(connectors=Depends(get_connectors)) -> MailboxStatus:
+    return _mailbox_status(connectors)
+
+
+@router.post("/connectors/email/login")
+def mailbox_login(body: MailboxLoginRequest, connectors=Depends(get_connectors)) -> MailboxStatus:
+    """Test the credentials, save them, and switch the email connector from mock to IMAP."""
+    settings = get_settings()
+    try:
+        creds = mailbox_store.MailboxCredentials.for_provider(
+            body.email, body.password, body.provider.value if body.provider else None
+        )
+    except ValueError:
+        raise HTTPException(400, "Unknown email provider: choose Gmail or Outlook")
+    connector = use_imap(connectors, settings)
+    try:
+        connector.test_login(creds)
+    except (imaplib.IMAP4.error, OSError) as exc:
+        use_mock_email(connectors, get_seed())
+        raise HTTPException(400, f"Login failed: {exc}") from None  # never echo the password
+    mailbox_store.save(settings, creds)
+    return _mailbox_status(connectors)
+
+
+@router.post("/connectors/email/logout")
+def mailbox_logout(connectors=Depends(get_connectors)) -> MailboxStatus:
+    mailbox_store.clear(get_settings())
+    use_mock_email(connectors, get_seed())
+    return _mailbox_status(connectors)
+
+
+@router.post("/emails/{email_id}/extract")
+def extract_email(email_id: str, repo: Repository = Depends(get_repo), llm: LLMClient = Depends(get_llm)) -> EmailExtraction:
+    """LLM reads one email and returns structured facts. Nothing is stored."""
+    email = repo.emails.require(email_id)
+    ctx = {"subject": email.subject, "body": email.body_text[:4000]}
+    prompt = (
+        "TASK: Extract structured facts from the email in CONTEXT. Use null for anything not stated; never guess. "
+        "Dates as YYYY-MM-DD.\nCONTEXT:\n" + json.dumps({"from": email.from_address, **ctx}, ensure_ascii=False)
+    )
+    result, _meta = llm.complete_json(task="email.extract", prompt=prompt, schema=EmailExtraction, mock_context=ctx)
+    return result
 
 
 @router.get("/connectors")

@@ -41,6 +41,7 @@ from app.schemas.entities import (
 from app.schemas.enums import *  # noqa: F401,F403  (re-export every enum)
 from app.schemas.enums import PayloadType
 from app.schemas.events import DomainEvent
+from app.schemas.mailbox import EmailExtraction, MailboxLoginRequest, MailboxStatus
 from app.schemas.risk import ClientMetrics, RiskFactor, RiskProfile
 
 # collection name -> (model, primary key field). Used by repository, seed generator and validation tests.

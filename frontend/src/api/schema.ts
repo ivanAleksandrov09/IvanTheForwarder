@@ -72,6 +72,60 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/connectors/email/login": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Mailbox Login
+         * @description Test the credentials, save them, and switch the email connector from mock to IMAP.
+         */
+        post: operations["mailbox_login_api_connectors_email_login_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/connectors/email/logout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Mailbox Logout */
+        post: operations["mailbox_logout_api_connectors_email_logout_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/connectors/email/mailbox": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Mailbox Status */
+        get: operations["mailbox_status_api_connectors_email_mailbox_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/connectors/{source}/sync": {
         parameters: {
             query?: never;
@@ -226,6 +280,26 @@ export interface paths {
         get: operations["list_emails_api_emails_get"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/emails/{email_id}/extract": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Extract Email
+         * @description LLM reads one email and returns structured facts. Nothing is stored.
+         */
+        post: operations["extract_email_api_emails__email_id__extract_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -826,6 +900,41 @@ export interface components {
             to_addresses: string[];
         };
         /**
+         * EmailExtraction
+         * @description JSON the LLM returns for one email. Unknown = null, never guessed.
+         */
+        EmailExtraction: {
+            /** Cargo Description */
+            cargo_description?: string | null;
+            /** Destination */
+            destination?: string | null;
+            intent: components["schemas"]["EmailIntent"];
+            /** Invoice Number */
+            invoice_number?: string | null;
+            language?: components["schemas"]["Language"] | null;
+            /** Origin */
+            origin?: string | null;
+            /** Requested Date */
+            requested_date?: string | null;
+            /**
+             * Summary
+             * @description one sentence, in English
+             */
+            summary: string;
+            /**
+             * Urgent
+             * @default false
+             */
+            urgent: boolean;
+            /** Weight Kg */
+            weight_kg?: number | null;
+        };
+        /**
+         * EmailIntent
+         * @enum {string}
+         */
+        EmailIntent: "quote_request" | "order" | "payment_promise" | "payment_question" | "complaint" | "delay_inquiry" | "document" | "other";
+        /**
          * EntityType
          * @description Used in EvidenceRef to point at any stored object.
          * @enum {string}
@@ -1033,6 +1142,31 @@ export interface components {
             lon?: number | null;
             /** Postal Code */
             postal_code?: string | null;
+        };
+        /** MailboxLoginRequest */
+        MailboxLoginRequest: {
+            /** Email */
+            email: string;
+            /** Password */
+            password: string;
+            provider?: components["schemas"]["MailboxProvider"] | null;
+        };
+        /**
+         * MailboxProvider
+         * @enum {string}
+         */
+        MailboxProvider: "gmail" | "outlook";
+        /** MailboxStatus */
+        MailboxStatus: {
+            /** Connected */
+            connected: boolean;
+            /** Email */
+            email?: string | null;
+            /** Last Error */
+            last_error?: string | null;
+            /** Last Sync At */
+            last_sync_at?: string | null;
+            provider?: components["schemas"]["MailboxProvider"] | null;
         };
         /**
          * Money
@@ -1412,6 +1546,79 @@ export interface operations {
             };
         };
     };
+    mailbox_login_api_connectors_email_login_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MailboxLoginRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MailboxStatus"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    mailbox_logout_api_connectors_email_logout_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MailboxStatus"];
+                };
+            };
+        };
+    };
+    mailbox_status_api_connectors_email_mailbox_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MailboxStatus"];
+                };
+            };
+        };
+    };
     sync_connector_api_connectors__source__sync_post: {
         parameters: {
             query?: never;
@@ -1723,6 +1930,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Email"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    extract_email_api_emails__email_id__extract_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                email_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EmailExtraction"];
                 };
             };
             /** @description Validation Error */

@@ -1087,6 +1087,123 @@
         "title": "Email",
         "type": "object"
       },
+      "EmailExtraction": {
+        "additionalProperties": false,
+        "description": "JSON the LLM returns for one email. Unknown = null, never guessed.",
+        "properties": {
+          "cargo_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cargo Description"
+          },
+          "destination": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Destination"
+          },
+          "intent": {
+            "$ref": "#/components/schemas/EmailIntent"
+          },
+          "invoice_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Invoice Number"
+          },
+          "language": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Language"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "origin": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Origin"
+          },
+          "requested_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested Date"
+          },
+          "summary": {
+            "description": "one sentence, in English",
+            "title": "Summary",
+            "type": "string"
+          },
+          "urgent": {
+            "default": false,
+            "title": "Urgent",
+            "type": "boolean"
+          },
+          "weight_kg": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Weight Kg"
+          }
+        },
+        "required": [
+          "intent",
+          "summary"
+        ],
+        "title": "EmailExtraction",
+        "type": "object"
+      },
+      "EmailIntent": {
+        "enum": [
+          "quote_request",
+          "order",
+          "payment_promise",
+          "payment_question",
+          "complaint",
+          "delay_inquiry",
+          "document",
+          "other"
+        ],
+        "title": "EmailIntent",
+        "type": "string"
+      },
       "EntityType": {
         "description": "Used in EvidenceRef to point at any stored object.",
         "enum": [
@@ -1743,6 +1860,103 @@
           "country"
         ],
         "title": "Location",
+        "type": "object"
+      },
+      "MailboxLoginRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+            "title": "Email",
+            "type": "string"
+          },
+          "password": {
+            "title": "Password",
+            "type": "string"
+          },
+          "provider": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MailboxProvider"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "MailboxLoginRequest",
+        "type": "object"
+      },
+      "MailboxProvider": {
+        "enum": [
+          "gmail",
+          "outlook"
+        ],
+        "title": "MailboxProvider",
+        "type": "string"
+      },
+      "MailboxStatus": {
+        "additionalProperties": false,
+        "properties": {
+          "connected": {
+            "title": "Connected",
+            "type": "boolean"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "last_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Error"
+          },
+          "last_sync_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Sync At"
+          },
+          "provider": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MailboxProvider"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "connected"
+        ],
+        "title": "MailboxStatus",
         "type": "object"
       },
       "Money": {
@@ -2656,6 +2870,90 @@
         ]
       }
     },
+    "/api/connectors/email/login": {
+      "post": {
+        "description": "Test the credentials, save them, and switch the email connector from mock to IMAP.",
+        "operationId": "mailbox_login_api_connectors_email_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MailboxLoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailboxStatus"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Mailbox Login",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/connectors/email/logout": {
+      "post": {
+        "operationId": "mailbox_logout_api_connectors_email_logout_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailboxStatus"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Mailbox Logout",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/connectors/email/mailbox": {
+      "get": {
+        "operationId": "mailbox_status_api_connectors_email_mailbox_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MailboxStatus"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Mailbox Status",
+        "tags": [
+          "data"
+        ]
+      }
+    },
     "/api/connectors/{source}/sync": {
       "post": {
         "operationId": "sync_connector_api_connectors__source__sync_post",
@@ -3132,6 +3430,49 @@
           }
         },
         "summary": "List Emails",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/emails/{email_id}/extract": {
+      "post": {
+        "description": "LLM reads one email and returns structured facts. Nothing is stored.",
+        "operationId": "extract_email_api_emails__email_id__extract_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email_id",
+            "required": true,
+            "schema": {
+              "title": "Email Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailExtraction"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Extract Email",
         "tags": [
           "data"
         ]

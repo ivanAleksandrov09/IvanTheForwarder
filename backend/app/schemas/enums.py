@@ -220,6 +220,22 @@ class LlmMode(StrEnum):
     live = "live"
 
 
+class MailboxProvider(StrEnum):
+    gmail = "gmail"
+    outlook = "outlook"
+
+
+class EmailIntent(StrEnum):
+    quote_request = "quote_request"
+    order = "order"
+    payment_promise = "payment_promise"
+    payment_question = "payment_question"
+    complaint = "complaint"
+    delay_inquiry = "delay_inquiry"
+    document = "document"
+    other = "other"
+
+
 class ConnectorHealth(StrEnum):
     ok = "ok"
     degraded = "degraded"

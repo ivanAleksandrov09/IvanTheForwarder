@@ -63,3 +63,10 @@ ul.history { padding-left: 18px; font-size: 14px; }
 .map-panel { margin-bottom: 16px; }
 input { width: 100%; font: inherit; padding: 8px; border: 1px solid var(--line); border-radius: 6px; }
 @media (max-width: 800px) { .detail-grid { grid-template-columns: 1fr; } }
+.mailbox form { display: grid; gap: 8px; max-width: 420px; }
+.mailbox select { font: inherit; padding: 8px; border: 1px solid var(--line); border-radius: 6px; }
+.mailbox .help { font-size: 13px; color: #6b7886; }
+.extract { background: #f4f8ff; border-radius: 6px; padding: 8px; margin-top: 6px; font-size: 13px; }
+.extract dl { display: grid; grid-template-columns: max-content 1fr; gap: 2px 10px; margin: 6px 0 0; }
+.extract dt { color: #6b7886; }
+.extract dd { margin: 0; }

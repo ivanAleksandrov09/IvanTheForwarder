@@ -85,5 +85,8 @@ def send_draft(draft_id: str, repo: Repository) -> DraftMessage:
                 labels=["sent_by_assistant", d.kind.value],
             )
         )
-    # TODO(owner C): mark the source event handled when its draft is sent
+    if result.ok and d.event_id:
+        event = repo.events.get(d.event_id)
+        if event:
+            repo.events.upsert(event.model_copy(update={"handled": True}))
     return d

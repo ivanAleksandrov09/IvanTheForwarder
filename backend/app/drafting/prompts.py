@@ -13,7 +13,10 @@ TASK_INSTRUCTIONS: dict[DraftKind, str] = {
         "Draft a proactive delay notice email about the shipment in CONTEXT, sent BEFORE the client asks. "
         "State the reason (only if given), the new ETA and the original slot, and what we are doing about it."
     ),
-    # TODO(owner C): quote_reply, invoice (cover email), cmr (cover email), generic
+    DraftKind.quote_reply: "Reply to the quote request in CONTEXT. Confirm the requested lane and cargo facts, and state the next step.",
+    DraftKind.invoice: "Draft a short cover email for the invoice in CONTEXT. State the invoice number, amount and due date.",
+    DraftKind.cmr: "Draft a short cover email for the CMR in CONTEXT. State the shipment reference and CMR number.",
+    DraftKind.generic: "Draft a concise business email based only on CONTEXT and the operator instructions.",
 }
 
 

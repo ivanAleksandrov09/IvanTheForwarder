@@ -1,7 +1,7 @@
 import type { DomainEvent } from "../api/types";
 
 export function EventsList({ events }: { events: DomainEvent[] }) {
-  if (!events.length) return <p className="muted">No events yet — press “Scan”.</p>;
+  if (!events.length) return <p className="muted">No events yet - press “Scan”.</p>;
   return (
     <ul className="events">
       {events.map((e) => (

@@ -24,15 +24,10 @@ def use_mock_email(connectors: dict[SourceType, BaseConnector], seed: SeedStore)
 def build_connectors(settings: Settings, seed: SeedStore) -> dict[SourceType, BaseConnector]:
     connectors: list[BaseConnector] = []
 
-<<<<<<< Updated upstream
     use_imap_email = settings.connector_email == "imap" or mailbox_store.is_saved(settings)  # saved login survives restarts
     connectors.append(ImapEmailConnector(settings) if use_imap_email else MockEmailConnector(seed))
-
-=======
-    connectors.append(MockEmailConnector(seed) if settings.connector_email == "mock" else ImapEmailConnector(settings))
     if settings.connector_gps == "traccar":
         connectors.append(TraccarGpsConnector(settings))
->>>>>>> Stashed changes
     # TODO(owner A): documents (mock: feeds/documents_inbox.json; real: watched folder + OCR/vision)
     # TODO(owner A): erp (mock: feeds/erp_*.json; real: ERP export/CSV/API)
     # STRETCH(owner A): call_log, erp_screenshot (vision), external_web (speditor.net -> scrape or mock)

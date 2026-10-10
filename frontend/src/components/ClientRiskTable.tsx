@@ -8,10 +8,11 @@ type Props = {
   risk: RiskProfile[];
   lang: UiLang;
   onDraftReminder: (clientId: string) => void;
+  onSelectClient: (clientId: string) => void;
 };
 
 // Explainability rule: never show a score without its factors.
-export function ClientRiskTable({ clients, risk, lang, onDraftReminder }: Props) {
+export function ClientRiskTable({ clients, risk, lang, onDraftReminder, onSelectClient }: Props) {
   const [open, setOpen] = useState<string | null>(null);
   const byClient = new Map(risk.map((r) => [r.client_id, r]));
 
@@ -32,7 +33,7 @@ export function ClientRiskTable({ clients, risk, lang, onDraftReminder }: Props)
           return (
             <Fragment key={c.id}>
               <tr onClick={() => setOpen(open === c.id ? null : c.id)} className="clickable">
-                <td>
+                <td onDoubleClick={() => onSelectClient(c.id)}>
                   <strong>{c.name}</strong>
                   <div className="muted">
                     {c.city}, {c.country}

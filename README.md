@@ -77,3 +77,7 @@ Europe/Berlin for German deliveries), and successfully sent event drafts mark th
 The default log sender writes to `data/runtime/outbox.jsonl`; `OUTBOUND_MODE=smtp` enables UTF-8 STARTTLS
 delivery to a sandbox such as Mailtrap or MailHog. The dashboard includes Bulgarian/English UI strings,
 loading/error states, explainable risk factors, events, and the client draft actions.
+Client detail pages show risk evidence, invoices, email history, and incidents. A Leaflet/OpenStreetMap
+truck-position view is available from the dashboard. Invoice and CMR draft kinds produce simple UTF-8
+HTML document bodies; PDF export, feed-aware quote replies, prepayment recommendations, and SSE updates
+remain planned follow-ups.

@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { api, unwrap } from "./api/client";
-import type { Client, DomainEvent, DraftMessage, HealthResponse, RiskProfile, UpdateDraftRequest } from "./api/types";
+import type { Client, DomainEvent, DraftMessage, HealthResponse, RiskProfile, Truck, UpdateDraftRequest } from "./api/types";
 import { ClientRiskTable } from "./components/ClientRiskTable";
 import { DraftQueue } from "./components/DraftQueue";
 import { EventsList } from "./components/EventsList";
+import { ClientDetail } from "./components/ClientDetail";
+import { TruckMap } from "./components/TruckMap";
 import { t, type UiLang } from "./i18n";
 
 // Hello-world dashboard: clients + explainable risk, events, approval queue.
-// TODO(owner C): routing (Dashboard / Client detail / Map), truck map, client emails timeline.
 export default function App() {
   const [lang] = useState<UiLang>("en");
   const [health, setHealth] = useState<HealthResponse>();
@@ -18,21 +19,26 @@ export default function App() {
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
+  const [trucks, setTrucks] = useState<Truck[]>([]);
+  const [showMap, setShowMap] = useState(false);
 
   const refresh = useCallback(async () => {
     try {
-      const [h, c, r, e, d] = await Promise.all([
+      const [h, c, r, e, d, nextTrucks] = await Promise.all([
         unwrap(api.GET("/api/system/health")),
         unwrap(api.GET("/api/clients")),
         unwrap(api.GET("/api/risk")),
         unwrap(api.GET("/api/events")),
         unwrap(api.GET("/api/drafts")),
+        unwrap(api.GET("/api/trucks")),
       ]);
       setHealth(h);
       setClients(c);
       setRisk(r);
       setEvents(e);
       setDrafts(d);
+      setTrucks(nextTrucks);
       setError(null);
     } catch (err) {
       setError(`Backend unreachable or failed: ${(err as Error).message}`);
@@ -80,12 +86,23 @@ export default function App() {
           <button disabled={!!busy} onClick={() => run("reset", () => unwrap(api.POST("/api/system/reset")))}>
             {t("reset", lang)}
           </button>
+          {trucks[0] && <button onClick={() => setShowMap(!showMap)}>{showMap ? "Hide map" : "Show truck map"}</button>}
         </div>
       </header>
       {error && <div className="error">{error}</div>}
       {loading && <p className="muted">{t("loading", lang)}</p>}
       {error && <button onClick={refresh}>{t("retry", lang)}</button>}
-      <main>
+      {showMap && trucks[0] && <section className="panel map-panel"><h2>Truck positions</h2><TruckMap truckId={trucks[0].id} /></section>}
+      {selectedClientId ? (
+        <ClientDetail
+          client={clients.find((client) => client.id === selectedClientId)!}
+          risk={risk.find((profile) => profile.client_id === selectedClientId)}
+          onBack={() => setSelectedClientId(null)}
+          onDraftReminder={(clientId, invoiceId) =>
+            run("draft", () => unwrap(api.POST("/api/drafts/generate", { body: { kind: "payment_reminder", client_id: clientId, invoice_id: invoiceId } })))
+          }
+        />
+      ) : <main>
         <section>
           <h2>{t("clients", lang)}</h2>
           <ClientRiskTable
@@ -95,6 +112,7 @@ export default function App() {
             onDraftReminder={(client_id) =>
               run("draft", () => unwrap(api.POST("/api/drafts/generate", { body: { kind: "payment_reminder", client_id } })))
             }
+            onSelectClient={setSelectedClientId}
           />
           <h2>{t("events", lang)}</h2>
           <EventsList events={events} />
@@ -117,7 +135,7 @@ export default function App() {
             }
           />
         </section>
-      </main>
+      </main>}
     </div>
   );
 }

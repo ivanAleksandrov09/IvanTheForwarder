@@ -121,10 +121,18 @@ def generate_draft(req: GenerateDraftRequest, repo: Repository, llm: LLMClient) 
         mock_context=ctx,
     )
     now = clock.now()
+    channel = DraftChannel.document if req.kind in (DraftKind.invoice, DraftKind.cmr) else DraftChannel.email
+    document_body = content.body
+    if channel == DraftChannel.document:
+        document_body = (
+            "<!doctype html><html><meta charset='utf-8'><body>"
+            f"<h1>{content.subject}</h1><p>{content.body.replace(chr(10), '<br>')}</p>"
+            "</body></html>"
+        )
     draft = DraftMessage(
         id=new_id("drf"),
         kind=req.kind,
-        channel=DraftChannel.email,
+        channel=channel,
         status=DraftStatus.pending_review,
         language=content.language,
         tone=content.tone,
@@ -134,7 +142,7 @@ def generate_draft(req: GenerateDraftRequest, repo: Repository, llm: LLMClient) 
         event_id=req.event_id,
         to_addresses=to,
         subject=content.subject,
-        body=content.body,
+        body=document_body,
         rationale=content.rationale,
         created_at=now,
         updated_at=now,

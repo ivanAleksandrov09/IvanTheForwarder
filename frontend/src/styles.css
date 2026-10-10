@@ -1,4 +1,4 @@
-/* TODO(owner C): real design. Keep it calm: this is an ops tool used all day. */
+/* Calm, readable operations UI. */
 :root {
   font-family: system-ui, "Segoe UI", Roboto, sans-serif;
   color: #1d2733;
@@ -52,3 +52,14 @@ ul.history { padding-left: 18px; font-size: 14px; }
 .status { font-size: 12px; padding: 1px 6px; border-radius: 4px; background: #e7ecf2; }
 .status.sent { background: #dff5e3; }
 .status.rejected, .status.failed { background: #fde2e1; }
+.detail { display: grid; gap: 14px; }
+.detail-header, .panel-title { display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+.detail-header h2, .panel h3 { margin: 0; }
+.panel { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 14px; }
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.timeline-item { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.timeline-item:last-child { border-bottom: 0; }
+.map { height: 360px; border-radius: 6px; z-index: 0; }
+.map-panel { margin-bottom: 16px; }
+input { width: 100%; font: inherit; padding: 8px; border: 1px solid var(--line); border-radius: 6px; }
+@media (max-width: 800px) { .detail-grid { grid-template-columns: 1fr; } }

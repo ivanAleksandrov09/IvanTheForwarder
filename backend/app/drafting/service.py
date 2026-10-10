@@ -9,6 +9,7 @@ from app.core.formatting import format_date, format_datetime, format_money
 from app.core.ids import new_id
 from app.drafting.email_context import recent_emails
 from app.drafting.prompts import build_prompt
+from app.drafting.tracking import MOVING_KMH, latest_ping, remaining_km
 from app.llm import LLMClient
 from app.repository import Repository
 from app.risk.scoring import get_profile
@@ -98,6 +99,26 @@ def _context(req: GenerateDraftRequest, repo: Repository) -> tuple[dict, list[st
             "delay_text": f"{delay_min // 60}h {delay_min % 60:02d}min" if delay_min else None,
             "delay_reason": (event.data.get("reason") if event else None),
             "destination_timezone": destination_zone,
+        }
+    if req.kind == DraftKind.status_update:
+        shp = repo.shipments.require(req.shipment_id) if req.shipment_id else None
+        if shp is None:
+            raise NotFoundError("status_update needs shipment_id")
+        truck = repo.trucks.get(shp.truck_id) if shp.truck_id else None
+        ping = latest_ping(repo, shp.truck_id) if shp.truck_id else None
+        if ping is None:
+            raise NotFoundError(f"no GPS position for shipment {shp.id}")
+        zone = ZoneInfo("Europe/Berlin" if shp.destination.country == "DE" else "Europe/Sofia")
+        remaining = remaining_km(ping, shp)
+        ctx |= {
+            "shipment_reference": shp.reference,
+            "route": f"{shp.origin.city} → {shp.destination.city}",
+            "plate_number": truck.plate_number if truck else None,
+            "km_remaining": round(remaining) if remaining is not None else None,
+            "moving": ping.speed_kmh >= MOVING_KMH,
+            "position_age_min": int((now - ping.recorded_at).total_seconds() // 60),
+            "planned": format_datetime(shp.delivery_planned_at.astimezone(zone), language),
+            "eta": format_datetime(shp.eta_at.astimezone(zone), language) if shp.eta_at else None,
         }
     if req.kind in (DraftKind.invoice, DraftKind.cmr) and req.invoice_id:
         inv = repo.invoices.require(req.invoice_id)

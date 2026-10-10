@@ -709,6 +709,7 @@
         "enum": [
           "payment_reminder",
           "delay_notice",
+          "status_update",
           "quote_reply",
           "invoice",
           "cmr",
@@ -3198,6 +3199,32 @@
           }
         },
         "summary": "Generate",
+        "tags": [
+          "drafts"
+        ]
+      }
+    },
+    "/api/drafts/status-updates/run": {
+      "post": {
+        "description": "Draft a routine status update for every in-transit shipment with a fresh GPS position (normally runs automatically).",
+        "operationId": "run_status_updates_api_drafts_status_updates_run_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DraftMessage"
+                  },
+                  "title": "Response Run Status Updates Api Drafts Status Updates Run Post",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Run Status Updates",
         "tags": [
           "drafts"
         ]

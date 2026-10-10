@@ -25,4 +25,4 @@ def format_datetime(dt: datetime, lang: Language) -> str:
     local = to_local(dt)
     if lang == Language.en:
         return local.strftime("%d %b %Y, %H:%M")
-    return local.strftime("%d.%m.%Y, %H:%M ч.") if lang == Language.bg else local.strftime("%d.%m.%Y %H:%M")
+    return f"{local:%d.%m.%Y, %H:%M} ч." if lang == Language.bg else local.strftime("%d.%m.%Y %H:%M")

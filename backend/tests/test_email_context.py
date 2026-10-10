@@ -19,8 +19,8 @@ def _email(id_, addr, **kw):
 
 def test_exact_contact_and_domain_link(client):
     repo = get_repo()
-    assert link_client(_email("eml_t0001", "g.petrov@balkansteel.bg"), repo) == "cli_0001"
-    assert link_client(_email("eml_t0002", "someone.else@balkansteel.bg"), repo) == "cli_0001"  # same company domain
+    assert link_client(_email("eml_t0001", "lmartin9886@gmail.com"), repo) == "cli_0001"  # exact contact match works even for free-mail
+    assert link_client(_email("eml_t0002", "someone.else@rhein-logistik.de"), repo) == "cli_0002"  # same company domain
     assert link_client(_email("eml_t0003", "dummy@gmail.com"), repo) is None  # free-mail never matches by domain
     assert link_client(_email("eml_t0004", "x@unknown.com"), repo) is None
 

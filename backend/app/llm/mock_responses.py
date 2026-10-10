@@ -55,6 +55,42 @@ def _payment_reminder(ctx: dict) -> str:
     )
 
 
+def _status_update(ctx: dict) -> str:
+    lang = ctx.get("language", "en")
+    if lang == "bg":
+        subject = f"Статус на пратка {_get(ctx, 'shipment_reference', '[РЕФ.]')}"
+        moving = "в движение" if ctx.get("moving") else "в момента е на престой"
+        body = (
+            f"Здравейте, {_get(ctx, 'contact_name', '[ИМЕ]')},\n\n"
+            f"Камион {_get(ctx, 'plate_number', '[НОМЕР]')} с пратка {_get(ctx, 'shipment_reference', '[РЕФ.]')} "
+            f"({_get(ctx, 'route', '[МАРШРУТ]')}) е на път, {moving}. Остават приблизително "
+            f"{_get(ctx, 'km_remaining', '[N]')} км. Очаквано пристигане: {_get(ctx, 'eta', '[ЧАС]')} "
+            f"(уговорен слот: {_get(ctx, 'planned', '[ЧАС]')}).\n\n"
+            f"С уважение,\n{_get(ctx, 'operator_name', '')}\n{_get(ctx, 'company_name', '')}"
+        )
+    else:
+        subject = f"Status update – shipment {_get(ctx, 'shipment_reference', '[REF]')}"
+        moving = "moving" if ctx.get("moving") else "currently stopped"
+        body = (
+            f"Dear {_get(ctx, 'contact_name', '[NAME]')},\n\n"
+            f"Truck {_get(ctx, 'plate_number', '[PLATE]')} carrying shipment {_get(ctx, 'shipment_reference', '[REF]')} "
+            f"({_get(ctx, 'route', '[ROUTE]')}) is on its way and {moving}. Approximately "
+            f"{_get(ctx, 'km_remaining', '[N]')} km remain. Estimated arrival: {_get(ctx, 'eta', '[TIME]')} "
+            f"(agreed slot: {_get(ctx, 'planned', '[TIME]')}).\n\n"
+            f"Kind regards,\n{_get(ctx, 'operator_name', '')}\n{_get(ctx, 'company_name', '')}"
+        )
+    return json.dumps(
+        {
+            "subject": subject,
+            "body": body,
+            "language": lang,
+            "tone": ctx.get("tone", "formal"),
+            "rationale": "[MOCK] Routine proactive status update from the latest GPS position.",
+        },
+        ensure_ascii=False,
+    )
+
+
 def _delay_notice(ctx: dict) -> str:
     lang = ctx.get("language", "en")
     if lang == "bg":
@@ -147,6 +183,7 @@ MOCK_RESPONSES: dict[str, MockValue] = {
     ),
     "draft.payment_reminder": _payment_reminder,
     "draft.delay_notice": _delay_notice,
+    "draft.status_update": _status_update,
     "draft.generic": _generic,
     "draft.quote_reply": _generic,
     "draft.invoice": _cover,

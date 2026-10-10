@@ -4,6 +4,7 @@ from app.connectors import mailbox_store
 from app.connectors.base import BaseConnector
 from app.connectors.email_imap import ImapEmailConnector
 from app.connectors.email_mock import MockEmailConnector
+from app.connectors.gps_mock import MockGpsConnector
 from app.connectors.gps_traccar import TraccarGpsConnector
 from app.core.config import Settings
 from app.repository import SeedStore
@@ -28,6 +29,8 @@ def build_connectors(settings: Settings, seed: SeedStore) -> dict[SourceType, Ba
     connectors.append(ImapEmailConnector(settings) if use_imap_email else MockEmailConnector(seed))
     if settings.connector_gps == "traccar":
         connectors.append(TraccarGpsConnector(settings))
+    else:  # mock by default
+        connectors.append(MockGpsConnector(seed))
     # TODO(owner A): documents (mock: feeds/documents_inbox.json; real: watched folder + OCR/vision)
     # TODO(owner A): erp (mock: feeds/erp_*.json; real: ERP export/CSV/API)
     # STRETCH(owner A): call_log, erp_screenshot (vision), external_web (speditor.net -> scrape or mock)

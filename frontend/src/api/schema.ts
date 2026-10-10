@@ -194,6 +194,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/drafts/status-updates/run": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Run Status Updates
+         * @description Draft a routine status update for every in-transit shipment with a fresh GPS position (normally runs automatically).
+         */
+        post: operations["run_status_updates_api_drafts_status_updates_run_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/drafts/{draft_id}": {
         parameters: {
             query?: never;
@@ -823,7 +843,7 @@ export interface components {
          * DraftKind
          * @enum {string}
          */
-        DraftKind: "payment_reminder" | "delay_notice" | "quote_reply" | "invoice" | "cmr" | "generic";
+        DraftKind: "payment_reminder" | "delay_notice" | "status_update" | "quote_reply" | "invoice" | "cmr" | "generic";
         /**
          * DraftMessage
          * @description A.k.a. NotificationItem: one entry in the "ready to send" queue.
@@ -1804,6 +1824,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    run_status_updates_api_drafts_status_updates_run_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DraftMessage"][];
                 };
             };
         };

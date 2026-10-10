@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends
 
 from app.deps import get_llm, get_repo
 from app.drafting.service import generate_draft
+from app.drafting.status_updates import draft_status_updates
 from app.llm import LLMClient
 from app.outbound.queue import approve_draft, reject_draft, send_draft, update_draft
 from app.repository import Repository
@@ -28,6 +29,12 @@ def list_drafts(status: DraftStatus | None = None, repo: Repository = Depends(ge
 @router.post("/generate")
 def generate(req: GenerateDraftRequest, repo: Repository = Depends(get_repo), llm: LLMClient = Depends(get_llm)) -> DraftMessage:
     return generate_draft(req, repo, llm)
+
+
+@router.post("/status-updates/run")
+def run_status_updates(repo: Repository = Depends(get_repo), llm: LLMClient = Depends(get_llm)) -> list[DraftMessage]:
+    """Draft a routine status update for every in-transit shipment with a fresh GPS position (normally runs automatically)."""
+    return draft_status_updates(repo, llm)
 
 
 @router.get("/{draft_id}")

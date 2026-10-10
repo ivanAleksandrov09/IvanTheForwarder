@@ -185,6 +185,7 @@ class EventType(StrEnum):
 class DraftKind(StrEnum):
     payment_reminder = "payment_reminder"
     delay_notice = "delay_notice"
+    status_update = "status_update"
     quote_reply = "quote_reply"
     invoice = "invoice"
     cmr = "cmr"

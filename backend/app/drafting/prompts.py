@@ -13,6 +13,13 @@ TASK_INSTRUCTIONS: dict[DraftKind, str] = {
         "Draft a proactive delay notice email about the shipment in CONTEXT, sent BEFORE the client asks. "
         "State the reason (only if given), the new ETA and the original slot, and what we are doing about it."
     ),
+    DraftKind.status_update: (
+        "Draft a short routine status update email about the shipment in CONTEXT, sent proactively while the truck is "
+        "on the road. Say it is on its way, the route, roughly how many km remain (`km_remaining`, a straight-line "
+        "estimate: say 'approximately'), whether the truck is moving, and the ETA versus the agreed slot. "
+        "Never give coordinates, never name a place that is not in CONTEXT, never guess why a truck is stopped, "
+        "and do not promise an arrival time other than `eta`."
+    ),
     DraftKind.quote_reply: "Reply to the quote request in CONTEXT. Confirm the requested lane and cargo facts, and state the next step.",
     DraftKind.invoice: "Draft a short cover email for the invoice in CONTEXT. State the invoice number, amount and due date.",
     DraftKind.cmr: "Draft a short cover email for the CMR in CONTEXT. State the shipment reference and CMR number.",

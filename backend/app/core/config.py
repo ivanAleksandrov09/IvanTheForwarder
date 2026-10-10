@@ -57,6 +57,7 @@ class Settings(BaseSettings):
     traccar_token: str = ""
     traccar_user: str = ""
     traccar_password: str = ""
+    status_update_hours: float = 4  # min hours between routine status drafts per shipment; 0 = off
     traccar_device_map: str = ""  # comma-separated Traccar device ID to Ivan truck ID pairs
 
     outbound_mode: Literal["log", "smtp"] = "log"

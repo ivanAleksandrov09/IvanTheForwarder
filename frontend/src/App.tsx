@@ -89,14 +89,14 @@ export default function App() {
             {t("reset", lang)}
           </button>
           <button onClick={() => setShowMailbox(!showMailbox)}>{showMailbox ? "Hide mailbox" : "Connect email"}</button>
-          {trucks[0] && <button onClick={() => setShowMap(!showMap)}>{showMap ? "Hide map" : "Show truck map"}</button>}
+          {trucks.length > 0 && <button onClick={() => setShowMap(!showMap)}>{showMap ? "Hide map" : "Show truck map"}</button>}
         </div>
       </header>
       {error && <div className="error">{error}</div>}
       {loading && <p className="muted">{t("loading", lang)}</p>}
       {error && <button onClick={refresh}>{t("retry", lang)}</button>}
       {showMailbox && <MailboxPanel onSynced={refresh} />}
-      {showMap && trucks[0] && <section className="panel map-panel"><h2>Truck positions</h2><TruckMap truckId={trucks[0].id} /></section>}
+      {showMap && trucks.length > 0 && <section className="panel map-panel"><h2>Truck positions</h2><TruckMap truckIds={trucks.map((truck) => truck.id)} /></section>}
       {selectedClientId ? (
         <ClientDetail
           client={clients.find((client) => client.id === selectedClientId)!}

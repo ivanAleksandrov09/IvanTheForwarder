@@ -59,7 +59,11 @@ ul.history { padding-left: 18px; font-size: 14px; }
 .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .timeline-item { padding: 10px 0; border-bottom: 1px solid var(--line); }
 .timeline-item:last-child { border-bottom: 0; }
-.map { height: 360px; border-radius: 6px; z-index: 0; }
+.map-wrap { display: grid; gap: 8px; }
+.map { height: 520px; border-radius: 6px; z-index: 0; border: 1px solid var(--line); }
+.map-legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 13px; }
+.map-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.map-legend i { width: 12px; height: 12px; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 0 1px #8b98a7; }
 .map-panel { margin-bottom: 16px; }
 input { width: 100%; font: inherit; padding: 8px; border: 1px solid var(--line); border-radius: 6px; }
 @media (max-width: 800px) { .detail-grid { grid-template-columns: 1fr; } }

@@ -21,6 +21,23 @@ API docs: http://localhost:8000/docs
 Optional: `cp .env.example .env` and set `LLM_MODE=live` + `LLM_API_KEY=...` (free Gemini key from
 https://aistudio.google.com/apikey). Without a key everything works in mock mode.
 
+### Live Traccar GPS
+
+The default GPS data is seeded mock data. To read live positions from Traccar, configure a test Traccar
+server in `.env`:
+
+```env
+CONNECTOR_GPS=traccar
+TRACCAR_URL=https://traccar.example.com
+TRACCAR_TOKEN=your-api-token
+TRACCAR_DEVICE_MAP=12:trk_0003,13:trk_0004
+```
+
+`TRACCAR_DEVICE_MAP` maps Traccar device IDs to existing Ivan truck IDs. You can use
+`TRACCAR_USER` and `TRACCAR_PASSWORD` instead of a token. Then restart the backend and use
+`POST /api/connectors/gps/sync` or the API connector controls. Traccar speed is converted from knots
+to km/h; positions are stored as `GpsPing` records and are used by the map and delay detection.
+
 ## Commands (repo root)
 | Command | What |
 |---|---|

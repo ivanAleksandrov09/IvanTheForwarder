@@ -10,7 +10,8 @@ from fastapi.responses import JSONResponse
 
 from app.connectors.autosync import autosync_loop
 from app.connectors.folder_watch import watch_loop
-from app.api import data, drafts, risk, system
+from app.loads.search import loads_weekly_loop
+from app.api import data, drafts, loads, risk, system
 from app.core.config import get_settings
 from app.company import effective
 from app.core.errors import ConflictError, NotFoundError
@@ -34,6 +35,7 @@ async def lifespan(_: FastAPI):
     tasks = [
         asyncio.create_task(autosync_loop()),  # polls a connected mailbox + analyzes new mail in the background
         asyncio.create_task(watch_loop()),  # extracts new files dropped into the watch folder
+        asyncio.create_task(loads_weekly_loop()),  # searches the web for open loads every Monday
     ]
     yield
     for task in tasks:
@@ -69,5 +71,5 @@ def _llm(_: Request, e: LLMError):
     return JSONResponse(status_code=502, content={"detail": f"LLM error: {e}"})
 
 
-for r in (system.router, data.router, risk.router, drafts.router):
+for r in (system.router, data.router, risk.router, drafts.router, loads.router):
     app.include_router(r)

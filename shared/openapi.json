@@ -1989,6 +1989,101 @@
         "title": "LlmStatus",
         "type": "object"
       },
+      "LoadOffer": {
+        "additionalProperties": false,
+        "properties": {
+          "cargo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cargo"
+          },
+          "destination": {
+            "title": "Destination",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "origin": {
+            "title": "Origin",
+            "type": "string"
+          },
+          "pickup_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pickup Date"
+          },
+          "price_eur": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price Eur"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "source_url": {
+            "title": "Source Url",
+            "type": "string"
+          },
+          "vehicle": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vehicle"
+          },
+          "verified": {
+            "default": false,
+            "title": "Verified",
+            "type": "boolean"
+          },
+          "weight_kg": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Weight Kg"
+          }
+        },
+        "required": [
+          "id",
+          "origin",
+          "destination",
+          "source",
+          "source_url"
+        ],
+        "title": "LoadOffer",
+        "type": "object"
+      },
       "Location": {
         "additionalProperties": false,
         "properties": {
@@ -4138,6 +4233,56 @@
         "summary": "List Invoices",
         "tags": [
           "data"
+        ]
+      }
+    },
+    "/api/loads": {
+      "get": {
+        "operationId": "list_loads_api_loads_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LoadOffer"
+                  },
+                  "title": "Response List Loads Api Loads Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Loads",
+        "tags": [
+          "loads"
+        ]
+      }
+    },
+    "/api/loads/refresh": {
+      "post": {
+        "operationId": "refresh_api_loads_refresh_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LoadOffer"
+                  },
+                  "title": "Response Refresh Api Loads Refresh Post",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Refresh",
+        "tags": [
+          "loads"
         ]
       }
     },

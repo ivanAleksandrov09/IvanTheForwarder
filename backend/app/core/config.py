@@ -27,6 +27,9 @@ class Settings(BaseSettings):
     auto_seed: bool = True  # load data/seed into an empty DB on startup
     watch_folder: Path = REPO_ROOT / "incoming"  # drop PDF/PNG/JPG files here; new ones are extracted automatically
     watch_interval_seconds: int = 30
+    loads_weekday: int = 0  # weekly load search: 0 = Monday
+    loads_time: str = "08:00"  # local time, HH:MM
+    loads_effort: str = "low"
 
     clock_mode: Literal["fixed", "real"] = "fixed"
     demo_now: datetime = datetime.fromisoformat(DEFAULT_DEMO_NOW)

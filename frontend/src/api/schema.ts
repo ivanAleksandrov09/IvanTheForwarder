@@ -465,6 +465,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/loads": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Loads */
+        get: operations["list_loads_api_loads_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/loads/refresh": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Refresh */
+        post: operations["refresh_api_loads_refresh_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/payments": {
         parameters: {
             query?: never;
@@ -1286,6 +1320,34 @@ export interface components {
             mode: components["schemas"]["LlmMode"];
             /** Model */
             model: string;
+        };
+        /** LoadOffer */
+        LoadOffer: {
+            /** Cargo */
+            cargo?: string | null;
+            /** Destination */
+            destination: string;
+            /** Id */
+            id: string;
+            /** Origin */
+            origin: string;
+            /** Pickup Date */
+            pickup_date?: string | null;
+            /** Price Eur */
+            price_eur?: number | null;
+            /** Source */
+            source: string;
+            /** Source Url */
+            source_url: string;
+            /** Vehicle */
+            vehicle?: string | null;
+            /**
+             * Verified
+             * @default false
+             */
+            verified: boolean;
+            /** Weight Kg */
+            weight_kg?: number | null;
         };
         /** Location */
         Location: {
@@ -2467,6 +2529,46 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_loads_api_loads_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LoadOffer"][];
+                };
+            };
+        };
+    };
+    refresh_api_loads_refresh_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LoadOffer"][];
                 };
             };
         };

@@ -1,0 +1,3696 @@
+{
+  "components": {
+    "schemas": {
+      "ApproveDraftRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "reviewed_by": {
+            "default": "operator",
+            "title": "Reviewed By",
+            "type": "string"
+          }
+        },
+        "title": "ApproveDraftRequest",
+        "type": "object"
+      },
+      "CargoType": {
+        "enum": [
+          "general",
+          "palletized",
+          "refrigerated",
+          "pharma",
+          "adr_dangerous",
+          "oversized",
+          "bulk",
+          "food",
+          "textile",
+          "steel",
+          "grain",
+          "furniture",
+          "automotive"
+        ],
+        "title": "CargoType",
+        "type": "string"
+      },
+      "Client": {
+        "additionalProperties": false,
+        "properties": {
+          "accepted_cargo_types": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/CargoType"
+            },
+            "title": "Accepted Cargo Types",
+            "type": "array"
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "contacts": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Contact"
+            },
+            "title": "Contacts",
+            "type": "array"
+          },
+          "country": {
+            "pattern": "^[A-Z]{2}$",
+            "title": "Country",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "credit_limit": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Money"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "pattern": "^cli_[a-z0-9]{4,32}$",
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "name_latin": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name Latin"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "payment_terms_days": {
+            "minimum": 0.0,
+            "title": "Payment Terms Days",
+            "type": "integer"
+          },
+          "preferred_language": {
+            "$ref": "#/components/schemas/Language"
+          },
+          "refused_cargo_types": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/CargoType"
+            },
+            "title": "Refused Cargo Types",
+            "type": "array"
+          },
+          "vat_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vat Number"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "country",
+          "city",
+          "preferred_language",
+          "payment_terms_days",
+          "created_at"
+        ],
+        "title": "Client",
+        "type": "object"
+      },
+      "ClientMetrics": {
+        "additionalProperties": false,
+        "properties": {
+          "avg_email_response_hours": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Email Response Hours"
+          },
+          "avg_margin_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Margin Pct"
+          },
+          "avg_payment_delay_days": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Payment Delay Days"
+          },
+          "delayed_shipments": {
+            "minimum": 0.0,
+            "title": "Delayed Shipments",
+            "type": "integer"
+          },
+          "fines_count": {
+            "minimum": 0.0,
+            "title": "Fines Count",
+            "type": "integer"
+          },
+          "fines_total": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Money"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "invoices_paid": {
+            "minimum": 0.0,
+            "title": "Invoices Paid",
+            "type": "integer"
+          },
+          "invoices_total": {
+            "minimum": 0.0,
+            "title": "Invoices Total",
+            "type": "integer"
+          },
+          "max_days_overdue": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Days Overdue"
+          },
+          "max_payment_delay_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Payment Delay Days"
+          },
+          "on_time_payment_rate": {
+            "anyOf": [
+              {
+                "maximum": 1.0,
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "On Time Payment Rate"
+          },
+          "open_overdue_invoices": {
+            "minimum": 0.0,
+            "title": "Open Overdue Invoices",
+            "type": "integer"
+          },
+          "overdue_amount": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Money"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "shipments_total": {
+            "minimum": 0.0,
+            "title": "Shipments Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "invoices_total",
+          "invoices_paid",
+          "open_overdue_invoices",
+          "shipments_total",
+          "delayed_shipments",
+          "fines_count"
+        ],
+        "title": "ClientMetrics",
+        "type": "object"
+      },
+      "Confidence": {
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "title": "Confidence",
+        "type": "string"
+      },
+      "ConnectorHealth": {
+        "enum": [
+          "ok",
+          "degraded",
+          "down",
+          "disabled"
+        ],
+        "title": "ConnectorHealth",
+        "type": "string"
+      },
+      "ConnectorInfo": {
+        "additionalProperties": false,
+        "properties": {
+          "connector": {
+            "title": "Connector",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "health": {
+            "$ref": "#/components/schemas/ConnectorHealth"
+          },
+          "last_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Error"
+          },
+          "last_sync_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Sync At"
+          },
+          "mode": {
+            "title": "Mode",
+            "type": "string"
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceType"
+          }
+        },
+        "required": [
+          "source",
+          "connector",
+          "mode",
+          "health",
+          "description"
+        ],
+        "title": "ConnectorInfo",
+        "type": "object"
+      },
+      "Contact": {
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "anyOf": [
+              {
+                "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "language": {
+            "$ref": "#/components/schemas/Language"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "pattern": "^\\+[1-9][0-9]{6,14}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          },
+          "role": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Role"
+          }
+        },
+        "required": [
+          "name",
+          "language"
+        ],
+        "title": "Contact",
+        "type": "object"
+      },
+      "Direction": {
+        "enum": [
+          "inbound",
+          "outbound"
+        ],
+        "title": "Direction",
+        "type": "string"
+      },
+      "Document": {
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "anyOf": [
+              {
+                "pattern": "^cli_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Id"
+          },
+          "doc_type": {
+            "$ref": "#/components/schemas/DocumentType"
+          },
+          "email_id": {
+            "anyOf": [
+              {
+                "pattern": "^eml_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email Id"
+          },
+          "extracted_fields": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "default": {},
+            "title": "Extracted Fields",
+            "type": "object"
+          },
+          "extracted_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extracted Text"
+          },
+          "extraction_confidence": {
+            "anyOf": [
+              {
+                "maximum": 1.0,
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extraction Confidence"
+          },
+          "filename": {
+            "title": "Filename",
+            "type": "string"
+          },
+          "id": {
+            "pattern": "^doc_[a-z0-9]{4,32}$",
+            "title": "Id",
+            "type": "string"
+          },
+          "invoice_id": {
+            "anyOf": [
+              {
+                "pattern": "^inv_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Invoice Id"
+          },
+          "language": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Language"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "mime_type": {
+            "title": "Mime Type",
+            "type": "string"
+          },
+          "received_at": {
+            "format": "date-time",
+            "title": "Received At",
+            "type": "string"
+          },
+          "shipment_id": {
+            "anyOf": [
+              {
+                "pattern": "^shp_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shipment Id"
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceType"
+          }
+        },
+        "required": [
+          "id",
+          "doc_type",
+          "filename",
+          "mime_type",
+          "source",
+          "received_at"
+        ],
+        "title": "Document",
+        "type": "object"
+      },
+      "DocumentType": {
+        "enum": [
+          "cmr",
+          "invoice",
+          "rate_sheet",
+          "transport_order",
+          "pod",
+          "customs",
+          "other"
+        ],
+        "title": "DocumentType",
+        "type": "string"
+      },
+      "DomainEvent": {
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "anyOf": [
+              {
+                "pattern": "^cli_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Id"
+          },
+          "data": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "default": {},
+            "title": "Data",
+            "type": "object"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "detected_at": {
+            "format": "date-time",
+            "title": "Detected At",
+            "type": "string"
+          },
+          "draft_ids": {
+            "default": [],
+            "items": {
+              "pattern": "^drf_[a-z0-9]{4,32}$",
+              "type": "string"
+            },
+            "title": "Draft Ids",
+            "type": "array"
+          },
+          "evidence": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/EvidenceRef"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "handled": {
+            "default": false,
+            "title": "Handled",
+            "type": "boolean"
+          },
+          "id": {
+            "pattern": "^evt_[a-z0-9]{4,32}$",
+            "title": "Id",
+            "type": "string"
+          },
+          "invoice_id": {
+            "anyOf": [
+              {
+                "pattern": "^inv_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Invoice Id"
+          },
+          "occurred_at": {
+            "format": "date-time",
+            "title": "Occurred At",
+            "type": "string"
+          },
+          "severity": {
+            "$ref": "#/components/schemas/Severity"
+          },
+          "shipment_id": {
+            "anyOf": [
+              {
+                "pattern": "^shp_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shipment Id"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "truck_id": {
+            "anyOf": [
+              {
+                "pattern": "^trk_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Truck Id"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EventType"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "severity",
+          "occurred_at",
+          "detected_at",
+          "title",
+          "description"
+        ],
+        "title": "DomainEvent",
+        "type": "object"
+      },
+      "DraftChannel": {
+        "enum": [
+          "email",
+          "sms",
+          "viber",
+          "document"
+        ],
+        "title": "DraftChannel",
+        "type": "string"
+      },
+      "DraftKind": {
+        "enum": [
+          "payment_reminder",
+          "delay_notice",
+          "quote_reply",
+          "invoice",
+          "cmr",
+          "generic"
+        ],
+        "title": "DraftKind",
+        "type": "string"
+      },
+      "DraftMessage": {
+        "additionalProperties": false,
+        "description": "A.k.a. NotificationItem: one entry in the \"ready to send\" queue.",
+        "properties": {
+          "attachment_document_ids": {
+            "default": [],
+            "items": {
+              "pattern": "^doc_[a-z0-9]{4,32}$",
+              "type": "string"
+            },
+            "title": "Attachment Document Ids",
+            "type": "array"
+          },
+          "body": {
+            "title": "Body",
+            "type": "string"
+          },
+          "cc_addresses": {
+            "default": [],
+            "items": {
+              "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+              "type": "string"
+            },
+            "title": "Cc Addresses",
+            "type": "array"
+          },
+          "channel": {
+            "$ref": "#/components/schemas/DraftChannel"
+          },
+          "client_id": {
+            "anyOf": [
+              {
+                "pattern": "^cli_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Id"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "event_id": {
+            "anyOf": [
+              {
+                "pattern": "^evt_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Event Id"
+          },
+          "id": {
+            "pattern": "^drf_[a-z0-9]{4,32}$",
+            "title": "Id",
+            "type": "string"
+          },
+          "invoice_id": {
+            "anyOf": [
+              {
+                "pattern": "^inv_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Invoice Id"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/DraftKind"
+          },
+          "language": {
+            "$ref": "#/components/schemas/Language"
+          },
+          "llm": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LlmMeta"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "rationale": {
+            "title": "Rationale",
+            "type": "string"
+          },
+          "rejection_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rejection Reason"
+          },
+          "reviewed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewed At"
+          },
+          "reviewed_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewed By"
+          },
+          "send_result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SendResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sent_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sent At"
+          },
+          "shipment_id": {
+            "anyOf": [
+              {
+                "pattern": "^shp_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shipment Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/DraftStatus"
+          },
+          "subject": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subject"
+          },
+          "to_addresses": {
+            "default": [],
+            "items": {
+              "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+              "type": "string"
+            },
+            "title": "To Addresses",
+            "type": "array"
+          },
+          "tone": {
+            "$ref": "#/components/schemas/Tone"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "channel",
+          "status",
+          "language",
+          "tone",
+          "body",
+          "rationale",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "DraftMessage",
+        "type": "object"
+      },
+      "DraftStatus": {
+        "description": "pending_review -> approved -> sent | failed ; pending_review -> rejected. Only `approved` can be sent.",
+        "enum": [
+          "pending_review",
+          "approved",
+          "rejected",
+          "sent",
+          "failed"
+        ],
+        "title": "DraftStatus",
+        "type": "string"
+      },
+      "Email": {
+        "additionalProperties": false,
+        "properties": {
+          "attachment_document_ids": {
+            "default": [],
+            "items": {
+              "pattern": "^doc_[a-z0-9]{4,32}$",
+              "type": "string"
+            },
+            "title": "Attachment Document Ids",
+            "type": "array"
+          },
+          "body_text": {
+            "title": "Body Text",
+            "type": "string"
+          },
+          "cc_addresses": {
+            "default": [],
+            "items": {
+              "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+              "type": "string"
+            },
+            "title": "Cc Addresses",
+            "type": "array"
+          },
+          "client_id": {
+            "anyOf": [
+              {
+                "pattern": "^cli_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Id"
+          },
+          "direction": {
+            "$ref": "#/components/schemas/Direction"
+          },
+          "from_address": {
+            "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+            "title": "From Address",
+            "type": "string"
+          },
+          "from_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From Name"
+          },
+          "id": {
+            "pattern": "^eml_[a-z0-9]{4,32}$",
+            "title": "Id",
+            "type": "string"
+          },
+          "labels": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Labels",
+            "type": "array"
+          },
+          "language": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Language"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "mailbox": {
+            "title": "Mailbox",
+            "type": "string"
+          },
+          "message_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message Id"
+          },
+          "sent_at": {
+            "format": "date-time",
+            "title": "Sent At",
+            "type": "string"
+          },
+          "shipment_id": {
+            "anyOf": [
+              {
+                "pattern": "^shp_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shipment Id"
+          },
+          "subject": {
+            "title": "Subject",
+            "type": "string"
+          },
+          "thread_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Thread Id"
+          },
+          "to_addresses": {
+            "items": {
+              "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+              "type": "string"
+            },
+            "title": "To Addresses",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "mailbox",
+          "direction",
+          "from_address",
+          "to_addresses",
+          "subject",
+          "body_text",
+          "sent_at"
+        ],
+        "title": "Email",
+        "type": "object"
+      },
+      "EntityType": {
+        "description": "Used in EvidenceRef to point at any stored object.",
+        "enum": [
+          "client",
+          "truck",
+          "gps_ping",
+          "shipment",
+          "email",
+          "document",
+          "invoice",
+          "payment",
+          "incident",
+          "call_log",
+          "event",
+          "draft"
+        ],
+        "title": "EntityType",
+        "type": "string"
+      },
+      "EventType": {
+        "enum": [
+          "shipment_delayed",
+          "invoice_overdue",
+          "payment_received",
+          "email_received",
+          "document_received",
+          "risk_level_changed",
+          "truck_idle"
+        ],
+        "title": "EventType",
+        "type": "string"
+      },
+      "EvidenceRef": {
+        "additionalProperties": false,
+        "description": "Points at the stored object that justifies a claim (risk factor, event, draft).",
+        "properties": {
+          "entity_id": {
+            "title": "Entity Id",
+            "type": "string"
+          },
+          "entity_type": {
+            "$ref": "#/components/schemas/EntityType"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          }
+        },
+        "required": [
+          "entity_type",
+          "entity_id"
+        ],
+        "title": "EvidenceRef",
+        "type": "object"
+      },
+      "GenerateDraftRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "pattern": "^cli_[a-z0-9]{4,32}$",
+            "title": "Client Id",
+            "type": "string"
+          },
+          "event_id": {
+            "anyOf": [
+              {
+                "pattern": "^evt_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Event Id"
+          },
+          "instructions": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Instructions"
+          },
+          "invoice_id": {
+            "anyOf": [
+              {
+                "pattern": "^inv_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Invoice Id"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/DraftKind"
+          },
+          "language": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Language"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "shipment_id": {
+            "anyOf": [
+              {
+                "pattern": "^shp_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shipment Id"
+          },
+          "tone": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Tone"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "kind",
+          "client_id"
+        ],
+        "title": "GenerateDraftRequest",
+        "type": "object"
+      },
+      "GpsPing": {
+        "additionalProperties": false,
+        "properties": {
+          "heading_deg": {
+            "anyOf": [
+              {
+                "exclusiveMaximum": 360.0,
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heading Deg"
+          },
+          "id": {
+            "pattern": "^gps_[a-z0-9]{4,32}$",
+            "title": "Id",
+            "type": "string"
+          },
+          "lat": {
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Lat",
+            "type": "number"
+          },
+          "lon": {
+            "maximum": 180.0,
+            "minimum": -180.0,
+            "title": "Lon",
+            "type": "number"
+          },
+          "recorded_at": {
+            "format": "date-time",
+            "title": "Recorded At",
+            "type": "string"
+          },
+          "shipment_id": {
+            "anyOf": [
+              {
+                "pattern": "^shp_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shipment Id"
+          },
+          "speed_kmh": {
+            "minimum": 0.0,
+            "title": "Speed Kmh",
+            "type": "number"
+          },
+          "truck_id": {
+            "pattern": "^trk_[a-z0-9]{4,32}$",
+            "title": "Truck Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "truck_id",
+          "recorded_at",
+          "lat",
+          "lon",
+          "speed_kmh"
+        ],
+        "title": "GpsPing",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "HealthResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "app_env": {
+            "title": "App Env",
+            "type": "string"
+          },
+          "llm": {
+            "$ref": "#/components/schemas/LlmStatus"
+          },
+          "now": {
+            "format": "date-time",
+            "title": "Now",
+            "type": "string"
+          },
+          "schema_version": {
+            "title": "Schema Version",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "app_env",
+          "schema_version",
+          "now",
+          "llm"
+        ],
+        "title": "HealthResponse",
+        "type": "object"
+      },
+      "Incident": {
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "anyOf": [
+              {
+                "pattern": "^cli_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Id"
+          },
+          "cost": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Money"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "delay_minutes": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delay Minutes"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "id": {
+            "pattern": "^inc_[a-z0-9]{4,32}$",
+            "title": "Id",
+            "type": "string"
+          },
+          "occurred_at": {
+            "format": "date-time",
+            "title": "Occurred At",
+            "type": "string"
+          },
+          "severity": {
+            "$ref": "#/components/schemas/Severity"
+          },
+          "shipment_id": {
+            "anyOf": [
+              {
+                "pattern": "^shp_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shipment Id"
+          },
+          "truck_id": {
+            "anyOf": [
+              {
+                "pattern": "^trk_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Truck Id"
+          },
+          "type": {
+            "$ref": "#/components/schemas/IncidentType"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "severity",
+          "occurred_at",
+          "description"
+        ],
+        "title": "Incident",
+        "type": "object"
+      },
+      "IncidentType": {
+        "enum": [
+          "delay",
+          "fine",
+          "damage",
+          "claim",
+          "documentation_error",
+          "cancellation"
+        ],
+        "title": "IncidentType",
+        "type": "string"
+      },
+      "Invoice": {
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "pattern": "^cli_[a-z0-9]{4,32}$",
+            "title": "Client Id",
+            "type": "string"
+          },
+          "due_at": {
+            "format": "date-time",
+            "title": "Due At",
+            "type": "string"
+          },
+          "id": {
+            "pattern": "^inv_[a-z0-9]{4,32}$",
+            "title": "Id",
+            "type": "string"
+          },
+          "issued_at": {
+            "format": "date-time",
+            "title": "Issued At",
+            "type": "string"
+          },
+          "net": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "number": {
+            "pattern": "^[0-9]{10}$",
+            "title": "Number",
+            "type": "string"
+          },
+          "shipment_ids": {
+            "default": [],
+            "items": {
+              "pattern": "^shp_[a-z0-9]{4,32}$",
+              "type": "string"
+            },
+            "title": "Shipment Ids",
+            "type": "array"
+          },
+          "status": {
+            "$ref": "#/components/schemas/InvoiceStatus"
+          },
+          "total": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "vat": {
+            "$ref": "#/components/schemas/Money"
+          }
+        },
+        "required": [
+          "id",
+          "number",
+          "client_id",
+          "issued_at",
+          "due_at",
+          "net",
+          "vat",
+          "total",
+          "status"
+        ],
+        "title": "Invoice",
+        "type": "object"
+      },
+      "InvoiceStatus": {
+        "description": "Payment state only. \"Overdue\" is NOT a status: it is derived from due_at vs clock.now().",
+        "enum": [
+          "draft",
+          "issued",
+          "partially_paid",
+          "paid",
+          "cancelled"
+        ],
+        "title": "InvoiceStatus",
+        "type": "string"
+      },
+      "Language": {
+        "enum": [
+          "bg",
+          "en",
+          "ru",
+          "tr",
+          "ro"
+        ],
+        "title": "Language",
+        "type": "string"
+      },
+      "LlmMeta": {
+        "additionalProperties": false,
+        "properties": {
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latency Ms"
+          },
+          "log_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Log Id"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/LlmMode"
+          },
+          "model": {
+            "title": "Model",
+            "type": "string"
+          },
+          "used_fallback": {
+            "default": false,
+            "title": "Used Fallback",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "mode",
+          "model"
+        ],
+        "title": "LlmMeta",
+        "type": "object"
+      },
+      "LlmMode": {
+        "enum": [
+          "mock",
+          "live"
+        ],
+        "title": "LlmMode",
+        "type": "string"
+      },
+      "LlmPingRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "language": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Language"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "message": {
+            "default": "Представи се с едно изречение.",
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "title": "LlmPingRequest",
+        "type": "object"
+      },
+      "LlmPingResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "llm": {
+            "$ref": "#/components/schemas/LlmMeta"
+          },
+          "reply": {
+            "title": "Reply",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reply",
+          "llm"
+        ],
+        "title": "LlmPingResponse",
+        "type": "object"
+      },
+      "LlmStatus": {
+        "additionalProperties": false,
+        "properties": {
+          "base_url_host": {
+            "title": "Base Url Host",
+            "type": "string"
+          },
+          "fallback_to_mock": {
+            "title": "Fallback To Mock",
+            "type": "boolean"
+          },
+          "last_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Error"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/LlmMode"
+          },
+          "model": {
+            "title": "Model",
+            "type": "string"
+          }
+        },
+        "required": [
+          "mode",
+          "model",
+          "base_url_host",
+          "fallback_to_mock"
+        ],
+        "title": "LlmStatus",
+        "type": "object"
+      },
+      "Location": {
+        "additionalProperties": false,
+        "properties": {
+          "address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Address"
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "country": {
+            "pattern": "^[A-Z]{2}$",
+            "title": "Country",
+            "type": "string"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "maximum": 90.0,
+                "minimum": -90.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "lon": {
+            "anyOf": [
+              {
+                "maximum": 180.0,
+                "minimum": -180.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lon"
+          },
+          "postal_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Postal Code"
+          }
+        },
+        "required": [
+          "city",
+          "country"
+        ],
+        "title": "Location",
+        "type": "object"
+      },
+      "Money": {
+        "additionalProperties": false,
+        "description": "Integer minor units (cents/stotinki) + ISO 4217 code. Never floats.",
+        "properties": {
+          "amount_minor": {
+            "title": "Amount Minor",
+            "type": "integer"
+          },
+          "currency": {
+            "pattern": "^[A-Z]{3}$",
+            "title": "Currency",
+            "type": "string"
+          }
+        },
+        "required": [
+          "amount_minor",
+          "currency"
+        ],
+        "title": "Money",
+        "type": "object"
+      },
+      "Payment": {
+        "additionalProperties": false,
+        "properties": {
+          "amount": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "client_id": {
+            "pattern": "^cli_[a-z0-9]{4,32}$",
+            "title": "Client Id",
+            "type": "string"
+          },
+          "id": {
+            "pattern": "^pay_[a-z0-9]{4,32}$",
+            "title": "Id",
+            "type": "string"
+          },
+          "invoice_id": {
+            "pattern": "^inv_[a-z0-9]{4,32}$",
+            "title": "Invoice Id",
+            "type": "string"
+          },
+          "method": {
+            "$ref": "#/components/schemas/PaymentMethod"
+          },
+          "paid_at": {
+            "format": "date-time",
+            "title": "Paid At",
+            "type": "string"
+          },
+          "reference": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference"
+          }
+        },
+        "required": [
+          "id",
+          "invoice_id",
+          "client_id",
+          "amount",
+          "paid_at",
+          "method"
+        ],
+        "title": "Payment",
+        "type": "object"
+      },
+      "PaymentMethod": {
+        "enum": [
+          "bank_transfer",
+          "cash",
+          "card",
+          "offset"
+        ],
+        "title": "PaymentMethod",
+        "type": "string"
+      },
+      "RejectDraftRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "reviewed_by": {
+            "default": "operator",
+            "title": "Reviewed By",
+            "type": "string"
+          }
+        },
+        "title": "RejectDraftRequest",
+        "type": "object"
+      },
+      "ResetResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "collections": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Collections",
+            "type": "object"
+          }
+        },
+        "required": [
+          "collections"
+        ],
+        "title": "ResetResponse",
+        "type": "object"
+      },
+      "RiskFactor": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/RiskFactorCode"
+          },
+          "evidence": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/EvidenceRef"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "explanation": {
+            "title": "Explanation",
+            "type": "string"
+          },
+          "impact": {
+            "maximum": 100.0,
+            "minimum": -100.0,
+            "title": "Impact",
+            "type": "integer"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "label",
+          "impact",
+          "explanation"
+        ],
+        "title": "RiskFactor",
+        "type": "object"
+      },
+      "RiskFactorCode": {
+        "enum": [
+          "late_payment_history",
+          "currently_overdue",
+          "good_payment_history",
+          "delay_sensitivity",
+          "fines_history",
+          "damage_claims",
+          "low_margin",
+          "slow_communication",
+          "cargo_restrictions",
+          "insufficient_history"
+        ],
+        "title": "RiskFactorCode",
+        "type": "string"
+      },
+      "RiskLevel": {
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "unknown"
+        ],
+        "title": "RiskLevel",
+        "type": "string"
+      },
+      "RiskProfile": {
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "pattern": "^cli_[a-z0-9]{4,32}$",
+            "title": "Client Id",
+            "type": "string"
+          },
+          "computed_at": {
+            "format": "date-time",
+            "title": "Computed At",
+            "type": "string"
+          },
+          "confidence": {
+            "$ref": "#/components/schemas/Confidence"
+          },
+          "factors": {
+            "items": {
+              "$ref": "#/components/schemas/RiskFactor"
+            },
+            "title": "Factors",
+            "type": "array"
+          },
+          "level": {
+            "$ref": "#/components/schemas/RiskLevel"
+          },
+          "metrics": {
+            "$ref": "#/components/schemas/ClientMetrics"
+          },
+          "observed_cargo_types": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/CargoType"
+            },
+            "title": "Observed Cargo Types",
+            "type": "array"
+          },
+          "recommended_tone": {
+            "$ref": "#/components/schemas/Tone"
+          },
+          "score": {
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Score",
+            "type": "integer"
+          },
+          "scoring_version": {
+            "title": "Scoring Version",
+            "type": "string"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "client_id",
+          "computed_at",
+          "score",
+          "level",
+          "confidence",
+          "factors",
+          "metrics",
+          "recommended_tone",
+          "summary",
+          "scoring_version"
+        ],
+        "title": "RiskProfile",
+        "type": "object"
+      },
+      "SendResult": {
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          },
+          "provider_message_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Message Id"
+          },
+          "sent_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sent At"
+          }
+        },
+        "required": [
+          "ok",
+          "provider"
+        ],
+        "title": "SendResult",
+        "type": "object"
+      },
+      "Severity": {
+        "enum": [
+          "info",
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ],
+        "title": "Severity",
+        "type": "string"
+      },
+      "Shipment": {
+        "additionalProperties": false,
+        "properties": {
+          "cargo_description": {
+            "title": "Cargo Description",
+            "type": "string"
+          },
+          "cargo_type": {
+            "$ref": "#/components/schemas/CargoType"
+          },
+          "client_id": {
+            "pattern": "^cli_[a-z0-9]{4,32}$",
+            "title": "Client Id",
+            "type": "string"
+          },
+          "cmr_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cmr Number"
+          },
+          "cost": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Money"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "delivered_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delivered At"
+          },
+          "delivery_planned_at": {
+            "format": "date-time",
+            "title": "Delivery Planned At",
+            "type": "string"
+          },
+          "destination": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "distance_km": {
+            "minimum": 0.0,
+            "title": "Distance Km",
+            "type": "number"
+          },
+          "eta_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Eta At"
+          },
+          "id": {
+            "pattern": "^shp_[a-z0-9]{4,32}$",
+            "title": "Id",
+            "type": "string"
+          },
+          "origin": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "pallets": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pallets"
+          },
+          "picked_up_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Picked Up At"
+          },
+          "pickup_planned_at": {
+            "format": "date-time",
+            "title": "Pickup Planned At",
+            "type": "string"
+          },
+          "price": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ShipmentStatus"
+          },
+          "truck_id": {
+            "anyOf": [
+              {
+                "pattern": "^trk_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Truck Id"
+          },
+          "weight_kg": {
+            "minimum": 0.0,
+            "title": "Weight Kg",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "reference",
+          "client_id",
+          "status",
+          "cargo_type",
+          "cargo_description",
+          "weight_kg",
+          "origin",
+          "destination",
+          "distance_km",
+          "pickup_planned_at",
+          "delivery_planned_at",
+          "price",
+          "created_at"
+        ],
+        "title": "Shipment",
+        "type": "object"
+      },
+      "ShipmentStatus": {
+        "enum": [
+          "quoted",
+          "booked",
+          "in_transit",
+          "delivered",
+          "cancelled"
+        ],
+        "title": "ShipmentStatus",
+        "type": "string"
+      },
+      "SourceType": {
+        "description": "Where data came from. One active connector per source.",
+        "enum": [
+          "email",
+          "documents",
+          "gps",
+          "erp",
+          "call_log",
+          "erp_screenshot",
+          "external_web",
+          "manual"
+        ],
+        "title": "SourceType",
+        "type": "string"
+      },
+      "SyncResult": {
+        "additionalProperties": false,
+        "properties": {
+          "connector": {
+            "title": "Connector",
+            "type": "string"
+          },
+          "errors": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Errors",
+            "type": "array"
+          },
+          "fetched": {
+            "title": "Fetched",
+            "type": "integer"
+          },
+          "finished_at": {
+            "format": "date-time",
+            "title": "Finished At",
+            "type": "string"
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceType"
+          },
+          "started_at": {
+            "format": "date-time",
+            "title": "Started At",
+            "type": "string"
+          },
+          "upserted": {
+            "title": "Upserted",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "source",
+          "connector",
+          "fetched",
+          "upserted",
+          "started_at",
+          "finished_at"
+        ],
+        "title": "SyncResult",
+        "type": "object"
+      },
+      "Tone": {
+        "enum": [
+          "formal",
+          "friendly",
+          "firm",
+          "apologetic"
+        ],
+        "title": "Tone",
+        "type": "string"
+      },
+      "TrailerType": {
+        "enum": [
+          "tent",
+          "mega",
+          "reefer",
+          "flatbed",
+          "tanker",
+          "box"
+        ],
+        "title": "TrailerType",
+        "type": "string"
+      },
+      "Truck": {
+        "additionalProperties": false,
+        "properties": {
+          "capacity_kg": {
+            "minimum": 0.0,
+            "title": "Capacity Kg",
+            "type": "integer"
+          },
+          "current_shipment_id": {
+            "anyOf": [
+              {
+                "pattern": "^shp_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Shipment Id"
+          },
+          "driver_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Driver Name"
+          },
+          "driver_phone": {
+            "anyOf": [
+              {
+                "pattern": "^\\+[1-9][0-9]{6,14}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Driver Phone"
+          },
+          "id": {
+            "pattern": "^trk_[a-z0-9]{4,32}$",
+            "title": "Id",
+            "type": "string"
+          },
+          "is_own_fleet": {
+            "title": "Is Own Fleet",
+            "type": "boolean"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "plate_number": {
+            "title": "Plate Number",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TruckStatus"
+          },
+          "trailer_type": {
+            "$ref": "#/components/schemas/TrailerType"
+          }
+        },
+        "required": [
+          "id",
+          "plate_number",
+          "label",
+          "trailer_type",
+          "capacity_kg",
+          "status",
+          "is_own_fleet"
+        ],
+        "title": "Truck",
+        "type": "object"
+      },
+      "TruckStatus": {
+        "enum": [
+          "available",
+          "loading",
+          "en_route",
+          "unloading",
+          "maintenance"
+        ],
+        "title": "TruckStatus",
+        "type": "string"
+      },
+      "UpdateDraftRequest": {
+        "additionalProperties": false,
+        "description": "PATCH semantics: null/omitted = unchanged (the one place where null means 'not provided').",
+        "properties": {
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body"
+          },
+          "cc_addresses": {
+            "anyOf": [
+              {
+                "items": {
+                  "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cc Addresses"
+          },
+          "subject": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subject"
+          },
+          "to_addresses": {
+            "anyOf": [
+              {
+                "items": {
+                  "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "To Addresses"
+          }
+        },
+        "title": "UpdateDraftRequest",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "title": "Ivan – AI assistant for freight forwarders",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/clients": {
+      "get": {
+        "operationId": "list_clients_api_clients_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Client"
+                  },
+                  "title": "Response List Clients Api Clients Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Clients",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/clients/{client_id}": {
+      "get": {
+        "operationId": "get_client_api_clients__client_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "title": "Client Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Client",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/clients/{client_id}/risk": {
+      "get": {
+        "operationId": "client_risk_api_clients__client_id__risk_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "title": "Client Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskProfile"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Client Risk",
+        "tags": [
+          "risk"
+        ]
+      }
+    },
+    "/api/connectors": {
+      "get": {
+        "operationId": "list_connectors_api_connectors_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ConnectorInfo"
+                  },
+                  "title": "Response List Connectors Api Connectors Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Connectors",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/connectors/{source}/sync": {
+      "post": {
+        "operationId": "sync_connector_api_connectors__source__sync_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "source",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SourceType"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SyncResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Sync Connector",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/documents": {
+      "get": {
+        "operationId": "list_documents_api_documents_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "client_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Client Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Document"
+                  },
+                  "title": "Response List Documents Api Documents Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Documents",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/drafts": {
+      "get": {
+        "operationId": "list_drafts_api_drafts_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/DraftStatus"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DraftMessage"
+                  },
+                  "title": "Response List Drafts Api Drafts Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Drafts",
+        "tags": [
+          "drafts"
+        ]
+      }
+    },
+    "/api/drafts/generate": {
+      "post": {
+        "operationId": "generate_api_drafts_generate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateDraftRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftMessage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Generate",
+        "tags": [
+          "drafts"
+        ]
+      }
+    },
+    "/api/drafts/{draft_id}": {
+      "get": {
+        "operationId": "get_draft_api_drafts__draft_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "draft_id",
+            "required": true,
+            "schema": {
+              "title": "Draft Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftMessage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Draft",
+        "tags": [
+          "drafts"
+        ]
+      },
+      "patch": {
+        "operationId": "edit_draft_api_drafts__draft_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "draft_id",
+            "required": true,
+            "schema": {
+              "title": "Draft Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDraftRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftMessage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Edit Draft",
+        "tags": [
+          "drafts"
+        ]
+      }
+    },
+    "/api/drafts/{draft_id}/approve": {
+      "post": {
+        "description": "The human confirmation step. Approves, then sends immediately.",
+        "operationId": "approve_and_send_api_drafts__draft_id__approve_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "draft_id",
+            "required": true,
+            "schema": {
+              "title": "Draft Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApproveDraftRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftMessage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Approve And Send",
+        "tags": [
+          "drafts"
+        ]
+      }
+    },
+    "/api/drafts/{draft_id}/reject": {
+      "post": {
+        "operationId": "reject_api_drafts__draft_id__reject_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "draft_id",
+            "required": true,
+            "schema": {
+              "title": "Draft Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejectDraftRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftMessage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Reject",
+        "tags": [
+          "drafts"
+        ]
+      }
+    },
+    "/api/drafts/{draft_id}/send": {
+      "post": {
+        "description": "Retry a failed send. Refuses anything not already approved by a human.",
+        "operationId": "retry_send_api_drafts__draft_id__send_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "draft_id",
+            "required": true,
+            "schema": {
+              "title": "Draft Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftMessage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Retry Send",
+        "tags": [
+          "drafts"
+        ]
+      }
+    },
+    "/api/emails": {
+      "get": {
+        "operationId": "list_emails_api_emails_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "client_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Client Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Email"
+                  },
+                  "title": "Response List Emails Api Emails Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Emails",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/events": {
+      "get": {
+        "operationId": "list_events_api_events_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DomainEvent"
+                  },
+                  "title": "Response List Events Api Events Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Events",
+        "tags": [
+          "risk"
+        ]
+      }
+    },
+    "/api/events/scan": {
+      "post": {
+        "description": "Run all detectors; with auto_draft, new actionable events get a draft in the approval queue.",
+        "operationId": "scan_api_events_scan_post",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "auto_draft",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Auto Draft",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DomainEvent"
+                  },
+                  "title": "Response Scan Api Events Scan Post",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Scan",
+        "tags": [
+          "risk"
+        ]
+      }
+    },
+    "/api/incidents": {
+      "get": {
+        "operationId": "list_incidents_api_incidents_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "client_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Client Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Incident"
+                  },
+                  "title": "Response List Incidents Api Incidents Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Incidents",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/invoices": {
+      "get": {
+        "operationId": "list_invoices_api_invoices_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "client_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Client Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Invoice"
+                  },
+                  "title": "Response List Invoices Api Invoices Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Invoices",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/payments": {
+      "get": {
+        "operationId": "list_payments_api_payments_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "client_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Client Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Payment"
+                  },
+                  "title": "Response List Payments Api Payments Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Payments",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/risk": {
+      "get": {
+        "operationId": "list_risk_profiles_api_risk_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/RiskProfile"
+                  },
+                  "title": "Response List Risk Profiles Api Risk Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Risk Profiles",
+        "tags": [
+          "risk"
+        ]
+      }
+    },
+    "/api/shipments": {
+      "get": {
+        "operationId": "list_shipments_api_shipments_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ShipmentStatus"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "client_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Client Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Shipment"
+                  },
+                  "title": "Response List Shipments Api Shipments Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Shipments",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/shipments/{shipment_id}": {
+      "get": {
+        "operationId": "get_shipment_api_shipments__shipment_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "shipment_id",
+            "required": true,
+            "schema": {
+              "title": "Shipment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Shipment"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Shipment",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/system/health": {
+      "get": {
+        "operationId": "health_api_system_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/api/system/llm": {
+      "get": {
+        "operationId": "llm_status_api_system_llm_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LlmStatus"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Llm Status",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/api/system/llm/ping": {
+      "post": {
+        "description": "Hello-world LLM call. Use it to verify a provider key: set LLM_MODE=live and call this.",
+        "operationId": "llm_ping_api_system_llm_ping_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LlmPingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LlmPingResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Llm Ping",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/api/system/reset": {
+      "post": {
+        "description": "Wipe the DB and reload data/seed. For demo rehearsals.",
+        "operationId": "reset_demo_api_system_reset_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResetResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Reset Demo",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/api/trucks": {
+      "get": {
+        "operationId": "list_trucks_api_trucks_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Truck"
+                  },
+                  "title": "Response List Trucks Api Trucks Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Trucks",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/trucks/{truck_id}/positions": {
+      "get": {
+        "operationId": "truck_positions_api_trucks__truck_id__positions_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "truck_id",
+            "required": true,
+            "schema": {
+              "title": "Truck Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 200,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/GpsPing"
+                  },
+                  "title": "Response Truck Positions Api Trucks  Truck Id  Positions Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Truck Positions",
+        "tags": [
+          "data"
+        ]
+      }
+    }
+  }
+}

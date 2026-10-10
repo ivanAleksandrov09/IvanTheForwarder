@@ -1,0 +1,19 @@
+{
+  "name": "ivan-the-forwarder",
+  "private": true,
+  "description": "Monorepo task runner. `npm install` sets up everything, `npm run dev` starts backend + frontend.",
+  "scripts": {
+    "postinstall": "uv sync --directory backend && cd frontend && npm install",
+    "dev": "concurrently -k -n api,web -c blue,green \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "cd backend && uv run uvicorn app.main:app --reload --port 8000",
+    "dev:web": "npm --prefix frontend run dev",
+    "seed": "uv run --directory backend python -m app.seed.generate",
+    "gen:types": "uv run --directory backend python scripts/export_openapi.py && npm --prefix frontend run gen:types",
+    "test": "uv run --directory backend pytest -q",
+    "typecheck": "npm --prefix frontend run typecheck",
+    "check": "npm run gen:types && npm test && npm run typecheck && git diff --exit-code -- shared frontend/src/api/schema.ts data/seed"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

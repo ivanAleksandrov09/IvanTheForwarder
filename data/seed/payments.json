@@ -1,0 +1,554 @@
+[
+  {
+    "id": "pay_0001",
+    "invoice_id": "inv_0001",
+    "client_id": "cli_0001",
+    "amount": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-07-22T14:44:29Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000001"
+  },
+  {
+    "id": "pay_0002",
+    "invoice_id": "inv_0002",
+    "client_id": "cli_0001",
+    "amount": {
+      "amount_minor": 58000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-08-08T22:57:01Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000002"
+  },
+  {
+    "id": "pay_0003",
+    "invoice_id": "inv_0003",
+    "client_id": "cli_0001",
+    "amount": {
+      "amount_minor": 51000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-08-29T08:33:37Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000003"
+  },
+  {
+    "id": "pay_0004",
+    "invoice_id": "inv_0004",
+    "client_id": "cli_0001",
+    "amount": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-10T20:58:27Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000004"
+  },
+  {
+    "id": "pay_0005",
+    "invoice_id": "inv_0005",
+    "client_id": "cli_0001",
+    "amount": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-26T18:10:20Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000005"
+  },
+  {
+    "id": "pay_0006",
+    "invoice_id": "inv_0006",
+    "client_id": "cli_0001",
+    "amount": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-10-02T09:22:16Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000006"
+  },
+  {
+    "id": "pay_0007",
+    "invoice_id": "inv_0007",
+    "client_id": "cli_0001",
+    "amount": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-10-14T07:05:37Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000007"
+  },
+  {
+    "id": "pay_0008",
+    "invoice_id": "inv_0008",
+    "client_id": "cli_0001",
+    "amount": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-10-05T10:48:35Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000008"
+  },
+  {
+    "id": "pay_0011",
+    "invoice_id": "inv_0011",
+    "client_id": "cli_0002",
+    "amount": {
+      "amount_minor": 216000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-06-26T21:42:34Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000011"
+  },
+  {
+    "id": "pay_0012",
+    "invoice_id": "inv_0012",
+    "client_id": "cli_0002",
+    "amount": {
+      "amount_minor": 158000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-07-19T04:09:50Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000012"
+  },
+  {
+    "id": "pay_0013",
+    "invoice_id": "inv_0013",
+    "client_id": "cli_0002",
+    "amount": {
+      "amount_minor": 183000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-08-18T13:25:22Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000013"
+  },
+  {
+    "id": "pay_0014",
+    "invoice_id": "inv_0014",
+    "client_id": "cli_0002",
+    "amount": {
+      "amount_minor": 219000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-26T14:20:20Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000014"
+  },
+  {
+    "id": "pay_0015",
+    "invoice_id": "inv_0015",
+    "client_id": "cli_0002",
+    "amount": {
+      "amount_minor": 165000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-10-10T09:50:33Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000015"
+  },
+  {
+    "id": "pay_0020",
+    "invoice_id": "inv_0020",
+    "client_id": "cli_0003",
+    "amount": {
+      "amount_minor": 54000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-05-30T19:52:04Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000020"
+  },
+  {
+    "id": "pay_0021",
+    "invoice_id": "inv_0021",
+    "client_id": "cli_0003",
+    "amount": {
+      "amount_minor": 46000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-06-22T03:41:51Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000021"
+  },
+  {
+    "id": "pay_0022",
+    "invoice_id": "inv_0022",
+    "client_id": "cli_0003",
+    "amount": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-06-20T14:33:31Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000022"
+  },
+  {
+    "id": "pay_0023",
+    "invoice_id": "inv_0023",
+    "client_id": "cli_0003",
+    "amount": {
+      "amount_minor": 49000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-07-01T21:00:14Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000023"
+  },
+  {
+    "id": "pay_0024",
+    "invoice_id": "inv_0024",
+    "client_id": "cli_0003",
+    "amount": {
+      "amount_minor": 49000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-08-30T07:51:20Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000024"
+  },
+  {
+    "id": "pay_0025",
+    "invoice_id": "inv_0025",
+    "client_id": "cli_0003",
+    "amount": {
+      "amount_minor": 54000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-11T18:22:00Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000025"
+  },
+  {
+    "id": "pay_0026",
+    "invoice_id": "inv_0026",
+    "client_id": "cli_0003",
+    "amount": {
+      "amount_minor": 54000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-29T18:07:12Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000026"
+  },
+  {
+    "id": "pay_0027",
+    "invoice_id": "inv_0027",
+    "client_id": "cli_0003",
+    "amount": {
+      "amount_minor": 53000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-10-13T03:35:12Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000027"
+  },
+  {
+    "id": "pay_0028",
+    "invoice_id": "inv_0028",
+    "client_id": "cli_0004",
+    "amount": {
+      "amount_minor": 48000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-06-26T09:58:44Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000028"
+  },
+  {
+    "id": "pay_0029",
+    "invoice_id": "inv_0029",
+    "client_id": "cli_0004",
+    "amount": {
+      "amount_minor": 131000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-08-04T23:04:55Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000029"
+  },
+  {
+    "id": "pay_0030",
+    "invoice_id": "inv_0030",
+    "client_id": "cli_0004",
+    "amount": {
+      "amount_minor": 130000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-06T03:22:48Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000030"
+  },
+  {
+    "id": "pay_0031",
+    "invoice_id": "inv_0031",
+    "client_id": "cli_0004",
+    "amount": {
+      "amount_minor": 52000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-08T21:10:22Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000031"
+  },
+  {
+    "id": "pay_0032",
+    "invoice_id": "inv_0032",
+    "client_id": "cli_0004",
+    "amount": {
+      "amount_minor": 137000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-24T17:25:55Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000032"
+  },
+  {
+    "id": "pay_0033",
+    "invoice_id": "inv_0033",
+    "client_id": "cli_0004",
+    "amount": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-16T06:18:05Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000033"
+  },
+  {
+    "id": "pay_0036",
+    "invoice_id": "inv_0036",
+    "client_id": "cli_0005",
+    "amount": {
+      "amount_minor": 80000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-07-05T23:06:56Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000036"
+  },
+  {
+    "id": "pay_0037",
+    "invoice_id": "inv_0037",
+    "client_id": "cli_0005",
+    "amount": {
+      "amount_minor": 73000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-07-07T13:41:12Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000037"
+  },
+  {
+    "id": "pay_0038",
+    "invoice_id": "inv_0038",
+    "client_id": "cli_0005",
+    "amount": {
+      "amount_minor": 83000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-08-04T22:22:44Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000038"
+  },
+  {
+    "id": "pay_0039",
+    "invoice_id": "inv_0039",
+    "client_id": "cli_0005",
+    "amount": {
+      "amount_minor": 84000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-08-30T15:58:03Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000039"
+  },
+  {
+    "id": "pay_0040",
+    "invoice_id": "inv_0040",
+    "client_id": "cli_0005",
+    "amount": {
+      "amount_minor": 96000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-04T00:55:41Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000040"
+  },
+  {
+    "id": "pay_0041",
+    "invoice_id": "inv_0041",
+    "client_id": "cli_0005",
+    "amount": {
+      "amount_minor": 80000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-21T07:33:54Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000041"
+  },
+  {
+    "id": "pay_0043",
+    "invoice_id": "inv_0043",
+    "client_id": "cli_0006",
+    "amount": {
+      "amount_minor": 137000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-06-19T10:03:52Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000043"
+  },
+  {
+    "id": "pay_0044",
+    "invoice_id": "inv_0044",
+    "client_id": "cli_0006",
+    "amount": {
+      "amount_minor": 64800,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-06-21T23:06:47Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000044"
+  },
+  {
+    "id": "pay_0045",
+    "invoice_id": "inv_0045",
+    "client_id": "cli_0006",
+    "amount": {
+      "amount_minor": 124000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-07-20T13:15:20Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000045"
+  },
+  {
+    "id": "pay_0046",
+    "invoice_id": "inv_0046",
+    "client_id": "cli_0006",
+    "amount": {
+      "amount_minor": 67200,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-08-19T22:12:03Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000046"
+  },
+  {
+    "id": "pay_0047",
+    "invoice_id": "inv_0047",
+    "client_id": "cli_0006",
+    "amount": {
+      "amount_minor": 79200,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-08-30T00:28:05Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000047"
+  },
+  {
+    "id": "pay_0048",
+    "invoice_id": "inv_0048",
+    "client_id": "cli_0006",
+    "amount": {
+      "amount_minor": 81600,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-05T03:17:16Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000048"
+  },
+  {
+    "id": "pay_0049",
+    "invoice_id": "inv_0049",
+    "client_id": "cli_0006",
+    "amount": {
+      "amount_minor": 140000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-20T07:09:14Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000049"
+  },
+  {
+    "id": "pay_0051",
+    "invoice_id": "inv_0051",
+    "client_id": "cli_0007",
+    "amount": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-06-16T08:31:39Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000051"
+  },
+  {
+    "id": "pay_0052",
+    "invoice_id": "inv_0052",
+    "client_id": "cli_0007",
+    "amount": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-01T04:59:02Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000052"
+  },
+  {
+    "id": "pay_0053",
+    "invoice_id": "inv_0053",
+    "client_id": "cli_0007",
+    "amount": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-08-15T19:49:03Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000053"
+  },
+  {
+    "id": "pay_0054",
+    "invoice_id": "inv_0054",
+    "client_id": "cli_0007",
+    "amount": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-14T09:44:51Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000054"
+  },
+  {
+    "id": "pay_0055",
+    "invoice_id": "inv_0055",
+    "client_id": "cli_0007",
+    "amount": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-10-07T16:43:41Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000055"
+  },
+  {
+    "id": "pay_0056",
+    "invoice_id": "inv_0056",
+    "client_id": "cli_0007",
+    "amount": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "paid_at": "2026-09-19T20:56:31Z",
+    "method": "bank_transfer",
+    "reference": "Фактура 0000000056"
+  }
+]

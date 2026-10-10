@@ -1,0 +1,22 @@
+# Replace the placeholders with real GitHub handles. PRs touching these paths request review from the owner.
+/backend/app/schemas/        @LEAD_HANDLE
+/backend/app/core/           @LEAD_HANDLE
+/backend/app/repository/     @LEAD_HANDLE
+/backend/app/llm/            @LEAD_HANDLE
+/backend/tests/test_contracts.py @LEAD_HANDLE
+/shared/                     @LEAD_HANDLE
+
+/backend/app/connectors/     @PERSON_A_HANDLE
+/backend/app/api/data.py     @PERSON_A_HANDLE
+/backend/app/seed/gen_comms.py    @PERSON_A_HANDLE
+/backend/app/seed/gen_tracking.py @PERSON_A_HANDLE
+
+/backend/app/risk/           @PERSON_B_HANDLE
+/backend/app/events/         @PERSON_B_HANDLE
+/backend/app/api/risk.py     @PERSON_B_HANDLE
+/backend/app/seed/gen_business.py @PERSON_B_HANDLE
+
+/backend/app/drafting/       @PERSON_C_HANDLE
+/backend/app/outbound/       @PERSON_C_HANDLE
+/backend/app/api/drafts.py   @PERSON_C_HANDLE
+/frontend/                   @PERSON_C_HANDLE

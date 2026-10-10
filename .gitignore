@@ -1,0 +1,25 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# runtime data (DB, LLM prompt logs, outbox) — may contain sensitive data, never commit
+data/runtime/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# node
+node_modules/
+frontend/dist/
+
+# editors / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db

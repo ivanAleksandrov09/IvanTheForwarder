@@ -1,0 +1,280 @@
+[
+  {
+    "id": "eml_0001",
+    "message_id": "<eml_0001.7919@vitosha-spedition.bg>",
+    "thread_id": null,
+    "mailbox": "office@vitosha-spedition.bg",
+    "direction": "outbound",
+    "from_address": "office@vitosha-spedition.bg",
+    "from_name": "Иван Иванов",
+    "to_addresses": [
+      "g.petrov@balkansteel.bg"
+    ],
+    "cc_addresses": [],
+    "subject": "Напомняне за плащане – фактура № 0000000801",
+    "body_text": "Здравейте, г-н Петров,\n\nНапомняме, че фактура № 0000000801 на стойност 3 480,00 EUR е с падеж 31.08.2026. Моля, потвърдете датата на плащане.\n\nПоздрави,\nИван Иванов\nСпедиция Витоша ЕООД",
+    "language": "bg",
+    "sent_at": "2026-09-05T07:30:00Z",
+    "client_id": "cli_0001",
+    "shipment_id": null,
+    "attachment_document_ids": [],
+    "labels": [
+      "reminder"
+    ]
+  },
+  {
+    "id": "eml_0002",
+    "message_id": "<eml_0002.15838@balkansteel.bg>",
+    "thread_id": null,
+    "mailbox": "office@vitosha-spedition.bg",
+    "direction": "inbound",
+    "from_address": "g.petrov@balkansteel.bg",
+    "from_name": "Георги Петров",
+    "to_addresses": [
+      "office@vitosha-spedition.bg"
+    ],
+    "cc_addresses": [],
+    "subject": "RE: Напомняне за плащане – фактура № 0000000801",
+    "body_text": "Здравейте,\n\nПлащането ще бъде направено до края на седмицата.\n\nПоздрави,\nГ. Петров",
+    "language": "bg",
+    "sent_at": "2026-09-07T07:30:00Z",
+    "client_id": "cli_0001",
+    "shipment_id": null,
+    "attachment_document_ids": [],
+    "labels": [
+      "payment_promise"
+    ]
+  },
+  {
+    "id": "eml_0003",
+    "message_id": "<eml_0003.23757@vitosha-spedition.bg>",
+    "thread_id": null,
+    "mailbox": "office@vitosha-spedition.bg",
+    "direction": "outbound",
+    "from_address": "office@vitosha-spedition.bg",
+    "from_name": "Иван Иванов",
+    "to_addresses": [
+      "g.petrov@balkansteel.bg"
+    ],
+    "cc_addresses": [],
+    "subject": "Повторно напомняне – фактура № 0000000801",
+    "body_text": "Здравейте, г-н Петров,\n\nВсе още не сме получили плащането по фактура № 0000000801. Моля за спешно потвърждение.\n\nПоздрави,\nИван Иванов",
+    "language": "bg",
+    "sent_at": "2026-09-25T07:30:00Z",
+    "client_id": "cli_0001",
+    "shipment_id": null,
+    "attachment_document_ids": [],
+    "labels": [
+      "reminder"
+    ]
+  },
+  {
+    "id": "eml_0004",
+    "message_id": "<eml_0004.31676@balkansteel.bg>",
+    "thread_id": null,
+    "mailbox": "office@vitosha-spedition.bg",
+    "direction": "inbound",
+    "from_address": "g.petrov@balkansteel.bg",
+    "from_name": "Георги Петров",
+    "to_addresses": [
+      "office@vitosha-spedition.bg"
+    ],
+    "cc_addresses": [],
+    "subject": "RE: Повторно напомняне – фактура № 0000000801",
+    "body_text": "Имаме временни затруднения с ликвидността. Ще платим следващия месец, съжалявам за забавянето.",
+    "language": "bg",
+    "sent_at": "2026-09-26T07:30:00Z",
+    "client_id": "cli_0001",
+    "shipment_id": null,
+    "attachment_document_ids": [],
+    "labels": [
+      "payment_promise"
+    ]
+  },
+  {
+    "id": "eml_0005",
+    "message_id": "<eml_0005.39595@rhein-logistik.de>",
+    "thread_id": null,
+    "mailbox": "office@vitosha-spedition.bg",
+    "direction": "inbound",
+    "from_address": "a.weber@rhein-logistik.de",
+    "from_name": "Anna Weber",
+    "to_addresses": [
+      "office@vitosha-spedition.bg"
+    ],
+    "cc_addresses": [],
+    "subject": "Framework agreement – delivery slot rules",
+    "body_text": "Dear partners,\n\nAs a reminder, delivery slots at our Munich DC are binding. According to §7 of the framework agreement, late deliveries are charged EUR 150 per started hour beyond the slot, capped at EUR 600 per delivery. Please inform us proactively about any expected delay.\n\nBest regards,\nAnna Weber",
+    "language": "en",
+    "sent_at": "2026-08-16T07:30:00Z",
+    "client_id": "cli_0002",
+    "shipment_id": null,
+    "attachment_document_ids": [],
+    "labels": [
+      "contract"
+    ]
+  },
+  {
+    "id": "eml_0006",
+    "message_id": "<eml_0006.47514@rhein-logistik.de>",
+    "thread_id": null,
+    "mailbox": "office@vitosha-spedition.bg",
+    "direction": "inbound",
+    "from_address": "a.weber@rhein-logistik.de",
+    "from_name": "Anna Weber",
+    "to_addresses": [
+      "office@vitosha-spedition.bg"
+    ],
+    "cc_addresses": [],
+    "subject": "Penalty notice – SPD-2026-0013",
+    "body_text": "Dear Sir or Madam,\n\nShipment SPD-2026-0013 arrived after the agreed slot. A penalty according to §7 will be deducted from your next invoice.\n\nRegards,\nAnna Weber",
+    "language": "en",
+    "sent_at": "2026-07-08T13:25:22Z",
+    "client_id": "cli_0002",
+    "shipment_id": "shp_0013",
+    "attachment_document_ids": [],
+    "labels": [
+      "penalty"
+    ]
+  },
+  {
+    "id": "eml_0007",
+    "message_id": "<eml_0007.55433@rhein-logistik.de>",
+    "thread_id": null,
+    "mailbox": "office@vitosha-spedition.bg",
+    "direction": "inbound",
+    "from_address": "a.weber@rhein-logistik.de",
+    "from_name": "Anna Weber",
+    "to_addresses": [
+      "office@vitosha-spedition.bg"
+    ],
+    "cc_addresses": [],
+    "subject": "Transport order SPD-2026-0901 – slot Fri 16.10. 08:00",
+    "body_text": "Hello,\n\nPlease find attached our transport order: 26 pallets gearboxes, 14.2 t, Sofia → Munich DC (Gate 4). Delivery slot: 16.10.2026, 08:00 CEST. The slot is binding.\n\nThank you,\nAnna Weber",
+    "language": "en",
+    "sent_at": "2026-10-13T07:30:00Z",
+    "client_id": "cli_0002",
+    "shipment_id": "shp_0901",
+    "attachment_document_ids": [
+      "doc_0901"
+    ],
+    "labels": [
+      "order"
+    ]
+  },
+  {
+    "id": "eml_0008",
+    "message_id": "<eml_0008.63352@trakia-agro.bg>",
+    "thread_id": null,
+    "mailbox": "office@vitosha-spedition.bg",
+    "direction": "inbound",
+    "from_address": "m.koleva@trakia-agro.bg",
+    "from_name": "Мария Колева",
+    "to_addresses": [
+      "office@vitosha-spedition.bg"
+    ],
+    "cc_addresses": [],
+    "subject": "Запитване: пшеница Стара Загора – Констанца",
+    "body_text": "Здравейте,\n\nТърсим 3 камиона за пшеница (по 24 т) от Стара Загора до пристанище Констанца следващата седмица. Моля, не комбинирайте нашия товар с ADR пратки.\n\nПоздрави,\nМария Колева",
+    "language": "bg",
+    "sent_at": "2026-09-20T07:30:00Z",
+    "client_id": "cli_0003",
+    "shipment_id": null,
+    "attachment_document_ids": [],
+    "labels": [
+      "quote_request"
+    ]
+  },
+  {
+    "id": "eml_0009",
+    "message_id": "<eml_0009.71271@dunareatrans.ro>",
+    "thread_id": null,
+    "mailbox": "office@vitosha-spedition.bg",
+    "direction": "inbound",
+    "from_address": "andrei.popescu@dunareatrans.ro",
+    "from_name": "Andrei Popescu",
+    "to_addresses": [
+      "office@vitosha-spedition.bg"
+    ],
+    "cc_addresses": [],
+    "subject": "Plata facturii",
+    "body_text": "Bună ziua,\n\nPlata pentru ultima factură va fi efectuată săptămâna viitoare.\n\nMulțumesc,\nAndrei Popescu",
+    "language": "ro",
+    "sent_at": "2026-10-03T07:30:00Z",
+    "client_id": "cli_0004",
+    "shipment_id": null,
+    "attachment_document_ids": [],
+    "labels": [
+      "payment_promise"
+    ]
+  },
+  {
+    "id": "eml_0010",
+    "message_id": "<eml_0010.79190@anadolutekstil.com.tr>",
+    "thread_id": null,
+    "mailbox": "office@vitosha-spedition.bg",
+    "direction": "inbound",
+    "from_address": "mehmet.yilmaz@anadolutekstil.com.tr",
+    "from_name": "Mehmet Yılmaz",
+    "to_addresses": [
+      "office@vitosha-spedition.bg"
+    ],
+    "cc_addresses": [],
+    "subject": "Rate request Bursa – Sofia, 2 trucks/week",
+    "body_text": "Hello,\n\nWe plan 2 full trucks per week Bursa → Sofia from November. Could you send your best rate and transit time?\n\nBest regards,\nMehmet Yılmaz",
+    "language": "en",
+    "sent_at": "2026-09-30T07:30:00Z",
+    "client_id": "cli_0005",
+    "shipment_id": null,
+    "attachment_document_ids": [],
+    "labels": [
+      "quote_request"
+    ]
+  },
+  {
+    "id": "eml_0011",
+    "message_id": "<eml_0011.87109@sofiapharma.bg>",
+    "thread_id": null,
+    "mailbox": "office@vitosha-spedition.bg",
+    "direction": "inbound",
+    "from_address": "e.dimitrova@sofiapharma.bg",
+    "from_name": "Елена Димитрова",
+    "to_addresses": [
+      "office@vitosha-spedition.bg"
+    ],
+    "cc_addresses": [],
+    "subject": "Температурен режим 2–8 °C",
+    "body_text": "Здравейте,\n\nНапомням, че за всички наши пратки е задължителен температурен лог 2–8 °C. При отклонение ще предявим рекламация, както при случая от юли.\n\nПоздрави,\nЕлена Димитрова",
+    "language": "bg",
+    "sent_at": "2026-10-06T07:30:00Z",
+    "client_id": "cli_0006",
+    "shipment_id": null,
+    "attachment_document_ids": [],
+    "labels": [
+      "requirements"
+    ]
+  },
+  {
+    "id": "eml_0012",
+    "message_id": "<eml_0012.95028@vardarfood.mk>",
+    "thread_id": null,
+    "mailbox": "office@vitosha-spedition.bg",
+    "direction": "inbound",
+    "from_address": "b.trajkovski@vardarfood.mk",
+    "from_name": "Bojan Trajkovski",
+    "to_addresses": [
+      "office@vitosha-spedition.bg"
+    ],
+    "cc_addresses": [],
+    "subject": "Missing CMR copy – SPD-2026-0051",
+    "body_text": "Hi,\n\nWe still have not received the signed CMR for SPD-2026-0051. We will pay the invoice once we have it.\n\nBojan",
+    "language": "en",
+    "sent_at": "2026-05-21T08:31:39Z",
+    "client_id": "cli_0007",
+    "shipment_id": "shp_0051",
+    "attachment_document_ids": [],
+    "labels": [
+      "documents"
+    ]
+  }
+]

@@ -1,0 +1,231 @@
+[
+  {
+    "id": "cli_0001",
+    "name": "Балкан Стил ООД",
+    "name_latin": "Balkan Steel Ltd",
+    "vat_number": "BG204512378",
+    "country": "BG",
+    "city": "Перник",
+    "preferred_language": "bg",
+    "contacts": [
+      {
+        "name": "Георги Петров",
+        "role": "Управител",
+        "email": "g.petrov@balkansteel.bg",
+        "phone": "+359888123456",
+        "language": "bg"
+      }
+    ],
+    "payment_terms_days": 30,
+    "credit_limit": null,
+    "accepted_cargo_types": [
+      "steel",
+      "general"
+    ],
+    "refused_cargo_types": [
+      "refrigerated",
+      "pharma"
+    ],
+    "notes": "Плаща след многократни напомняния. Обещава плащане по телефона.",
+    "created_at": "2023-10-16T07:30:00Z"
+  },
+  {
+    "id": "cli_0002",
+    "name": "Rhein Logistik GmbH",
+    "name_latin": null,
+    "vat_number": "DE298765431",
+    "country": "DE",
+    "city": "München",
+    "preferred_language": "en",
+    "contacts": [
+      {
+        "name": "Anna Weber",
+        "role": "Transport Manager",
+        "email": "a.weber@rhein-logistik.de",
+        "phone": "+498912345678",
+        "language": "en"
+      }
+    ],
+    "payment_terms_days": 45,
+    "credit_limit": null,
+    "accepted_cargo_types": [
+      "automotive",
+      "palletized",
+      "general"
+    ],
+    "refused_cargo_types": [
+      "adr_dangerous"
+    ],
+    "notes": "Framework agreement §7: EUR 150 per started hour beyond the delivery slot, max EUR 600.",
+    "created_at": "2024-10-15T07:30:00Z"
+  },
+  {
+    "id": "cli_0003",
+    "name": "Тракия Агро ЕООД",
+    "name_latin": null,
+    "vat_number": "BG123987456",
+    "country": "BG",
+    "city": "Стара Загора",
+    "preferred_language": "bg",
+    "contacts": [
+      {
+        "name": "Мария Колева",
+        "role": "Логистика",
+        "email": "m.koleva@trakia-agro.bg",
+        "phone": "+359887456123",
+        "language": "bg"
+      }
+    ],
+    "payment_terms_days": 21,
+    "credit_limit": null,
+    "accepted_cargo_types": [
+      "grain",
+      "bulk",
+      "food"
+    ],
+    "refused_cargo_types": [
+      "adr_dangerous"
+    ],
+    "notes": "Сезонен клиент (жътва юли–октомври).",
+    "created_at": "2022-10-16T07:30:00Z"
+  },
+  {
+    "id": "cli_0004",
+    "name": "Dunarea Trans SRL",
+    "name_latin": null,
+    "vat_number": "RO31245678",
+    "country": "RO",
+    "city": "București",
+    "preferred_language": "ro",
+    "contacts": [
+      {
+        "name": "Andrei Popescu",
+        "role": "Dispecer",
+        "email": "andrei.popescu@dunareatrans.ro",
+        "phone": "+40721123456",
+        "language": "ro"
+      }
+    ],
+    "payment_terms_days": 30,
+    "credit_limit": null,
+    "accepted_cargo_types": [
+      "general",
+      "palletized"
+    ],
+    "refused_cargo_types": [],
+    "notes": null,
+    "created_at": "2024-10-15T07:30:00Z"
+  },
+  {
+    "id": "cli_0005",
+    "name": "Anadolu Tekstil A.Ş.",
+    "name_latin": null,
+    "vat_number": "TR4561237890",
+    "country": "TR",
+    "city": "Bursa",
+    "preferred_language": "tr",
+    "contacts": [
+      {
+        "name": "Mehmet Yılmaz",
+        "role": "Lojistik Müdürü",
+        "email": "mehmet.yilmaz@anadolutekstil.com.tr",
+        "phone": "+905321234567",
+        "language": "tr"
+      }
+    ],
+    "payment_terms_days": 30,
+    "credit_limit": null,
+    "accepted_cargo_types": [
+      "textile",
+      "general"
+    ],
+    "refused_cargo_types": [
+      "food"
+    ],
+    "notes": null,
+    "created_at": "2025-10-15T07:30:00Z"
+  },
+  {
+    "id": "cli_0006",
+    "name": "София Фарма АД",
+    "name_latin": null,
+    "vat_number": "BG175001234",
+    "country": "BG",
+    "city": "София",
+    "preferred_language": "bg",
+    "contacts": [
+      {
+        "name": "Елена Димитрова",
+        "role": "Мениджър снабдяване",
+        "email": "e.dimitrova@sofiapharma.bg",
+        "phone": "+359889654321",
+        "language": "bg"
+      }
+    ],
+    "payment_terms_days": 30,
+    "credit_limit": null,
+    "accepted_cargo_types": [
+      "pharma",
+      "refrigerated"
+    ],
+    "refused_cargo_types": [
+      "adr_dangerous",
+      "bulk"
+    ],
+    "notes": "Изисква температурен лог 2–8 °C за всяка пратка.",
+    "created_at": "2023-10-16T07:30:00Z"
+  },
+  {
+    "id": "cli_0007",
+    "name": "Vardar Food DOOEL",
+    "name_latin": null,
+    "vat_number": "MK4030012345678",
+    "country": "MK",
+    "city": "Скопје",
+    "preferred_language": "en",
+    "contacts": [
+      {
+        "name": "Bojan Trajkovski",
+        "role": "Logistics",
+        "email": "b.trajkovski@vardarfood.mk",
+        "phone": "+38970123456",
+        "language": "en"
+      }
+    ],
+    "payment_terms_days": 30,
+    "credit_limit": null,
+    "accepted_cargo_types": [
+      "food",
+      "palletized"
+    ],
+    "refused_cargo_types": [],
+    "notes": null,
+    "created_at": "2025-10-15T07:30:00Z"
+  },
+  {
+    "id": "cli_0008",
+    "name": "Нова Мебел ООД",
+    "name_latin": null,
+    "vat_number": "BG206998877",
+    "country": "BG",
+    "city": "Пловдив",
+    "preferred_language": "bg",
+    "contacts": [
+      {
+        "name": "Калин Стоянов",
+        "role": "Собственик",
+        "email": "k.stoyanov@novamebel.bg",
+        "phone": "+359878111222",
+        "language": "bg"
+      }
+    ],
+    "payment_terms_days": 14,
+    "credit_limit": null,
+    "accepted_cargo_types": [
+      "furniture"
+    ],
+    "refused_cargo_types": [],
+    "notes": "Нов клиент от септември 2026.",
+    "created_at": "2026-09-08T19:30:00Z"
+  }
+]

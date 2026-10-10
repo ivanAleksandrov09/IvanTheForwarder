@@ -1,0 +1,74 @@
+[
+  {
+    "id": "trk_0001",
+    "plate_number": "СВ 4821 КН",
+    "label": "Truck 1",
+    "driver_name": "Петър Иванов",
+    "driver_phone": "+359888100001",
+    "trailer_type": "tent",
+    "capacity_kg": 24000,
+    "status": "available",
+    "is_own_fleet": true,
+    "current_shipment_id": null
+  },
+  {
+    "id": "trk_0002",
+    "plate_number": "СВ 7310 ВР",
+    "label": "Truck 2",
+    "driver_name": "Димитър Стоянов",
+    "driver_phone": "+359888100002",
+    "trailer_type": "mega",
+    "capacity_kg": 24000,
+    "status": "available",
+    "is_own_fleet": true,
+    "current_shipment_id": null
+  },
+  {
+    "id": "trk_0003",
+    "plate_number": "СВ 1234 АВ",
+    "label": "Truck 3",
+    "driver_name": "Николай Георгиев",
+    "driver_phone": "+359888100003",
+    "trailer_type": "tent",
+    "capacity_kg": 24000,
+    "status": "en_route",
+    "is_own_fleet": true,
+    "current_shipment_id": "shp_0901"
+  },
+  {
+    "id": "trk_0004",
+    "plate_number": "СВ 5567 ТМ",
+    "label": "Truck 4 (reefer)",
+    "driver_name": "Стефан Колев",
+    "driver_phone": "+359888100004",
+    "trailer_type": "reefer",
+    "capacity_kg": 22000,
+    "status": "en_route",
+    "is_own_fleet": true,
+    "current_shipment_id": "shp_0902"
+  },
+  {
+    "id": "trk_0005",
+    "plate_number": "РВ 9012 ХК",
+    "label": "Truck 5",
+    "driver_name": "Христо Димов",
+    "driver_phone": "+359888100005",
+    "trailer_type": "tent",
+    "capacity_kg": 24000,
+    "status": "en_route",
+    "is_own_fleet": true,
+    "current_shipment_id": "shp_0903"
+  },
+  {
+    "id": "trk_0006",
+    "plate_number": "СВ 3388 МС",
+    "label": "Partner flatbed",
+    "driver_name": "Васил Тодоров",
+    "driver_phone": "+359888100006",
+    "trailer_type": "flatbed",
+    "capacity_kg": 25000,
+    "status": "maintenance",
+    "is_own_fleet": false,
+    "current_shipment_id": null
+  }
+]

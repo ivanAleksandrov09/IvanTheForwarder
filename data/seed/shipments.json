@@ -1,0 +1,2668 @@
+[
+  {
+    "id": "shp_0001",
+    "reference": "SPD-2026-0001",
+    "client_id": "cli_0001",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "steel",
+    "cargo_description": "Арматура и стоманени профили",
+    "weight_kg": 23800,
+    "pallets": null,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Београд",
+      "country": "RS",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.7866,
+      "lon": 20.4489
+    },
+    "distance_km": 409.0,
+    "pickup_planned_at": "2026-05-21T07:58:40Z",
+    "delivery_planned_at": "2026-05-21T14:34:29Z",
+    "picked_up_at": "2026-05-21T08:32:40Z",
+    "delivered_at": "2026-05-21T14:44:29Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 54646,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0407612",
+    "created_at": "2026-05-19T07:58:40Z"
+  },
+  {
+    "id": "shp_0002",
+    "reference": "SPD-2026-0002",
+    "client_id": "cli_0001",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "steel",
+    "cargo_description": "Арматура и стоманени профили",
+    "weight_kg": 23500,
+    "pallets": null,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Београд",
+      "country": "RS",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.7866,
+      "lon": 20.4489
+    },
+    "distance_km": 409.0,
+    "pickup_planned_at": "2026-06-04T16:17:12Z",
+    "delivery_planned_at": "2026-06-04T22:53:01Z",
+    "picked_up_at": "2026-06-04T16:22:12Z",
+    "delivered_at": "2026-06-04T22:57:01Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 58000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 53027,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0423088",
+    "created_at": "2026-06-03T16:17:12Z"
+  },
+  {
+    "id": "shp_0003",
+    "reference": "SPD-2026-0003",
+    "client_id": "cli_0001",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "steel",
+    "cargo_description": "Арматура и стоманени профили",
+    "weight_kg": 21000,
+    "pallets": null,
+    "origin": {
+      "city": "Перник",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6052,
+      "lon": 23.0378
+    },
+    "destination": {
+      "city": "București",
+      "country": "RO",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.4268,
+      "lon": 26.1025
+    },
+    "distance_km": 399.0,
+    "pickup_planned_at": "2026-06-30T02:47:29Z",
+    "delivery_planned_at": "2026-06-30T09:13:37Z",
+    "picked_up_at": "2026-06-30T03:08:29Z",
+    "delivered_at": "2026-06-30T08:33:37Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 51000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 47201,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0479966",
+    "created_at": "2026-06-26T02:47:29Z"
+  },
+  {
+    "id": "shp_0004",
+    "reference": "SPD-2026-0004",
+    "client_id": "cli_0001",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "steel",
+    "cargo_description": "Арматура и стоманени профили",
+    "weight_kg": 21800,
+    "pallets": null,
+    "origin": {
+      "city": "Перник",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6052,
+      "lon": 23.0378
+    },
+    "destination": {
+      "city": "București",
+      "country": "RO",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.4268,
+      "lon": 26.1025
+    },
+    "distance_km": 399.0,
+    "pickup_planned_at": "2026-07-06T14:04:19Z",
+    "delivery_planned_at": "2026-07-06T20:30:27Z",
+    "picked_up_at": "2026-07-06T14:14:19Z",
+    "delivered_at": "2026-07-06T20:58:27Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 52808,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0402407",
+    "created_at": "2026-07-02T14:04:19Z"
+  },
+  {
+    "id": "shp_0005",
+    "reference": "SPD-2026-0005",
+    "client_id": "cli_0001",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "steel",
+    "cargo_description": "Арматура и стоманени профили",
+    "weight_kg": 22000,
+    "pallets": null,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Београд",
+      "country": "RS",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.7866,
+      "lon": 20.4489
+    },
+    "distance_km": 409.0,
+    "pickup_planned_at": "2026-07-19T11:40:32Z",
+    "delivery_planned_at": "2026-07-19T18:16:20Z",
+    "picked_up_at": "2026-07-19T11:44:32Z",
+    "delivered_at": "2026-07-19T18:10:20Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 54642,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0417512",
+    "created_at": "2026-07-17T11:40:32Z"
+  },
+  {
+    "id": "shp_0006",
+    "reference": "SPD-2026-0006",
+    "client_id": "cli_0001",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "steel",
+    "cargo_description": "Арматура и стоманени профили",
+    "weight_kg": 22800,
+    "pallets": null,
+    "origin": {
+      "city": "Перник",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6052,
+      "lon": 23.0378
+    },
+    "destination": {
+      "city": "Θεσσαλονίκη",
+      "country": "GR",
+      "postal_code": null,
+      "address": null,
+      "lat": 40.6401,
+      "lon": 22.9444
+    },
+    "distance_km": 273.0,
+    "pickup_planned_at": "2026-07-26T04:53:05Z",
+    "delivery_planned_at": "2026-07-26T09:17:16Z",
+    "picked_up_at": "2026-07-26T05:02:05Z",
+    "delivered_at": "2026-07-26T09:22:16Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 42153,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0495003",
+    "created_at": "2026-07-25T04:53:05Z"
+  },
+  {
+    "id": "shp_0007",
+    "reference": "SPD-2026-0007",
+    "client_id": "cli_0001",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "steel",
+    "cargo_description": "Арматура и стоманени профили",
+    "weight_kg": 23500,
+    "pallets": null,
+    "origin": {
+      "city": "Перник",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6052,
+      "lon": 23.0378
+    },
+    "destination": {
+      "city": "Θεσσαλονίκη",
+      "country": "GR",
+      "postal_code": null,
+      "address": null,
+      "lat": 40.6401,
+      "lon": 22.9444
+    },
+    "distance_km": 273.0,
+    "pickup_planned_at": "2026-08-04T02:07:25Z",
+    "delivery_planned_at": "2026-08-04T06:31:37Z",
+    "picked_up_at": "2026-08-04T02:31:25Z",
+    "delivered_at": "2026-08-04T07:05:37Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 41159,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0458045",
+    "created_at": "2026-07-30T02:07:25Z"
+  },
+  {
+    "id": "shp_0008",
+    "reference": "SPD-2026-0008",
+    "client_id": "cli_0001",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "steel",
+    "cargo_description": "Арматура и стоманени профили",
+    "weight_kg": 23700,
+    "pallets": null,
+    "origin": {
+      "city": "Перник",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6052,
+      "lon": 23.0378
+    },
+    "destination": {
+      "city": "București",
+      "country": "RO",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.4268,
+      "lon": 26.1025
+    },
+    "distance_km": 399.0,
+    "pickup_planned_at": "2026-08-08T03:49:28Z",
+    "delivery_planned_at": "2026-08-08T10:15:35Z",
+    "picked_up_at": "2026-08-08T04:18:28Z",
+    "delivered_at": "2026-08-08T10:48:35Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 52732,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0401722",
+    "created_at": "2026-08-04T03:49:28Z"
+  },
+  {
+    "id": "shp_0009",
+    "reference": "SPD-2026-0009",
+    "client_id": "cli_0001",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "steel",
+    "cargo_description": "Арматура и стоманени профили",
+    "weight_kg": 21700,
+    "pallets": null,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Београд",
+      "country": "RS",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.7866,
+      "lon": 20.4489
+    },
+    "distance_km": 409.0,
+    "pickup_planned_at": "2026-09-07T03:35:50Z",
+    "delivery_planned_at": "2026-09-07T10:11:39Z",
+    "picked_up_at": "2026-09-07T03:22:50Z",
+    "delivered_at": "2026-09-07T10:21:39Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 53000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 48053,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0452617",
+    "created_at": "2026-09-04T03:35:50Z"
+  },
+  {
+    "id": "shp_0010",
+    "reference": "SPD-2026-0010",
+    "client_id": "cli_0001",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "steel",
+    "cargo_description": "Арматура и стоманени профили",
+    "weight_kg": 21000,
+    "pallets": null,
+    "origin": {
+      "city": "Перник",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6052,
+      "lon": 23.0378
+    },
+    "destination": {
+      "city": "București",
+      "country": "RO",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.4268,
+      "lon": 26.1025
+    },
+    "distance_km": 399.0,
+    "pickup_planned_at": "2026-10-01T04:28:26Z",
+    "delivery_planned_at": "2026-10-01T10:54:34Z",
+    "picked_up_at": "2026-10-01T04:19:26Z",
+    "delivered_at": "2026-10-01T12:27:34Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 55000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 52701,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0473910",
+    "created_at": "2026-09-26T04:28:26Z"
+  },
+  {
+    "id": "shp_0011",
+    "reference": "SPD-2026-0011",
+    "client_id": "cli_0002",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "automotive",
+    "cargo_description": "Auto parts (gearboxes), EUR pallets",
+    "weight_kg": 10900,
+    "pallets": 29,
+    "origin": {
+      "city": "Пловдив",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.1354,
+      "lon": 24.7453
+    },
+    "destination": {
+      "city": "München",
+      "country": "DE",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.1351,
+      "lon": 11.582
+    },
+    "distance_km": 1533.0,
+    "pickup_planned_at": "2026-05-11T22:58:02Z",
+    "delivery_planned_at": "2026-05-13T21:41:34Z",
+    "picked_up_at": "2026-05-11T23:29:02Z",
+    "delivered_at": "2026-05-13T21:42:34Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 216000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 174565,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0443929",
+    "created_at": "2026-05-08T22:58:02Z"
+  },
+  {
+    "id": "shp_0012",
+    "reference": "SPD-2026-0012",
+    "client_id": "cli_0002",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "automotive",
+    "cargo_description": "Auto parts (gearboxes), EUR pallets",
+    "weight_kg": 10100,
+    "pallets": 19,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "München",
+      "country": "DE",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.1351,
+      "lon": 11.582
+    },
+    "distance_km": 1369.0,
+    "pickup_planned_at": "2026-05-31T08:25:00Z",
+    "delivery_planned_at": "2026-06-02T04:29:50Z",
+    "picked_up_at": "2026-05-31T08:14:00Z",
+    "delivered_at": "2026-06-02T04:09:50Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 158000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 124838,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0469170",
+    "created_at": "2026-05-27T08:25:00Z"
+  },
+  {
+    "id": "shp_0013",
+    "reference": "SPD-2026-0013",
+    "client_id": "cli_0002",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "automotive",
+    "cargo_description": "Auto parts (gearboxes), EUR pallets",
+    "weight_kg": 14400,
+    "pallets": 32,
+    "origin": {
+      "city": "Пловдив",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.1354,
+      "lon": 24.7453
+    },
+    "destination": {
+      "city": "München",
+      "country": "DE",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.1351,
+      "lon": 11.582
+    },
+    "distance_km": 1533.0,
+    "pickup_planned_at": "2026-07-03T11:31:49Z",
+    "delivery_planned_at": "2026-07-05T10:15:22Z",
+    "picked_up_at": "2026-07-03T11:34:49Z",
+    "delivered_at": "2026-07-05T13:25:22Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 183000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 144661,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0420043",
+    "created_at": "2026-06-29T11:31:49Z"
+  },
+  {
+    "id": "shp_0014",
+    "reference": "SPD-2026-0014",
+    "client_id": "cli_0002",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "automotive",
+    "cargo_description": "Auto parts (gearboxes), EUR pallets",
+    "weight_kg": 9200,
+    "pallets": 20,
+    "origin": {
+      "city": "Пловдив",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.1354,
+      "lon": 24.7453
+    },
+    "destination": {
+      "city": "München",
+      "country": "DE",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.1351,
+      "lon": 11.582
+    },
+    "distance_km": 1533.0,
+    "pickup_planned_at": "2026-08-11T16:01:47Z",
+    "delivery_planned_at": "2026-08-13T14:45:20Z",
+    "picked_up_at": "2026-08-11T16:06:47Z",
+    "delivered_at": "2026-08-13T14:20:20Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 219000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 183671,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0407411",
+    "created_at": "2026-08-08T16:01:47Z"
+  },
+  {
+    "id": "shp_0015",
+    "reference": "SPD-2026-0015",
+    "client_id": "cli_0002",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "automotive",
+    "cargo_description": "Auto parts (gearboxes), EUR pallets",
+    "weight_kg": 9500,
+    "pallets": 27,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "München",
+      "country": "DE",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.1351,
+      "lon": 11.582
+    },
+    "distance_km": 1369.0,
+    "pickup_planned_at": "2026-08-23T13:37:43Z",
+    "delivery_planned_at": "2026-08-25T09:42:33Z",
+    "picked_up_at": "2026-08-23T13:58:43Z",
+    "delivered_at": "2026-08-25T09:50:33Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 165000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 129920,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0461869",
+    "created_at": "2026-08-21T13:37:43Z"
+  },
+  {
+    "id": "shp_0016",
+    "reference": "SPD-2026-0016",
+    "client_id": "cli_0002",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "automotive",
+    "cargo_description": "Auto parts (gearboxes), EUR pallets",
+    "weight_kg": 13300,
+    "pallets": 33,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "München",
+      "country": "DE",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.1351,
+      "lon": 11.582
+    },
+    "distance_km": 1369.0,
+    "pickup_planned_at": "2026-09-10T10:12:01Z",
+    "delivery_planned_at": "2026-09-12T06:16:51Z",
+    "picked_up_at": "2026-09-10T10:28:01Z",
+    "delivered_at": "2026-09-12T10:21:51Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 162000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 126880,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0429094",
+    "created_at": "2026-09-08T10:12:01Z"
+  },
+  {
+    "id": "shp_0017",
+    "reference": "SPD-2026-0017",
+    "client_id": "cli_0002",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "automotive",
+    "cargo_description": "Auto parts (gearboxes), EUR pallets",
+    "weight_kg": 9500,
+    "pallets": 31,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "München",
+      "country": "DE",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.1351,
+      "lon": 11.582
+    },
+    "distance_km": 1369.0,
+    "pickup_planned_at": "2026-09-19T09:42:59Z",
+    "delivery_planned_at": "2026-09-21T05:47:49Z",
+    "picked_up_at": "2026-09-19T09:24:59Z",
+    "delivered_at": "2026-09-21T05:38:49Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 177000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 141297,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0440500",
+    "created_at": "2026-09-14T09:42:59Z"
+  },
+  {
+    "id": "shp_0018",
+    "reference": "SPD-2026-0018",
+    "client_id": "cli_0002",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "automotive",
+    "cargo_description": "Auto parts (gearboxes), EUR pallets",
+    "weight_kg": 9500,
+    "pallets": 26,
+    "origin": {
+      "city": "Пловдив",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.1354,
+      "lon": 24.7453
+    },
+    "destination": {
+      "city": "München",
+      "country": "DE",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.1351,
+      "lon": 11.582
+    },
+    "distance_km": 1533.0,
+    "pickup_planned_at": "2026-09-19T14:49:16Z",
+    "delivery_planned_at": "2026-09-21T13:32:49Z",
+    "picked_up_at": "2026-09-19T14:51:16Z",
+    "delivered_at": "2026-09-21T14:05:49Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 199000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 165477,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0438535",
+    "created_at": "2026-09-15T14:49:16Z"
+  },
+  {
+    "id": "shp_0019",
+    "reference": "SPD-2026-0019",
+    "client_id": "cli_0002",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "automotive",
+    "cargo_description": "Auto parts (gearboxes), EUR pallets",
+    "weight_kg": 13600,
+    "pallets": 28,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "München",
+      "country": "DE",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.1351,
+      "lon": 11.582
+    },
+    "distance_km": 1369.0,
+    "pickup_planned_at": "2026-09-24T20:29:42Z",
+    "delivery_planned_at": "2026-09-26T16:34:32Z",
+    "picked_up_at": "2026-09-24T20:58:42Z",
+    "delivered_at": "2026-09-26T16:48:32Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 190000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 155718,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0458165",
+    "created_at": "2026-09-19T20:29:42Z"
+  },
+  {
+    "id": "shp_0020",
+    "reference": "SPD-2026-0020",
+    "client_id": "cli_0003",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "grain",
+    "cargo_description": "Пшеница, насипно",
+    "weight_kg": 23600,
+    "pallets": null,
+    "origin": {
+      "city": "Стара Загора",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.4258,
+      "lon": 25.6345
+    },
+    "destination": {
+      "city": "Варна",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 43.2141,
+      "lon": 27.9147
+    },
+    "distance_km": 256.0,
+    "pickup_planned_at": "2026-05-11T13:34:20Z",
+    "delivery_planned_at": "2026-05-11T17:42:04Z",
+    "picked_up_at": "2026-05-11T13:22:20Z",
+    "delivered_at": "2026-05-11T19:52:04Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 38198,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0446286",
+    "created_at": "2026-05-08T13:34:20Z"
+  },
+  {
+    "id": "shp_0021",
+    "reference": "SPD-2026-0021",
+    "client_id": "cli_0003",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "grain",
+    "cargo_description": "Пшеница, насипно",
+    "weight_kg": 23100,
+    "pallets": null,
+    "origin": {
+      "city": "Стара Загора",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.4258,
+      "lon": 25.6345
+    },
+    "destination": {
+      "city": "Constanța",
+      "country": "RO",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.1598,
+      "lon": 28.6348
+    },
+    "distance_km": 387.0,
+    "pickup_planned_at": "2026-05-23T21:44:20Z",
+    "delivery_planned_at": "2026-05-24T03:58:51Z",
+    "picked_up_at": "2026-05-23T21:24:20Z",
+    "delivered_at": "2026-05-24T03:41:51Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 46000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 38835,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0483979",
+    "created_at": "2026-05-20T21:44:20Z"
+  },
+  {
+    "id": "shp_0022",
+    "reference": "SPD-2026-0022",
+    "client_id": "cli_0003",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "grain",
+    "cargo_description": "Пшеница, насипно",
+    "weight_kg": 23100,
+    "pallets": null,
+    "origin": {
+      "city": "Стара Загора",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.4258,
+      "lon": 25.6345
+    },
+    "destination": {
+      "city": "Θεσσαλονίκη",
+      "country": "GR",
+      "postal_code": null,
+      "address": null,
+      "lat": 40.6401,
+      "lon": 22.9444
+    },
+    "distance_km": 374.0,
+    "pickup_planned_at": "2026-05-31T08:45:35Z",
+    "delivery_planned_at": "2026-05-31T14:47:31Z",
+    "picked_up_at": "2026-05-31T09:08:35Z",
+    "delivered_at": "2026-05-31T14:33:31Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 38887,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0457518",
+    "created_at": "2026-05-27T08:45:35Z"
+  },
+  {
+    "id": "shp_0023",
+    "reference": "SPD-2026-0023",
+    "client_id": "cli_0003",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "grain",
+    "cargo_description": "Пшеница, насипно",
+    "weight_kg": 23200,
+    "pallets": null,
+    "origin": {
+      "city": "Стара Загора",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.4258,
+      "lon": 25.6345
+    },
+    "destination": {
+      "city": "Θεσσαλονίκη",
+      "country": "GR",
+      "postal_code": null,
+      "address": null,
+      "lat": 40.6401,
+      "lon": 22.9444
+    },
+    "distance_km": 374.0,
+    "pickup_planned_at": "2026-06-07T14:47:17Z",
+    "delivery_planned_at": "2026-06-07T20:49:14Z",
+    "picked_up_at": "2026-06-07T14:40:17Z",
+    "delivered_at": "2026-06-07T21:00:14Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 49000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 40798,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0435151",
+    "created_at": "2026-06-02T14:47:17Z"
+  },
+  {
+    "id": "shp_0024",
+    "reference": "SPD-2026-0024",
+    "client_id": "cli_0003",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "grain",
+    "cargo_description": "Пшеница, насипно",
+    "weight_kg": 24800,
+    "pallets": null,
+    "origin": {
+      "city": "Стара Загора",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.4258,
+      "lon": 25.6345
+    },
+    "destination": {
+      "city": "Constanța",
+      "country": "RO",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.1598,
+      "lon": 28.6348
+    },
+    "distance_km": 387.0,
+    "pickup_planned_at": "2026-08-03T01:24:49Z",
+    "delivery_planned_at": "2026-08-03T07:39:20Z",
+    "picked_up_at": "2026-08-03T01:34:49Z",
+    "delivered_at": "2026-08-03T07:51:20Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 49000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 41997,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0472195",
+    "created_at": "2026-08-01T01:24:49Z"
+  },
+  {
+    "id": "shp_0025",
+    "reference": "SPD-2026-0025",
+    "client_id": "cli_0003",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "grain",
+    "cargo_description": "Пшеница, насипно",
+    "weight_kg": 24700,
+    "pallets": null,
+    "origin": {
+      "city": "Стара Загора",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.4258,
+      "lon": 25.6345
+    },
+    "destination": {
+      "city": "Варна",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 43.2141,
+      "lon": 27.9147
+    },
+    "distance_km": 256.0,
+    "pickup_planned_at": "2026-08-15T13:47:15Z",
+    "delivery_planned_at": "2026-08-15T17:55:00Z",
+    "picked_up_at": "2026-08-15T14:08:15Z",
+    "delivered_at": "2026-08-15T18:22:00Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 37012,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0422777",
+    "created_at": "2026-08-13T13:47:15Z"
+  },
+  {
+    "id": "shp_0026",
+    "reference": "SPD-2026-0026",
+    "client_id": "cli_0003",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "grain",
+    "cargo_description": "Пшеница, насипно",
+    "weight_kg": 24900,
+    "pallets": null,
+    "origin": {
+      "city": "Стара Загора",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.4258,
+      "lon": 25.6345
+    },
+    "destination": {
+      "city": "Варна",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 43.2141,
+      "lon": 27.9147
+    },
+    "distance_km": 256.0,
+    "pickup_planned_at": "2026-09-02T13:32:28Z",
+    "delivery_planned_at": "2026-09-02T17:40:12Z",
+    "picked_up_at": "2026-09-02T13:46:28Z",
+    "delivered_at": "2026-09-02T18:07:12Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 38795,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0465622",
+    "created_at": "2026-08-28T13:32:28Z"
+  },
+  {
+    "id": "shp_0027",
+    "reference": "SPD-2026-0027",
+    "client_id": "cli_0003",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "grain",
+    "cargo_description": "Пшеница, насипно",
+    "weight_kg": 23700,
+    "pallets": null,
+    "origin": {
+      "city": "Стара Загора",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.4258,
+      "lon": 25.6345
+    },
+    "destination": {
+      "city": "Θεσσαλονίκη",
+      "country": "GR",
+      "postal_code": null,
+      "address": null,
+      "lat": 40.6401,
+      "lon": 22.9444
+    },
+    "distance_km": 374.0,
+    "pickup_planned_at": "2026-09-20T21:08:16Z",
+    "delivery_planned_at": "2026-09-21T03:10:12Z",
+    "picked_up_at": "2026-09-20T21:35:16Z",
+    "delivered_at": "2026-09-21T03:35:12Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 53000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 46573,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0420449",
+    "created_at": "2026-09-16T21:08:16Z"
+  },
+  {
+    "id": "shp_0028",
+    "reference": "SPD-2026-0028",
+    "client_id": "cli_0004",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "palletized",
+    "cargo_description": "General cargo, palletized",
+    "weight_kg": 13100,
+    "pallets": 21,
+    "origin": {
+      "city": "București",
+      "country": "RO",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.4268,
+      "lon": 26.1025
+    },
+    "destination": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "distance_km": 369.0,
+    "pickup_planned_at": "2026-05-10T03:45:38Z",
+    "delivery_planned_at": "2026-05-10T09:42:44Z",
+    "picked_up_at": "2026-05-10T04:03:38Z",
+    "delivered_at": "2026-05-10T09:58:44Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 48000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 42224,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0456534",
+    "created_at": "2026-05-05T03:45:38Z"
+  },
+  {
+    "id": "shp_0029",
+    "reference": "SPD-2026-0029",
+    "client_id": "cli_0004",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "palletized",
+    "cargo_description": "General cargo, palletized",
+    "weight_kg": 17700,
+    "pallets": 23,
+    "origin": {
+      "city": "Русе",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 43.8356,
+      "lon": 25.9657
+    },
+    "destination": {
+      "city": "Wien",
+      "country": "AT",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.2082,
+      "lon": 16.3738
+    },
+    "distance_km": 1106.0,
+    "pickup_planned_at": "2026-06-06T18:53:35Z",
+    "delivery_planned_at": "2026-06-07T23:43:55Z",
+    "picked_up_at": "2026-06-06T18:34:35Z",
+    "delivered_at": "2026-06-07T23:04:55Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 131000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 114366,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0455298",
+    "created_at": "2026-06-03T18:53:35Z"
+  },
+  {
+    "id": "shp_0030",
+    "reference": "SPD-2026-0030",
+    "client_id": "cli_0004",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "palletized",
+    "cargo_description": "General cargo, palletized",
+    "weight_kg": 8000,
+    "pallets": 21,
+    "origin": {
+      "city": "Русе",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 43.8356,
+      "lon": 25.9657
+    },
+    "destination": {
+      "city": "Wien",
+      "country": "AT",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.2082,
+      "lon": 16.3738
+    },
+    "distance_km": 1106.0,
+    "pickup_planned_at": "2026-08-01T22:04:29Z",
+    "delivery_planned_at": "2026-08-03T02:54:48Z",
+    "picked_up_at": "2026-08-01T21:56:29Z",
+    "delivered_at": "2026-08-03T03:22:48Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 130000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 110169,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0471410",
+    "created_at": "2026-07-28T22:04:29Z"
+  },
+  {
+    "id": "shp_0031",
+    "reference": "SPD-2026-0031",
+    "client_id": "cli_0004",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "palletized",
+    "cargo_description": "General cargo, palletized",
+    "weight_kg": 16900,
+    "pallets": 19,
+    "origin": {
+      "city": "București",
+      "country": "RO",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.4268,
+      "lon": 26.1025
+    },
+    "destination": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "distance_km": 369.0,
+    "pickup_planned_at": "2026-08-03T15:01:17Z",
+    "delivery_planned_at": "2026-08-03T20:58:22Z",
+    "picked_up_at": "2026-08-03T14:51:17Z",
+    "delivered_at": "2026-08-03T21:10:22Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 52000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 44934,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0454342",
+    "created_at": "2026-07-31T15:01:17Z"
+  },
+  {
+    "id": "shp_0032",
+    "reference": "SPD-2026-0032",
+    "client_id": "cli_0004",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "palletized",
+    "cargo_description": "General cargo, palletized",
+    "weight_kg": 8800,
+    "pallets": 24,
+    "origin": {
+      "city": "Русе",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 43.8356,
+      "lon": 25.9657
+    },
+    "destination": {
+      "city": "Wien",
+      "country": "AT",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.2082,
+      "lon": 16.3738
+    },
+    "distance_km": 1106.0,
+    "pickup_planned_at": "2026-08-06T10:31:36Z",
+    "delivery_planned_at": "2026-08-07T15:21:55Z",
+    "picked_up_at": "2026-08-06T10:16:36Z",
+    "delivered_at": "2026-08-07T17:25:55Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 137000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 118109,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0476899",
+    "created_at": "2026-08-04T10:31:36Z"
+  },
+  {
+    "id": "shp_0033",
+    "reference": "SPD-2026-0033",
+    "client_id": "cli_0004",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "palletized",
+    "cargo_description": "General cargo, palletized",
+    "weight_kg": 16400,
+    "pallets": 24,
+    "origin": {
+      "city": "București",
+      "country": "RO",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.4268,
+      "lon": 26.1025
+    },
+    "destination": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "distance_km": 369.0,
+    "pickup_planned_at": "2026-08-13T00:41:59Z",
+    "delivery_planned_at": "2026-08-13T06:39:05Z",
+    "picked_up_at": "2026-08-13T00:52:59Z",
+    "delivered_at": "2026-08-13T06:18:05Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 38229,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0402298",
+    "created_at": "2026-08-12T00:41:59Z"
+  },
+  {
+    "id": "shp_0034",
+    "reference": "SPD-2026-0034",
+    "client_id": "cli_0004",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "palletized",
+    "cargo_description": "General cargo, palletized",
+    "weight_kg": 16500,
+    "pallets": 22,
+    "origin": {
+      "city": "Русе",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 43.8356,
+      "lon": 25.9657
+    },
+    "destination": {
+      "city": "Wien",
+      "country": "AT",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.2082,
+      "lon": 16.3738
+    },
+    "distance_km": 1106.0,
+    "pickup_planned_at": "2026-09-06T12:29:47Z",
+    "delivery_planned_at": "2026-09-07T17:20:07Z",
+    "picked_up_at": "2026-09-06T12:22:47Z",
+    "delivered_at": "2026-09-07T20:24:07Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 153000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 133163,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0411431",
+    "created_at": "2026-09-04T12:29:47Z"
+  },
+  {
+    "id": "shp_0035",
+    "reference": "SPD-2026-0035",
+    "client_id": "cli_0004",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "palletized",
+    "cargo_description": "General cargo, palletized",
+    "weight_kg": 9100,
+    "pallets": 31,
+    "origin": {
+      "city": "București",
+      "country": "RO",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.4268,
+      "lon": 26.1025
+    },
+    "destination": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "distance_km": 369.0,
+    "pickup_planned_at": "2026-09-07T21:18:49Z",
+    "delivery_planned_at": "2026-09-08T03:15:55Z",
+    "picked_up_at": "2026-09-07T21:08:49Z",
+    "delivered_at": "2026-09-08T02:43:55Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 51000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 43718,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0470222",
+    "created_at": "2026-09-04T21:18:49Z"
+  },
+  {
+    "id": "shp_0036",
+    "reference": "SPD-2026-0036",
+    "client_id": "cli_0005",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "textile",
+    "cargo_description": "Ready-made garments in cartons",
+    "weight_kg": 9500,
+    "pallets": null,
+    "origin": {
+      "city": "İstanbul",
+      "country": "TR",
+      "postal_code": null,
+      "address": null,
+      "lat": 41.0082,
+      "lon": 28.9784
+    },
+    "destination": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "distance_km": 630.0,
+    "pickup_planned_at": "2026-06-05T13:34:15Z",
+    "delivery_planned_at": "2026-06-05T23:43:56Z",
+    "picked_up_at": "2026-06-05T13:34:15Z",
+    "delivered_at": "2026-06-05T23:06:56Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 80000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 64492,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0476286",
+    "created_at": "2026-06-01T13:34:15Z"
+  },
+  {
+    "id": "shp_0037",
+    "reference": "SPD-2026-0037",
+    "client_id": "cli_0005",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "textile",
+    "cargo_description": "Ready-made garments in cartons",
+    "weight_kg": 7000,
+    "pallets": null,
+    "origin": {
+      "city": "İstanbul",
+      "country": "TR",
+      "postal_code": null,
+      "address": null,
+      "lat": 41.0082,
+      "lon": 28.9784
+    },
+    "destination": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "distance_km": 630.0,
+    "pickup_planned_at": "2026-06-07T03:29:31Z",
+    "delivery_planned_at": "2026-06-07T13:39:12Z",
+    "picked_up_at": "2026-06-07T03:12:31Z",
+    "delivered_at": "2026-06-07T13:41:12Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 73000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 58879,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0499256",
+    "created_at": "2026-06-04T03:29:31Z"
+  },
+  {
+    "id": "shp_0038",
+    "reference": "SPD-2026-0038",
+    "client_id": "cli_0005",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "textile",
+    "cargo_description": "Ready-made garments in cartons",
+    "weight_kg": 11700,
+    "pallets": null,
+    "origin": {
+      "city": "Bursa",
+      "country": "TR",
+      "postal_code": null,
+      "address": null,
+      "lat": 40.1885,
+      "lon": 29.061
+    },
+    "destination": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "distance_km": 692.0,
+    "pickup_planned_at": "2026-07-06T20:04:03Z",
+    "delivery_planned_at": "2026-07-07T18:13:44Z",
+    "picked_up_at": "2026-07-06T19:57:03Z",
+    "delivered_at": "2026-07-07T22:22:44Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 83000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 70383,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0498395",
+    "created_at": "2026-07-01T20:04:03Z"
+  },
+  {
+    "id": "shp_0039",
+    "reference": "SPD-2026-0039",
+    "client_id": "cli_0005",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "textile",
+    "cargo_description": "Ready-made garments in cartons",
+    "weight_kg": 9900,
+    "pallets": null,
+    "origin": {
+      "city": "Bursa",
+      "country": "TR",
+      "postal_code": null,
+      "address": null,
+      "lat": 40.1885,
+      "lon": 29.061
+    },
+    "destination": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "distance_km": 692.0,
+    "pickup_planned_at": "2026-07-31T17:15:22Z",
+    "delivery_planned_at": "2026-08-01T15:25:03Z",
+    "picked_up_at": "2026-07-31T17:52:22Z",
+    "delivered_at": "2026-08-01T15:58:03Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 84000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 71010,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0440567",
+    "created_at": "2026-07-30T17:15:22Z"
+  },
+  {
+    "id": "shp_0040",
+    "reference": "SPD-2026-0040",
+    "client_id": "cli_0005",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "textile",
+    "cargo_description": "Ready-made garments in cartons",
+    "weight_kg": 6500,
+    "pallets": null,
+    "origin": {
+      "city": "Bursa",
+      "country": "TR",
+      "postal_code": null,
+      "address": null,
+      "lat": 40.1885,
+      "lon": 29.061
+    },
+    "destination": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "distance_km": 692.0,
+    "pickup_planned_at": "2026-08-04T02:31:01Z",
+    "delivery_planned_at": "2026-08-05T00:40:41Z",
+    "picked_up_at": "2026-08-04T02:25:01Z",
+    "delivered_at": "2026-08-05T00:55:41Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 96000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 79817,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0491789",
+    "created_at": "2026-07-31T02:31:01Z"
+  },
+  {
+    "id": "shp_0041",
+    "reference": "SPD-2026-0041",
+    "client_id": "cli_0005",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "textile",
+    "cargo_description": "Ready-made garments in cartons",
+    "weight_kg": 9100,
+    "pallets": null,
+    "origin": {
+      "city": "İstanbul",
+      "country": "TR",
+      "postal_code": null,
+      "address": null,
+      "lat": 41.0082,
+      "lon": 28.9784
+    },
+    "destination": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "distance_km": 630.0,
+    "pickup_planned_at": "2026-08-20T21:22:13Z",
+    "delivery_planned_at": "2026-08-21T07:31:54Z",
+    "picked_up_at": "2026-08-20T21:38:13Z",
+    "delivered_at": "2026-08-21T07:33:54Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 80000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 68149,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0420468",
+    "created_at": "2026-08-15T21:22:13Z"
+  },
+  {
+    "id": "shp_0042",
+    "reference": "SPD-2026-0042",
+    "client_id": "cli_0005",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "textile",
+    "cargo_description": "Ready-made garments in cartons",
+    "weight_kg": 10200,
+    "pallets": null,
+    "origin": {
+      "city": "İstanbul",
+      "country": "TR",
+      "postal_code": null,
+      "address": null,
+      "lat": 41.0082,
+      "lon": 28.9784
+    },
+    "destination": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "distance_km": 630.0,
+    "pickup_planned_at": "2026-10-03T04:55:45Z",
+    "delivery_planned_at": "2026-10-03T15:05:26Z",
+    "picked_up_at": "2026-10-03T05:14:45Z",
+    "delivered_at": "2026-10-03T15:37:26Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 78000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 64719,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0496273",
+    "created_at": "2026-10-02T04:55:45Z"
+  },
+  {
+    "id": "shp_0043",
+    "reference": "SPD-2026-0043",
+    "client_id": "cli_0006",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "pharma",
+    "cargo_description": "Лекарствени продукти, 2–8 °C",
+    "weight_kg": 7700,
+    "pallets": 25,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Wien",
+      "country": "AT",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.2082,
+      "lon": 16.3738
+    },
+    "distance_km": 1021.0,
+    "pickup_planned_at": "2026-05-19T06:46:48Z",
+    "delivery_planned_at": "2026-05-20T10:14:52Z",
+    "picked_up_at": "2026-05-19T07:18:48Z",
+    "delivered_at": "2026-05-20T10:03:52Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 137000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 111114,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0490681",
+    "created_at": "2026-05-15T06:46:48Z"
+  },
+  {
+    "id": "shp_0044",
+    "reference": "SPD-2026-0044",
+    "client_id": "cli_0006",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "pharma",
+    "cargo_description": "Лекарствени продукти, 2–8 °C",
+    "weight_kg": 7700,
+    "pallets": 32,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Варна",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 43.2141,
+      "lon": 27.9147
+    },
+    "distance_km": 472.0,
+    "pickup_planned_at": "2026-05-21T15:47:00Z",
+    "delivery_planned_at": "2026-05-21T23:23:47Z",
+    "picked_up_at": "2026-05-21T15:28:00Z",
+    "delivered_at": "2026-05-21T23:06:47Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 54000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 44245,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0429866",
+    "created_at": "2026-05-18T15:47:00Z"
+  },
+  {
+    "id": "shp_0045",
+    "reference": "SPD-2026-0045",
+    "client_id": "cli_0006",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "pharma",
+    "cargo_description": "Лекарствени продукти, 2–8 °C",
+    "weight_kg": 5100,
+    "pallets": 32,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Wien",
+      "country": "AT",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.2082,
+      "lon": 16.3738
+    },
+    "distance_km": 1021.0,
+    "pickup_planned_at": "2026-06-17T09:43:16Z",
+    "delivery_planned_at": "2026-06-18T13:11:20Z",
+    "picked_up_at": "2026-06-17T10:13:16Z",
+    "delivered_at": "2026-06-18T13:15:20Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 124000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 102524,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0435110",
+    "created_at": "2026-06-14T09:43:16Z"
+  },
+  {
+    "id": "shp_0046",
+    "reference": "SPD-2026-0046",
+    "client_id": "cli_0006",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "pharma",
+    "cargo_description": "Лекарствени продукти, 2–8 °C",
+    "weight_kg": 7000,
+    "pallets": 20,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Варна",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 43.2141,
+      "lon": 27.9147
+    },
+    "distance_km": 472.0,
+    "pickup_planned_at": "2026-07-18T15:06:17Z",
+    "delivery_planned_at": "2026-07-18T22:43:03Z",
+    "picked_up_at": "2026-07-18T14:49:17Z",
+    "delivered_at": "2026-07-18T22:12:03Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 56000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 47290,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0418184",
+    "created_at": "2026-07-14T15:06:17Z"
+  },
+  {
+    "id": "shp_0047",
+    "reference": "SPD-2026-0047",
+    "client_id": "cli_0006",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "pharma",
+    "cargo_description": "Лекарствени продукти, 2–8 °C",
+    "weight_kg": 7400,
+    "pallets": 18,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Варна",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 43.2141,
+      "lon": 27.9147
+    },
+    "distance_km": 472.0,
+    "pickup_planned_at": "2026-07-29T17:15:19Z",
+    "delivery_planned_at": "2026-07-30T00:52:05Z",
+    "picked_up_at": "2026-07-29T16:55:19Z",
+    "delivered_at": "2026-07-30T00:28:05Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 66000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 56475,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0450934",
+    "created_at": "2026-07-26T17:15:19Z"
+  },
+  {
+    "id": "shp_0048",
+    "reference": "SPD-2026-0048",
+    "client_id": "cli_0006",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "pharma",
+    "cargo_description": "Лекарствени продукти, 2–8 °C",
+    "weight_kg": 8700,
+    "pallets": 29,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Варна",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 43.2141,
+      "lon": 27.9147
+    },
+    "distance_km": 472.0,
+    "pickup_planned_at": "2026-08-02T19:05:30Z",
+    "delivery_planned_at": "2026-08-03T02:42:16Z",
+    "picked_up_at": "2026-08-02T19:13:30Z",
+    "delivered_at": "2026-08-03T03:17:16Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 68000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 55189,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0430496",
+    "created_at": "2026-07-30T19:05:30Z"
+  },
+  {
+    "id": "shp_0049",
+    "reference": "SPD-2026-0049",
+    "client_id": "cli_0006",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "pharma",
+    "cargo_description": "Лекарствени продукти, 2–8 °C",
+    "weight_kg": 8300,
+    "pallets": 27,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Wien",
+      "country": "AT",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.2082,
+      "lon": 16.3738
+    },
+    "distance_km": 1021.0,
+    "pickup_planned_at": "2026-08-20T04:01:10Z",
+    "delivery_planned_at": "2026-08-21T07:29:14Z",
+    "picked_up_at": "2026-08-20T04:08:10Z",
+    "delivered_at": "2026-08-21T07:09:14Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 140000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 115132,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0475358",
+    "created_at": "2026-08-15T04:01:10Z"
+  },
+  {
+    "id": "shp_0050",
+    "reference": "SPD-2026-0050",
+    "client_id": "cli_0006",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "pharma",
+    "cargo_description": "Лекарствени продукти, 2–8 °C",
+    "weight_kg": 7600,
+    "pallets": 21,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Варна",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 43.2141,
+      "lon": 27.9147
+    },
+    "distance_km": 472.0,
+    "pickup_planned_at": "2026-09-17T02:03:36Z",
+    "delivery_planned_at": "2026-09-17T09:40:22Z",
+    "picked_up_at": "2026-09-17T02:42:36Z",
+    "delivered_at": "2026-09-17T09:34:22Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 59000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 49028,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0447080",
+    "created_at": "2026-09-12T02:03:36Z"
+  },
+  {
+    "id": "shp_0051",
+    "reference": "SPD-2026-0051",
+    "client_id": "cli_0007",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "food",
+    "cargo_description": "Packaged food products",
+    "weight_kg": 19500,
+    "pallets": 20,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Скопје",
+      "country": "MK",
+      "postal_code": null,
+      "address": null,
+      "lat": 41.9981,
+      "lon": 21.4254
+    },
+    "distance_km": 217.0,
+    "pickup_planned_at": "2026-05-15T05:29:39Z",
+    "delivery_planned_at": "2026-05-15T08:59:39Z",
+    "picked_up_at": "2026-05-15T05:19:39Z",
+    "delivered_at": "2026-05-15T08:31:39Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 41091,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0472652",
+    "created_at": "2026-05-13T05:29:39Z"
+  },
+  {
+    "id": "shp_0052",
+    "reference": "SPD-2026-0052",
+    "client_id": "cli_0007",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "food",
+    "cargo_description": "Packaged food products",
+    "weight_kg": 18000,
+    "pallets": 18,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Скопје",
+      "country": "MK",
+      "postal_code": null,
+      "address": null,
+      "lat": 41.9981,
+      "lon": 21.4254
+    },
+    "distance_km": 217.0,
+    "pickup_planned_at": "2026-07-22T01:23:02Z",
+    "delivery_planned_at": "2026-07-22T04:53:02Z",
+    "picked_up_at": "2026-07-22T01:05:02Z",
+    "delivered_at": "2026-07-22T04:59:02Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 40275,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0436734",
+    "created_at": "2026-07-21T01:23:02Z"
+  },
+  {
+    "id": "shp_0053",
+    "reference": "SPD-2026-0053",
+    "client_id": "cli_0007",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "food",
+    "cargo_description": "Packaged food products",
+    "weight_kg": 10600,
+    "pallets": 20,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Скопје",
+      "country": "MK",
+      "postal_code": null,
+      "address": null,
+      "lat": 41.9981,
+      "lon": 21.4254
+    },
+    "distance_km": 217.0,
+    "pickup_planned_at": "2026-08-13T16:14:03Z",
+    "delivery_planned_at": "2026-08-13T19:44:03Z",
+    "picked_up_at": "2026-08-13T16:35:03Z",
+    "delivered_at": "2026-08-13T19:49:03Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 39970,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0483913",
+    "created_at": "2026-08-12T16:14:03Z"
+  },
+  {
+    "id": "shp_0054",
+    "reference": "SPD-2026-0054",
+    "client_id": "cli_0007",
+    "truck_id": "trk_0005",
+    "status": "delivered",
+    "cargo_type": "food",
+    "cargo_description": "Packaged food products",
+    "weight_kg": 14000,
+    "pallets": 19,
+    "origin": {
+      "city": "Скопје",
+      "country": "MK",
+      "postal_code": null,
+      "address": null,
+      "lat": 41.9981,
+      "lon": 21.4254
+    },
+    "destination": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "distance_km": 217.0,
+    "pickup_planned_at": "2026-08-25T06:43:51Z",
+    "delivery_planned_at": "2026-08-25T10:13:51Z",
+    "picked_up_at": "2026-08-25T06:37:51Z",
+    "delivered_at": "2026-08-25T09:44:51Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 40527,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0412168",
+    "created_at": "2026-08-21T06:43:51Z"
+  },
+  {
+    "id": "shp_0055",
+    "reference": "SPD-2026-0055",
+    "client_id": "cli_0007",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "food",
+    "cargo_description": "Packaged food products",
+    "weight_kg": 14700,
+    "pallets": 31,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Скопје",
+      "country": "MK",
+      "postal_code": null,
+      "address": null,
+      "lat": 41.9981,
+      "lon": 21.4254
+    },
+    "distance_km": 217.0,
+    "pickup_planned_at": "2026-09-08T08:26:41Z",
+    "delivery_planned_at": "2026-09-08T11:56:41Z",
+    "picked_up_at": "2026-09-08T08:22:41Z",
+    "delivered_at": "2026-09-08T16:43:41Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 40499,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0455099",
+    "created_at": "2026-09-06T08:26:41Z"
+  },
+  {
+    "id": "shp_0056",
+    "reference": "SPD-2026-0056",
+    "client_id": "cli_0007",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "food",
+    "cargo_description": "Packaged food products",
+    "weight_kg": 15100,
+    "pallets": 33,
+    "origin": {
+      "city": "Скопје",
+      "country": "MK",
+      "postal_code": null,
+      "address": null,
+      "lat": 41.9981,
+      "lon": 21.4254
+    },
+    "destination": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "distance_km": 217.0,
+    "pickup_planned_at": "2026-09-09T12:36:31Z",
+    "delivery_planned_at": "2026-09-09T16:06:31Z",
+    "picked_up_at": "2026-09-09T13:09:31Z",
+    "delivered_at": "2026-09-09T20:56:31Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 40151,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0449761",
+    "created_at": "2026-09-04T12:36:31Z"
+  },
+  {
+    "id": "shp_0057",
+    "reference": "SPD-2026-0057",
+    "client_id": "cli_0008",
+    "truck_id": "trk_0002",
+    "status": "delivered",
+    "cargo_type": "furniture",
+    "cargo_description": "Мека мебел, опакована",
+    "weight_kg": 6500,
+    "pallets": null,
+    "origin": {
+      "city": "Пловдив",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.1354,
+      "lon": 24.7453
+    },
+    "destination": {
+      "city": "Milano",
+      "country": "IT",
+      "postal_code": null,
+      "address": null,
+      "lat": 45.4642,
+      "lon": 9.19
+    },
+    "distance_km": 1624.0,
+    "pickup_planned_at": "2026-10-06T07:30:00Z",
+    "delivery_planned_at": "2026-10-08T07:41:36Z",
+    "picked_up_at": "2026-10-06T07:42:00Z",
+    "delivered_at": "2026-10-08T07:44:36Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 212000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 184560,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0445738",
+    "created_at": "2026-10-01T07:30:00Z"
+  },
+  {
+    "id": "shp_0801",
+    "reference": "SPD-2026-0801",
+    "client_id": "cli_0001",
+    "truck_id": "trk_0001",
+    "status": "delivered",
+    "cargo_type": "steel",
+    "cargo_description": "Арматура и стоманени профили",
+    "weight_kg": 23000,
+    "pallets": null,
+    "origin": {
+      "city": "Перник",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6052,
+      "lon": 23.0378
+    },
+    "destination": {
+      "city": "București",
+      "country": "RO",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.4268,
+      "lon": 26.1025
+    },
+    "distance_km": 399.0,
+    "pickup_planned_at": "2026-07-30T11:30:00Z",
+    "delivery_planned_at": "2026-07-30T17:56:07Z",
+    "picked_up_at": "2026-07-30T11:26:00Z",
+    "delivered_at": "2026-07-30T18:16:07Z",
+    "eta_at": null,
+    "price": {
+      "amount_minor": 348000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 331000,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0409592",
+    "created_at": "2026-07-27T11:30:00Z"
+  },
+  {
+    "id": "shp_0901",
+    "reference": "SPD-2026-0901",
+    "client_id": "cli_0002",
+    "truck_id": "trk_0003",
+    "status": "in_transit",
+    "cargo_type": "automotive",
+    "cargo_description": "Auto parts (gearboxes), EUR pallets",
+    "weight_kg": 14200,
+    "pallets": 26,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "München",
+      "country": "DE",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.1351,
+      "lon": 11.582
+    },
+    "distance_km": 1369.0,
+    "pickup_planned_at": "2026-10-14T15:50:00Z",
+    "delivery_planned_at": "2026-10-16T06:00:00Z",
+    "picked_up_at": "2026-10-14T16:10:00Z",
+    "delivered_at": null,
+    "eta_at": "2026-10-16T08:20:00Z",
+    "price": {
+      "amount_minor": 215000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 172000,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0457812",
+    "created_at": "2026-10-09T15:50:00Z"
+  },
+  {
+    "id": "shp_0902",
+    "reference": "SPD-2026-0902",
+    "client_id": "cli_0006",
+    "truck_id": "trk_0004",
+    "status": "in_transit",
+    "cargo_type": "pharma",
+    "cargo_description": "Лекарствени продукти, 2–8 °C",
+    "weight_kg": 5800,
+    "pallets": 31,
+    "origin": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "destination": {
+      "city": "Wien",
+      "country": "AT",
+      "postal_code": null,
+      "address": null,
+      "lat": 48.2082,
+      "lon": 16.3738
+    },
+    "distance_km": 1021.0,
+    "pickup_planned_at": "2026-10-14T22:30:00Z",
+    "delivery_planned_at": "2026-10-16T01:58:03Z",
+    "picked_up_at": "2026-10-14T22:34:00Z",
+    "delivered_at": null,
+    "eta_at": "2026-10-16T01:38:03Z",
+    "price": {
+      "amount_minor": 118000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 97524,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0434169",
+    "created_at": "2026-10-10T22:30:00Z"
+  },
+  {
+    "id": "shp_0903",
+    "reference": "SPD-2026-0903",
+    "client_id": "cli_0004",
+    "truck_id": "trk_0005",
+    "status": "in_transit",
+    "cargo_type": "palletized",
+    "cargo_description": "General cargo, palletized",
+    "weight_kg": 12800,
+    "pallets": 32,
+    "origin": {
+      "city": "București",
+      "country": "RO",
+      "postal_code": null,
+      "address": null,
+      "lat": 44.4268,
+      "lon": 26.1025
+    },
+    "destination": {
+      "city": "София",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.6977,
+      "lon": 23.3219
+    },
+    "distance_km": 369.0,
+    "pickup_planned_at": "2026-10-15T01:30:00Z",
+    "delivery_planned_at": "2026-10-15T07:27:05Z",
+    "picked_up_at": "2026-10-15T01:55:00Z",
+    "delivered_at": null,
+    "eta_at": "2026-10-15T07:52:05Z",
+    "price": {
+      "amount_minor": 46000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 39889,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0480112",
+    "created_at": "2026-10-12T01:30:00Z"
+  },
+  {
+    "id": "shp_0904",
+    "reference": "SPD-2026-0904",
+    "client_id": "cli_0008",
+    "truck_id": "trk_0002",
+    "status": "booked",
+    "cargo_type": "furniture",
+    "cargo_description": "Мека мебел, опакована",
+    "weight_kg": 8900,
+    "pallets": null,
+    "origin": {
+      "city": "Пловдив",
+      "country": "BG",
+      "postal_code": null,
+      "address": null,
+      "lat": 42.1354,
+      "lon": 24.7453
+    },
+    "destination": {
+      "city": "Milano",
+      "country": "IT",
+      "postal_code": null,
+      "address": null,
+      "lat": 45.4642,
+      "lon": 9.19
+    },
+    "distance_km": 1624.0,
+    "pickup_planned_at": "2026-10-16T05:30:00Z",
+    "delivery_planned_at": "2026-10-18T05:41:36Z",
+    "picked_up_at": null,
+    "delivered_at": null,
+    "eta_at": null,
+    "price": {
+      "amount_minor": 204000,
+      "currency": "EUR"
+    },
+    "cost": {
+      "amount_minor": 171886,
+      "currency": "EUR"
+    },
+    "cmr_number": "BG 0424406",
+    "created_at": "2026-10-15T05:30:00Z"
+  }
+]

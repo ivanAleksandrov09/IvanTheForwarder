@@ -1,0 +1,20 @@
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      # regenerates seed + types and fails if they differ from what was committed (schema drift gate),
+      # then runs backend tests (incl. contract tests) and the frontend typecheck
+      - run: npm run seed
+      - run: npm run check

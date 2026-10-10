@@ -1,0 +1,48 @@
+[
+  {
+    "id": "eml_0101",
+    "message_id": "<eml_0101.799819@balkansteel.bg>",
+    "thread_id": null,
+    "mailbox": "office@vitosha-spedition.bg",
+    "direction": "inbound",
+    "from_address": "g.petrov@balkansteel.bg",
+    "from_name": "Георги Петров",
+    "to_addresses": [
+      "office@vitosha-spedition.bg"
+    ],
+    "cc_addresses": [],
+    "subject": "Нов товар Перник – Букурещ",
+    "body_text": "Здравейте,\n\nИмаме 22 т арматура за Букурещ, товарене следващия вторник. Можете ли да ни дадете цена до утре?\n\nПоздрави,\nГ. Петров",
+    "language": "bg",
+    "sent_at": "2026-10-15T07:05:00Z",
+    "client_id": "cli_0001",
+    "shipment_id": null,
+    "attachment_document_ids": [],
+    "labels": [
+      "quote_request"
+    ]
+  },
+  {
+    "id": "eml_0102",
+    "message_id": "<eml_0102.807738@anadolutekstil.com.tr>",
+    "thread_id": null,
+    "mailbox": "office@vitosha-spedition.bg",
+    "direction": "inbound",
+    "from_address": "mehmet.yilmaz@anadolutekstil.com.tr",
+    "from_name": "Mehmet Yılmaz",
+    "to_addresses": [
+      "office@vitosha-spedition.bg"
+    ],
+    "cc_addresses": [],
+    "subject": "Teklif talebi: Bursa – Sofya, 18 ton tekstil",
+    "body_text": "Merhaba,\n\n21 Ekim için Bursa'dan Sofya'ya 18 ton tekstil ürünü için fiyat teklifi rica ediyoruz.\n\nSaygılarımızla,\nMehmet Yılmaz",
+    "language": "tr",
+    "sent_at": "2026-10-15T06:40:00Z",
+    "client_id": "cli_0005",
+    "shipment_id": null,
+    "attachment_document_ids": [],
+    "labels": [
+      "quote_request"
+    ]
+  }
+]

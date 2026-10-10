@@ -1,0 +1,294 @@
+[
+  {
+    "id": "doc_0901",
+    "doc_type": "transport_order",
+    "filename": "Transportauftrag_SPD-2026-0901.pdf",
+    "mime_type": "application/pdf",
+    "source": "email",
+    "received_at": "2026-10-13T07:30:00Z",
+    "language": "en",
+    "client_id": "cli_0002",
+    "shipment_id": "shp_0901",
+    "invoice_id": null,
+    "email_id": "eml_0007",
+    "extracted_text": null,
+    "extracted_fields": {
+      "delivery_slot": "2026-10-16T06:00:00Z",
+      "pallets": "26",
+      "gross_weight_kg": "14200"
+    },
+    "extraction_confidence": 0.88
+  },
+  {
+    "id": "doc_0902",
+    "doc_type": "rate_sheet",
+    "filename": "Rhein_Logistik_rates_2026.xlsx",
+    "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "source": "email",
+    "received_at": "2026-07-17T07:30:00Z",
+    "language": "en",
+    "client_id": "cli_0002",
+    "shipment_id": null,
+    "invoice_id": null,
+    "email_id": null,
+    "extracted_text": null,
+    "extracted_fields": {
+      "lane": "BG-DE",
+      "currency": "EUR",
+      "valid_until": "2026-12-31"
+    },
+    "extraction_confidence": null
+  },
+  {
+    "id": "doc_cmr0010",
+    "doc_type": "cmr",
+    "filename": "CMR_SPD-2026-0010.pdf",
+    "mime_type": "application/pdf",
+    "source": "documents",
+    "received_at": "2026-10-01T12:27:34Z",
+    "language": "en",
+    "client_id": "cli_0001",
+    "shipment_id": "shp_0010",
+    "invoice_id": null,
+    "email_id": null,
+    "extracted_text": null,
+    "extracted_fields": {
+      "cmr_number": "BG 0473910",
+      "place_of_taking_over": "Перник",
+      "place_of_delivery": "București",
+      "gross_weight_kg": "21000"
+    },
+    "extraction_confidence": 0.93
+  },
+  {
+    "id": "doc_cmr0016",
+    "doc_type": "cmr",
+    "filename": "CMR_SPD-2026-0016.pdf",
+    "mime_type": "application/pdf",
+    "source": "documents",
+    "received_at": "2026-09-12T10:21:51Z",
+    "language": "en",
+    "client_id": "cli_0002",
+    "shipment_id": "shp_0016",
+    "invoice_id": null,
+    "email_id": null,
+    "extracted_text": null,
+    "extracted_fields": {
+      "cmr_number": "BG 0429094",
+      "place_of_taking_over": "София",
+      "place_of_delivery": "München",
+      "gross_weight_kg": "13300"
+    },
+    "extraction_confidence": 0.93
+  },
+  {
+    "id": "doc_cmr0017",
+    "doc_type": "cmr",
+    "filename": "CMR_SPD-2026-0017.pdf",
+    "mime_type": "application/pdf",
+    "source": "documents",
+    "received_at": "2026-09-21T05:38:49Z",
+    "language": "en",
+    "client_id": "cli_0002",
+    "shipment_id": "shp_0017",
+    "invoice_id": null,
+    "email_id": null,
+    "extracted_text": null,
+    "extracted_fields": {
+      "cmr_number": "BG 0440500",
+      "place_of_taking_over": "София",
+      "place_of_delivery": "München",
+      "gross_weight_kg": "9500"
+    },
+    "extraction_confidence": 0.93
+  },
+  {
+    "id": "doc_cmr0018",
+    "doc_type": "cmr",
+    "filename": "CMR_SPD-2026-0018.pdf",
+    "mime_type": "application/pdf",
+    "source": "documents",
+    "received_at": "2026-09-21T14:05:49Z",
+    "language": "en",
+    "client_id": "cli_0002",
+    "shipment_id": "shp_0018",
+    "invoice_id": null,
+    "email_id": null,
+    "extracted_text": null,
+    "extracted_fields": {
+      "cmr_number": "BG 0438535",
+      "place_of_taking_over": "Пловдив",
+      "place_of_delivery": "München",
+      "gross_weight_kg": "9500"
+    },
+    "extraction_confidence": 0.93
+  },
+  {
+    "id": "doc_cmr0019",
+    "doc_type": "cmr",
+    "filename": "CMR_SPD-2026-0019.pdf",
+    "mime_type": "application/pdf",
+    "source": "documents",
+    "received_at": "2026-09-26T16:48:32Z",
+    "language": "en",
+    "client_id": "cli_0002",
+    "shipment_id": "shp_0019",
+    "invoice_id": null,
+    "email_id": null,
+    "extracted_text": null,
+    "extracted_fields": {
+      "cmr_number": "BG 0458165",
+      "place_of_taking_over": "София",
+      "place_of_delivery": "München",
+      "gross_weight_kg": "13600"
+    },
+    "extraction_confidence": 0.93
+  },
+  {
+    "id": "doc_cmr0027",
+    "doc_type": "cmr",
+    "filename": "CMR_SPD-2026-0027.pdf",
+    "mime_type": "application/pdf",
+    "source": "documents",
+    "received_at": "2026-09-21T03:35:12Z",
+    "language": "en",
+    "client_id": "cli_0003",
+    "shipment_id": "shp_0027",
+    "invoice_id": null,
+    "email_id": null,
+    "extracted_text": null,
+    "extracted_fields": {
+      "cmr_number": "BG 0420449",
+      "place_of_taking_over": "Стара Загора",
+      "place_of_delivery": "Θεσσαλονίκη",
+      "gross_weight_kg": "23700"
+    },
+    "extraction_confidence": 0.93
+  },
+  {
+    "id": "doc_cmr0042",
+    "doc_type": "cmr",
+    "filename": "CMR_SPD-2026-0042.pdf",
+    "mime_type": "application/pdf",
+    "source": "documents",
+    "received_at": "2026-10-03T15:37:26Z",
+    "language": "en",
+    "client_id": "cli_0005",
+    "shipment_id": "shp_0042",
+    "invoice_id": null,
+    "email_id": null,
+    "extracted_text": null,
+    "extracted_fields": {
+      "cmr_number": "BG 0496273",
+      "place_of_taking_over": "İstanbul",
+      "place_of_delivery": "София",
+      "gross_weight_kg": "10200"
+    },
+    "extraction_confidence": 0.93
+  },
+  {
+    "id": "doc_cmr0050",
+    "doc_type": "cmr",
+    "filename": "CMR_SPD-2026-0050.pdf",
+    "mime_type": "application/pdf",
+    "source": "documents",
+    "received_at": "2026-09-17T09:34:22Z",
+    "language": "en",
+    "client_id": "cli_0006",
+    "shipment_id": "shp_0050",
+    "invoice_id": null,
+    "email_id": null,
+    "extracted_text": null,
+    "extracted_fields": {
+      "cmr_number": "BG 0447080",
+      "place_of_taking_over": "София",
+      "place_of_delivery": "Варна",
+      "gross_weight_kg": "7600"
+    },
+    "extraction_confidence": 0.93
+  },
+  {
+    "id": "doc_cmr0057",
+    "doc_type": "cmr",
+    "filename": "CMR_SPD-2026-0057.pdf",
+    "mime_type": "application/pdf",
+    "source": "documents",
+    "received_at": "2026-10-08T07:44:36Z",
+    "language": "en",
+    "client_id": "cli_0008",
+    "shipment_id": "shp_0057",
+    "invoice_id": null,
+    "email_id": null,
+    "extracted_text": null,
+    "extracted_fields": {
+      "cmr_number": "BG 0445738",
+      "place_of_taking_over": "Пловдив",
+      "place_of_delivery": "Milano",
+      "gross_weight_kg": "6500"
+    },
+    "extraction_confidence": 0.93
+  },
+  {
+    "id": "doc_cmr0901",
+    "doc_type": "cmr",
+    "filename": "CMR_SPD-2026-0901.pdf",
+    "mime_type": "application/pdf",
+    "source": "documents",
+    "received_at": "2026-10-14T16:10:00Z",
+    "language": "en",
+    "client_id": "cli_0002",
+    "shipment_id": "shp_0901",
+    "invoice_id": null,
+    "email_id": null,
+    "extracted_text": null,
+    "extracted_fields": {
+      "cmr_number": "BG 0457812",
+      "place_of_taking_over": "София",
+      "place_of_delivery": "München",
+      "gross_weight_kg": "14200"
+    },
+    "extraction_confidence": 0.93
+  },
+  {
+    "id": "doc_cmr0902",
+    "doc_type": "cmr",
+    "filename": "CMR_SPD-2026-0902.pdf",
+    "mime_type": "application/pdf",
+    "source": "documents",
+    "received_at": "2026-10-14T22:34:00Z",
+    "language": "en",
+    "client_id": "cli_0006",
+    "shipment_id": "shp_0902",
+    "invoice_id": null,
+    "email_id": null,
+    "extracted_text": null,
+    "extracted_fields": {
+      "cmr_number": "BG 0434169",
+      "place_of_taking_over": "София",
+      "place_of_delivery": "Wien",
+      "gross_weight_kg": "5800"
+    },
+    "extraction_confidence": 0.93
+  },
+  {
+    "id": "doc_cmr0903",
+    "doc_type": "cmr",
+    "filename": "CMR_SPD-2026-0903.pdf",
+    "mime_type": "application/pdf",
+    "source": "documents",
+    "received_at": "2026-10-15T01:55:00Z",
+    "language": "en",
+    "client_id": "cli_0004",
+    "shipment_id": "shp_0903",
+    "invoice_id": null,
+    "email_id": null,
+    "extracted_text": null,
+    "extracted_fields": {
+      "cmr_number": "BG 0480112",
+      "place_of_taking_over": "București",
+      "place_of_delivery": "София",
+      "gross_weight_kg": "12800"
+    },
+    "extraction_confidence": 0.93
+  }
+]

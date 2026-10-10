@@ -1,0 +1,1336 @@
+[
+  {
+    "id": "inv_0001",
+    "number": "0000000001",
+    "client_id": "cli_0001",
+    "shipment_ids": [
+      "shp_0001"
+    ],
+    "issued_at": "2026-05-22T14:44:29Z",
+    "due_at": "2026-06-21T14:44:29Z",
+    "net": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0002",
+    "number": "0000000002",
+    "client_id": "cli_0001",
+    "shipment_ids": [
+      "shp_0002"
+    ],
+    "issued_at": "2026-06-05T22:57:01Z",
+    "due_at": "2026-07-05T22:57:01Z",
+    "net": {
+      "amount_minor": 58000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 58000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0003",
+    "number": "0000000003",
+    "client_id": "cli_0001",
+    "shipment_ids": [
+      "shp_0003"
+    ],
+    "issued_at": "2026-07-01T08:33:37Z",
+    "due_at": "2026-07-31T08:33:37Z",
+    "net": {
+      "amount_minor": 51000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 51000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0004",
+    "number": "0000000004",
+    "client_id": "cli_0001",
+    "shipment_ids": [
+      "shp_0004"
+    ],
+    "issued_at": "2026-07-07T20:58:27Z",
+    "due_at": "2026-08-06T20:58:27Z",
+    "net": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0005",
+    "number": "0000000005",
+    "client_id": "cli_0001",
+    "shipment_ids": [
+      "shp_0005"
+    ],
+    "issued_at": "2026-07-20T18:10:20Z",
+    "due_at": "2026-08-19T18:10:20Z",
+    "net": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0006",
+    "number": "0000000006",
+    "client_id": "cli_0001",
+    "shipment_ids": [
+      "shp_0006"
+    ],
+    "issued_at": "2026-07-27T09:22:16Z",
+    "due_at": "2026-08-26T09:22:16Z",
+    "net": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0007",
+    "number": "0000000007",
+    "client_id": "cli_0001",
+    "shipment_ids": [
+      "shp_0007"
+    ],
+    "issued_at": "2026-08-05T07:05:37Z",
+    "due_at": "2026-09-04T07:05:37Z",
+    "net": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0008",
+    "number": "0000000008",
+    "client_id": "cli_0001",
+    "shipment_ids": [
+      "shp_0008"
+    ],
+    "issued_at": "2026-08-09T10:48:35Z",
+    "due_at": "2026-09-08T10:48:35Z",
+    "net": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 57000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0009",
+    "number": "0000000009",
+    "client_id": "cli_0001",
+    "shipment_ids": [
+      "shp_0009"
+    ],
+    "issued_at": "2026-09-08T10:21:39Z",
+    "due_at": "2026-10-08T10:21:39Z",
+    "net": {
+      "amount_minor": 53000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 53000,
+      "currency": "EUR"
+    },
+    "status": "issued"
+  },
+  {
+    "id": "inv_0010",
+    "number": "0000000010",
+    "client_id": "cli_0001",
+    "shipment_ids": [
+      "shp_0010"
+    ],
+    "issued_at": "2026-10-02T12:27:34Z",
+    "due_at": "2026-11-01T12:27:34Z",
+    "net": {
+      "amount_minor": 55000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 55000,
+      "currency": "EUR"
+    },
+    "status": "issued"
+  },
+  {
+    "id": "inv_0011",
+    "number": "0000000011",
+    "client_id": "cli_0002",
+    "shipment_ids": [
+      "shp_0011"
+    ],
+    "issued_at": "2026-05-14T21:42:34Z",
+    "due_at": "2026-06-28T21:42:34Z",
+    "net": {
+      "amount_minor": 216000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 216000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0012",
+    "number": "0000000012",
+    "client_id": "cli_0002",
+    "shipment_ids": [
+      "shp_0012"
+    ],
+    "issued_at": "2026-06-03T04:09:50Z",
+    "due_at": "2026-07-18T04:09:50Z",
+    "net": {
+      "amount_minor": 158000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 158000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0013",
+    "number": "0000000013",
+    "client_id": "cli_0002",
+    "shipment_ids": [
+      "shp_0013"
+    ],
+    "issued_at": "2026-07-06T13:25:22Z",
+    "due_at": "2026-08-20T13:25:22Z",
+    "net": {
+      "amount_minor": 183000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 183000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0014",
+    "number": "0000000014",
+    "client_id": "cli_0002",
+    "shipment_ids": [
+      "shp_0014"
+    ],
+    "issued_at": "2026-08-14T14:20:20Z",
+    "due_at": "2026-09-28T14:20:20Z",
+    "net": {
+      "amount_minor": 219000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 219000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0015",
+    "number": "0000000015",
+    "client_id": "cli_0002",
+    "shipment_ids": [
+      "shp_0015"
+    ],
+    "issued_at": "2026-08-26T09:50:33Z",
+    "due_at": "2026-10-10T09:50:33Z",
+    "net": {
+      "amount_minor": 165000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 165000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0016",
+    "number": "0000000016",
+    "client_id": "cli_0002",
+    "shipment_ids": [
+      "shp_0016"
+    ],
+    "issued_at": "2026-09-13T10:21:51Z",
+    "due_at": "2026-10-28T10:21:51Z",
+    "net": {
+      "amount_minor": 162000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 162000,
+      "currency": "EUR"
+    },
+    "status": "issued"
+  },
+  {
+    "id": "inv_0017",
+    "number": "0000000017",
+    "client_id": "cli_0002",
+    "shipment_ids": [
+      "shp_0017"
+    ],
+    "issued_at": "2026-09-22T05:38:49Z",
+    "due_at": "2026-11-06T05:38:49Z",
+    "net": {
+      "amount_minor": 177000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 177000,
+      "currency": "EUR"
+    },
+    "status": "issued"
+  },
+  {
+    "id": "inv_0018",
+    "number": "0000000018",
+    "client_id": "cli_0002",
+    "shipment_ids": [
+      "shp_0018"
+    ],
+    "issued_at": "2026-09-22T14:05:49Z",
+    "due_at": "2026-11-06T14:05:49Z",
+    "net": {
+      "amount_minor": 199000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 199000,
+      "currency": "EUR"
+    },
+    "status": "issued"
+  },
+  {
+    "id": "inv_0019",
+    "number": "0000000019",
+    "client_id": "cli_0002",
+    "shipment_ids": [
+      "shp_0019"
+    ],
+    "issued_at": "2026-09-27T16:48:32Z",
+    "due_at": "2026-11-11T16:48:32Z",
+    "net": {
+      "amount_minor": 190000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 190000,
+      "currency": "EUR"
+    },
+    "status": "issued"
+  },
+  {
+    "id": "inv_0020",
+    "number": "0000000020",
+    "client_id": "cli_0003",
+    "shipment_ids": [
+      "shp_0020"
+    ],
+    "issued_at": "2026-05-12T19:52:04Z",
+    "due_at": "2026-06-02T19:52:04Z",
+    "net": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 9000,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 54000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0021",
+    "number": "0000000021",
+    "client_id": "cli_0003",
+    "shipment_ids": [
+      "shp_0021"
+    ],
+    "issued_at": "2026-05-25T03:41:51Z",
+    "due_at": "2026-06-15T03:41:51Z",
+    "net": {
+      "amount_minor": 46000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 46000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0022",
+    "number": "0000000022",
+    "client_id": "cli_0003",
+    "shipment_ids": [
+      "shp_0022"
+    ],
+    "issued_at": "2026-06-01T14:33:31Z",
+    "due_at": "2026-06-22T14:33:31Z",
+    "net": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0023",
+    "number": "0000000023",
+    "client_id": "cli_0003",
+    "shipment_ids": [
+      "shp_0023"
+    ],
+    "issued_at": "2026-06-08T21:00:14Z",
+    "due_at": "2026-06-29T21:00:14Z",
+    "net": {
+      "amount_minor": 49000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 49000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0024",
+    "number": "0000000024",
+    "client_id": "cli_0003",
+    "shipment_ids": [
+      "shp_0024"
+    ],
+    "issued_at": "2026-08-04T07:51:20Z",
+    "due_at": "2026-08-25T07:51:20Z",
+    "net": {
+      "amount_minor": 49000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 49000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0025",
+    "number": "0000000025",
+    "client_id": "cli_0003",
+    "shipment_ids": [
+      "shp_0025"
+    ],
+    "issued_at": "2026-08-16T18:22:00Z",
+    "due_at": "2026-09-06T18:22:00Z",
+    "net": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 9000,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 54000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0026",
+    "number": "0000000026",
+    "client_id": "cli_0003",
+    "shipment_ids": [
+      "shp_0026"
+    ],
+    "issued_at": "2026-09-03T18:07:12Z",
+    "due_at": "2026-09-24T18:07:12Z",
+    "net": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 9000,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 54000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0027",
+    "number": "0000000027",
+    "client_id": "cli_0003",
+    "shipment_ids": [
+      "shp_0027"
+    ],
+    "issued_at": "2026-09-22T03:35:12Z",
+    "due_at": "2026-10-13T03:35:12Z",
+    "net": {
+      "amount_minor": 53000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 53000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0028",
+    "number": "0000000028",
+    "client_id": "cli_0004",
+    "shipment_ids": [
+      "shp_0028"
+    ],
+    "issued_at": "2026-05-11T09:58:44Z",
+    "due_at": "2026-06-10T09:58:44Z",
+    "net": {
+      "amount_minor": 48000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 48000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0029",
+    "number": "0000000029",
+    "client_id": "cli_0004",
+    "shipment_ids": [
+      "shp_0029"
+    ],
+    "issued_at": "2026-06-08T23:04:55Z",
+    "due_at": "2026-07-08T23:04:55Z",
+    "net": {
+      "amount_minor": 131000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 131000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0030",
+    "number": "0000000030",
+    "client_id": "cli_0004",
+    "shipment_ids": [
+      "shp_0030"
+    ],
+    "issued_at": "2026-08-04T03:22:48Z",
+    "due_at": "2026-09-03T03:22:48Z",
+    "net": {
+      "amount_minor": 130000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 130000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0031",
+    "number": "0000000031",
+    "client_id": "cli_0004",
+    "shipment_ids": [
+      "shp_0031"
+    ],
+    "issued_at": "2026-08-04T21:10:22Z",
+    "due_at": "2026-09-03T21:10:22Z",
+    "net": {
+      "amount_minor": 52000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 52000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0032",
+    "number": "0000000032",
+    "client_id": "cli_0004",
+    "shipment_ids": [
+      "shp_0032"
+    ],
+    "issued_at": "2026-08-08T17:25:55Z",
+    "due_at": "2026-09-07T17:25:55Z",
+    "net": {
+      "amount_minor": 137000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 137000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0033",
+    "number": "0000000033",
+    "client_id": "cli_0004",
+    "shipment_ids": [
+      "shp_0033"
+    ],
+    "issued_at": "2026-08-14T06:18:05Z",
+    "due_at": "2026-09-13T06:18:05Z",
+    "net": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0034",
+    "number": "0000000034",
+    "client_id": "cli_0004",
+    "shipment_ids": [
+      "shp_0034"
+    ],
+    "issued_at": "2026-09-08T20:24:07Z",
+    "due_at": "2026-10-08T20:24:07Z",
+    "net": {
+      "amount_minor": 153000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 153000,
+      "currency": "EUR"
+    },
+    "status": "issued"
+  },
+  {
+    "id": "inv_0035",
+    "number": "0000000035",
+    "client_id": "cli_0004",
+    "shipment_ids": [
+      "shp_0035"
+    ],
+    "issued_at": "2026-09-09T02:43:55Z",
+    "due_at": "2026-10-09T02:43:55Z",
+    "net": {
+      "amount_minor": 51000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 51000,
+      "currency": "EUR"
+    },
+    "status": "issued"
+  },
+  {
+    "id": "inv_0036",
+    "number": "0000000036",
+    "client_id": "cli_0005",
+    "shipment_ids": [
+      "shp_0036"
+    ],
+    "issued_at": "2026-06-06T23:06:56Z",
+    "due_at": "2026-07-06T23:06:56Z",
+    "net": {
+      "amount_minor": 80000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 80000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0037",
+    "number": "0000000037",
+    "client_id": "cli_0005",
+    "shipment_ids": [
+      "shp_0037"
+    ],
+    "issued_at": "2026-06-08T13:41:12Z",
+    "due_at": "2026-07-08T13:41:12Z",
+    "net": {
+      "amount_minor": 73000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 73000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0038",
+    "number": "0000000038",
+    "client_id": "cli_0005",
+    "shipment_ids": [
+      "shp_0038"
+    ],
+    "issued_at": "2026-07-08T22:22:44Z",
+    "due_at": "2026-08-07T22:22:44Z",
+    "net": {
+      "amount_minor": 83000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 83000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0039",
+    "number": "0000000039",
+    "client_id": "cli_0005",
+    "shipment_ids": [
+      "shp_0039"
+    ],
+    "issued_at": "2026-08-02T15:58:03Z",
+    "due_at": "2026-09-01T15:58:03Z",
+    "net": {
+      "amount_minor": 84000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 84000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0040",
+    "number": "0000000040",
+    "client_id": "cli_0005",
+    "shipment_ids": [
+      "shp_0040"
+    ],
+    "issued_at": "2026-08-06T00:55:41Z",
+    "due_at": "2026-09-05T00:55:41Z",
+    "net": {
+      "amount_minor": 96000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 96000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0041",
+    "number": "0000000041",
+    "client_id": "cli_0005",
+    "shipment_ids": [
+      "shp_0041"
+    ],
+    "issued_at": "2026-08-22T07:33:54Z",
+    "due_at": "2026-09-21T07:33:54Z",
+    "net": {
+      "amount_minor": 80000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 80000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0042",
+    "number": "0000000042",
+    "client_id": "cli_0005",
+    "shipment_ids": [
+      "shp_0042"
+    ],
+    "issued_at": "2026-10-04T15:37:26Z",
+    "due_at": "2026-11-03T15:37:26Z",
+    "net": {
+      "amount_minor": 78000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 78000,
+      "currency": "EUR"
+    },
+    "status": "issued"
+  },
+  {
+    "id": "inv_0043",
+    "number": "0000000043",
+    "client_id": "cli_0006",
+    "shipment_ids": [
+      "shp_0043"
+    ],
+    "issued_at": "2026-05-21T10:03:52Z",
+    "due_at": "2026-06-20T10:03:52Z",
+    "net": {
+      "amount_minor": 137000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 137000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0044",
+    "number": "0000000044",
+    "client_id": "cli_0006",
+    "shipment_ids": [
+      "shp_0044"
+    ],
+    "issued_at": "2026-05-22T23:06:47Z",
+    "due_at": "2026-06-21T23:06:47Z",
+    "net": {
+      "amount_minor": 54000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 10800,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 64800,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0045",
+    "number": "0000000045",
+    "client_id": "cli_0006",
+    "shipment_ids": [
+      "shp_0045"
+    ],
+    "issued_at": "2026-06-19T13:15:20Z",
+    "due_at": "2026-07-19T13:15:20Z",
+    "net": {
+      "amount_minor": 124000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 124000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0046",
+    "number": "0000000046",
+    "client_id": "cli_0006",
+    "shipment_ids": [
+      "shp_0046"
+    ],
+    "issued_at": "2026-07-19T22:12:03Z",
+    "due_at": "2026-08-18T22:12:03Z",
+    "net": {
+      "amount_minor": 56000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 11200,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 67200,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0047",
+    "number": "0000000047",
+    "client_id": "cli_0006",
+    "shipment_ids": [
+      "shp_0047"
+    ],
+    "issued_at": "2026-07-31T00:28:05Z",
+    "due_at": "2026-08-30T00:28:05Z",
+    "net": {
+      "amount_minor": 66000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 13200,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 79200,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0048",
+    "number": "0000000048",
+    "client_id": "cli_0006",
+    "shipment_ids": [
+      "shp_0048"
+    ],
+    "issued_at": "2026-08-04T03:17:16Z",
+    "due_at": "2026-09-03T03:17:16Z",
+    "net": {
+      "amount_minor": 68000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 13600,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 81600,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0049",
+    "number": "0000000049",
+    "client_id": "cli_0006",
+    "shipment_ids": [
+      "shp_0049"
+    ],
+    "issued_at": "2026-08-22T07:09:14Z",
+    "due_at": "2026-09-21T07:09:14Z",
+    "net": {
+      "amount_minor": 140000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 140000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0050",
+    "number": "0000000050",
+    "client_id": "cli_0006",
+    "shipment_ids": [
+      "shp_0050"
+    ],
+    "issued_at": "2026-09-18T09:34:22Z",
+    "due_at": "2026-10-18T09:34:22Z",
+    "net": {
+      "amount_minor": 59000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 11800,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 70800,
+      "currency": "EUR"
+    },
+    "status": "issued"
+  },
+  {
+    "id": "inv_0051",
+    "number": "0000000051",
+    "client_id": "cli_0007",
+    "shipment_ids": [
+      "shp_0051"
+    ],
+    "issued_at": "2026-05-16T08:31:39Z",
+    "due_at": "2026-06-15T08:31:39Z",
+    "net": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0052",
+    "number": "0000000052",
+    "client_id": "cli_0007",
+    "shipment_ids": [
+      "shp_0052"
+    ],
+    "issued_at": "2026-07-23T04:59:02Z",
+    "due_at": "2026-08-22T04:59:02Z",
+    "net": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0053",
+    "number": "0000000053",
+    "client_id": "cli_0007",
+    "shipment_ids": [
+      "shp_0053"
+    ],
+    "issued_at": "2026-08-14T19:49:03Z",
+    "due_at": "2026-09-13T19:49:03Z",
+    "net": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0054",
+    "number": "0000000054",
+    "client_id": "cli_0007",
+    "shipment_ids": [
+      "shp_0054"
+    ],
+    "issued_at": "2026-08-26T09:44:51Z",
+    "due_at": "2026-09-25T09:44:51Z",
+    "net": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0055",
+    "number": "0000000055",
+    "client_id": "cli_0007",
+    "shipment_ids": [
+      "shp_0055"
+    ],
+    "issued_at": "2026-09-09T16:43:41Z",
+    "due_at": "2026-10-09T16:43:41Z",
+    "net": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0056",
+    "number": "0000000056",
+    "client_id": "cli_0007",
+    "shipment_ids": [
+      "shp_0056"
+    ],
+    "issued_at": "2026-09-10T20:56:31Z",
+    "due_at": "2026-10-10T20:56:31Z",
+    "net": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 45000,
+      "currency": "EUR"
+    },
+    "status": "paid"
+  },
+  {
+    "id": "inv_0057",
+    "number": "0000000057",
+    "client_id": "cli_0008",
+    "shipment_ids": [
+      "shp_0057"
+    ],
+    "issued_at": "2026-10-09T07:44:36Z",
+    "due_at": "2026-10-23T07:44:36Z",
+    "net": {
+      "amount_minor": 212000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 212000,
+      "currency": "EUR"
+    },
+    "status": "issued"
+  },
+  {
+    "id": "inv_0801",
+    "number": "0000000801",
+    "client_id": "cli_0001",
+    "shipment_ids": [
+      "shp_0801"
+    ],
+    "issued_at": "2026-08-01T07:30:00Z",
+    "due_at": "2026-08-31T07:30:00Z",
+    "net": {
+      "amount_minor": 348000,
+      "currency": "EUR"
+    },
+    "vat": {
+      "amount_minor": 0,
+      "currency": "EUR"
+    },
+    "total": {
+      "amount_minor": 348000,
+      "currency": "EUR"
+    },
+    "status": "issued"
+  }
+]

@@ -1,0 +1,59 @@
+[
+  {
+    "id": "inc_0013",
+    "type": "fine",
+    "severity": "medium",
+    "occurred_at": "2026-07-08T13:25:22Z",
+    "client_id": "cli_0002",
+    "shipment_id": "shp_0013",
+    "truck_id": "trk_0005",
+    "description": "Penalty per framework agreement §7: delivery 190 min after slot (4 started hours).",
+    "delay_minutes": 190,
+    "cost": {
+      "amount_minor": 60000,
+      "currency": "EUR"
+    }
+  },
+  {
+    "id": "inc_0016",
+    "type": "fine",
+    "severity": "medium",
+    "occurred_at": "2026-09-15T10:21:51Z",
+    "client_id": "cli_0002",
+    "shipment_id": "shp_0016",
+    "truck_id": "trk_0002",
+    "description": "Penalty per framework agreement §7: delivery 245 min after slot (5 started hours).",
+    "delay_minutes": 245,
+    "cost": {
+      "amount_minor": 60000,
+      "currency": "EUR"
+    }
+  },
+  {
+    "id": "inc_0701",
+    "type": "claim",
+    "severity": "high",
+    "occurred_at": "2026-05-20T10:03:52Z",
+    "client_id": "cli_0006",
+    "shipment_id": "shp_0043",
+    "truck_id": "trk_0001",
+    "description": "Temperature excursion to 9.4 °C for 50 min; client claimed EUR 1,200.",
+    "delay_minutes": null,
+    "cost": {
+      "amount_minor": 120000,
+      "currency": "EUR"
+    }
+  },
+  {
+    "id": "inc_0702",
+    "type": "documentation_error",
+    "severity": "low",
+    "occurred_at": "2026-05-15T08:31:39Z",
+    "client_id": "cli_0007",
+    "shipment_id": "shp_0051",
+    "truck_id": null,
+    "description": "Signed CMR copy missing; client delayed payment until received.",
+    "delay_minutes": null,
+    "cost": null
+  }
+]

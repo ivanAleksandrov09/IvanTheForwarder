@@ -7,6 +7,7 @@ from app.core.config import get_settings
 from app.core.errors import NotFoundError
 from app.core.formatting import format_date, format_datetime, format_money
 from app.core.ids import new_id
+from app.drafting.document_context import recent_documents
 from app.drafting.email_context import recent_emails
 from app.drafting.prompts import build_prompt
 from app.drafting.tracking import MOVING_KMH, latest_ping, remaining_km
@@ -132,6 +133,9 @@ def _context(req: GenerateDraftRequest, repo: Repository) -> tuple[dict, list[st
         shipment = repo.shipments.require(req.shipment_id)
         ids["shipment_id"] = shipment.id
         ctx |= {"shipment_reference": shipment.reference, "cmr_number": shipment.cmr_number}
+    documents = recent_documents(repo, client.id, ids["shipment_id"])
+    if documents:
+        ctx["recent_documents"] = documents
     return ctx, ([contact.email] if contact else []), ids
 
 

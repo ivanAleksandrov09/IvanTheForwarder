@@ -20,6 +20,8 @@ log = logging.getLogger("forwarder.folder_watch")
 
 MIME_BY_SUFFIX = {".pdf": "application/pdf", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg"}
 SETTLE_SECONDS = 5  # skip files modified this recently: they may still be being copied in
+MAX_ATTEMPTS = 3  # a file that keeps failing is left alone until the backend restarts (no endless paid retries)
+_failures: dict[str, int] = {}
 
 PROMPT = (
     "You read one document from a freight forwarder (CMR, invoice, rate sheet, transport order, "
@@ -49,14 +51,15 @@ def scan_once(folder: Path, repo: Repository, llm: LLMClient) -> int:
         if time.time() - st.st_mtime < SETTLE_SECONDS:
             continue
         doc_id = stable_id("doc", path.name, str(st.st_size), str(st.st_mtime_ns))
-        if repo.documents.get(doc_id) is not None:
-            continue
+        if repo.documents.get(doc_id) is not None or _failures.get(doc_id, 0) >= MAX_ATTEMPTS:
+            continue  # already analyzed (or given up): only new or changed files cost an API call
         try:
             extracted, _ = llm.extract_document(
                 task="document.extract", data=path.read_bytes(), mime_type=mime, prompt=PROMPT, schema=ExtractedDocument
             )
-        except Exception as exc:  # retried on the next scan: nothing is stored for this file
-            log.warning("extraction failed for %s: %s", path.name, exc)
+        except Exception as exc:  # nothing is stored; retried on later scans up to MAX_ATTEMPTS
+            _failures[doc_id] = _failures.get(doc_id, 0) + 1
+            log.warning("extraction failed for %s (attempt %d/%d): %s", path.name, _failures[doc_id], MAX_ATTEMPTS, exc)
             continue
         repo.documents.upsert(
             Document(

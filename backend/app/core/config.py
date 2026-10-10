@@ -37,12 +37,14 @@ class Settings(BaseSettings):
     llm_max_tokens: int = 4096  # Claude requires an explicit output cap
     llm_base_url: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
     llm_api_key: str = ""
+    llm_workspace_id: str = ""  # Anthropic workspace ID (required for non-scoped API keys accessing vision/document extraction)
     llm_model: str = "gemini-3.8-flash"
     llm_fast_model: str = ""  # cheap/fast model for background email analysis; empty = use llm_model
     llm_timeout_seconds: float = 30.0
     llm_max_retries: int = 4
     llm_temperature: float = 0.3
-    llm_document_effort: str = "low"  # Claude output_config.effort for document extraction; empty = omit
+    llm_document_model: str = ""  # model for reading PDFs/images; empty = LLM_FAST_MODEL, then LLM_MODEL
+    llm_document_effort: str = ""  # Claude output_config.effort for document extraction; empty = omit (Haiku 4.5 rejects it)
     llm_json_mode: bool = True
     llm_log_prompts: bool = True
 

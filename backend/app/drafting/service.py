@@ -7,6 +7,7 @@ from app.core.config import get_settings
 from app.core.errors import NotFoundError
 from app.core.formatting import format_date, format_datetime, format_money
 from app.core.ids import new_id
+from app.drafting.email_context import recent_emails
 from app.drafting.prompts import build_prompt
 from app.llm import LLMClient
 from app.repository import Repository
@@ -43,6 +44,7 @@ def _context(req: GenerateDraftRequest, repo: Repository) -> tuple[dict, list[st
         "client_name": client.name,
         "contact_name": contact.name if contact else None,
         "today": format_date(now, language),
+        "recent_emails": recent_emails(repo, client.id),
     }
     ids: dict = {"invoice_id": req.invoice_id, "shipment_id": req.shipment_id}
 

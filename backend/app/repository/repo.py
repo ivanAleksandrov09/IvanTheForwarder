@@ -26,6 +26,7 @@ from app.schemas import (
     DomainEvent,
     DraftMessage,
     Email,
+    EmailInsight,
     GpsPing,
     Incident,
     Invoice,
@@ -143,6 +144,7 @@ class Repository:
         self.events: Collection[DomainEvent] = c("events")
         self.drafts: Collection[DraftMessage] = c("drafts")
         self.risk_profiles: Collection[RiskProfile] = c("risk_profiles")
+        self.email_insights: Collection[EmailInsight] = c("email_insights")
 
     def collection(self, name: str) -> Collection:
         return getattr(self, name)

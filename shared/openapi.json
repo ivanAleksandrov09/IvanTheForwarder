@@ -1102,6 +1102,17 @@
             ],
             "title": "Cargo Description"
           },
+          "company_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Name"
+          },
           "destination": {
             "anyOf": [
               {
@@ -1188,6 +1199,37 @@
           "summary"
         ],
         "title": "EmailExtraction",
+        "type": "object"
+      },
+      "EmailInsight": {
+        "additionalProperties": false,
+        "description": "Stored result of the background analysis of one email.",
+        "properties": {
+          "email_id": {
+            "pattern": "^eml_[a-z0-9]{4,32}$",
+            "title": "Email Id",
+            "type": "string"
+          },
+          "extracted_at": {
+            "format": "date-time",
+            "title": "Extracted At",
+            "type": "string"
+          },
+          "extraction": {
+            "$ref": "#/components/schemas/EmailExtraction"
+          },
+          "model": {
+            "title": "Model",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email_id",
+          "extracted_at",
+          "extraction",
+          "model"
+        ],
+        "title": "EmailInsight",
         "type": "object"
       },
       "EmailIntent": {
@@ -1661,6 +1703,25 @@
         ],
         "title": "Language",
         "type": "string"
+      },
+      "LinkEmailRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "anyOf": [
+              {
+                "pattern": "^cli_[a-z0-9]{4,32}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Id"
+          }
+        },
+        "title": "LinkEmailRequest",
+        "type": "object"
       },
       "LlmMeta": {
         "additionalProperties": false,
@@ -3382,6 +3443,32 @@
         ]
       }
     },
+    "/api/email-insights": {
+      "get": {
+        "description": "Background analysis results (one per analyzed email).",
+        "operationId": "list_email_insights_api_email_insights_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/EmailInsight"
+                  },
+                  "title": "Response List Email Insights Api Email Insights Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Email Insights",
+        "tags": [
+          "data"
+        ]
+      }
+    },
     "/api/emails": {
       "get": {
         "operationId": "list_emails_api_emails_get",
@@ -3437,7 +3524,7 @@
     },
     "/api/emails/{email_id}/extract": {
       "post": {
-        "description": "LLM reads one email and returns structured facts. Nothing is stored.",
+        "description": "Re-run the analysis for one email now (normally this happens automatically in the background).",
         "operationId": "extract_email_api_emails__email_id__extract_post",
         "parameters": [
           {
@@ -3455,7 +3542,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmailExtraction"
+                  "$ref": "#/components/schemas/EmailInsight"
                 }
               }
             },
@@ -3473,6 +3560,59 @@
           }
         },
         "summary": "Extract Email",
+        "tags": [
+          "data"
+        ]
+      }
+    },
+    "/api/emails/{email_id}/link": {
+      "post": {
+        "description": "Manually (un)link an email to a client. Survives re-sync.",
+        "operationId": "link_email_api_emails__email_id__link_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email_id",
+            "required": true,
+            "schema": {
+              "title": "Email Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LinkEmailRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Email"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Link Email",
         "tags": [
           "data"
         ]

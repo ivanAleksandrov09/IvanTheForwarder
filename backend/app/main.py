@@ -1,5 +1,6 @@
 """Backend entrypoint: `uvicorn app.main:app --reload` (from backend/). Owner: lead."""
 
+import asyncio
 import logging
 from contextlib import asynccontextmanager
 
@@ -7,6 +8,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from app.connectors.autosync import autosync_loop
 from app.api import data, drafts, risk, system
 from app.core.config import get_settings
 from app.core.errors import ConflictError, NotFoundError
@@ -25,7 +27,9 @@ async def lifespan(_: FastAPI):
         loaded = load_seed_into(repo, get_seed())
         log.warning("Seeded empty DB %s: %s", s.resolved_db_path, loaded)
     log.warning("LLM mode=%s model=%s | clock=%s", s.llm_mode, s.llm_model, s.clock_mode)
+    task = asyncio.create_task(autosync_loop())  # polls a connected mailbox + analyzes new mail in the background
     yield
+    task.cancel()
 
 
 app = FastAPI(

@@ -41,7 +41,7 @@ from app.schemas.entities import (
 from app.schemas.enums import *  # noqa: F401,F403  (re-export every enum)
 from app.schemas.enums import PayloadType
 from app.schemas.events import DomainEvent
-from app.schemas.mailbox import EmailExtraction, MailboxLoginRequest, MailboxStatus
+from app.schemas.mailbox import EmailExtraction, EmailInsight, LinkEmailRequest, MailboxLoginRequest, MailboxStatus
 from app.schemas.risk import ClientMetrics, RiskFactor, RiskProfile
 
 # collection name -> (model, primary key field). Used by repository, seed generator and validation tests.
@@ -59,6 +59,7 @@ COLLECTIONS: dict[str, tuple[type[ContractModel], str]] = {
     "events": (DomainEvent, "id"),
     "drafts": (DraftMessage, "id"),
     "risk_profiles": (RiskProfile, "client_id"),
+    "email_insights": (EmailInsight, "email_id"),
 }
 
 # Collections shipped as seed files in data/seed/<name>.json (derived data like events/drafts/risk is not seeded).

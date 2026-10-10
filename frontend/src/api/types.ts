@@ -18,3 +18,4 @@ export type GpsPing = S["GpsPing"];
 export type Truck = S["Truck"];
 export type MailboxStatus = S["MailboxStatus"];
 export type EmailExtraction = S["EmailExtraction"];
+export type EmailInsight = S["EmailInsight"];

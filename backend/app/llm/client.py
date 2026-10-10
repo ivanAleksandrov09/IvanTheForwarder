@@ -44,6 +44,11 @@ class LLMClient:
     def __init__(self, settings: Settings):
         self.s = settings
         self._client: openai.OpenAI | None = None
+        self._claude = None
+        if settings.llm_provider == "anthropic":  # imported lazily: OpenAI-only setups don't need the SDK
+            from app.llm.anthropic_provider import AnthropicProvider
+
+            self._claude = AnthropicProvider(settings)
         self.last_error: str | None = None
         self.system_prompt = build_system_prompt(settings.company_name, settings.operator_name)
         self.log_path = settings.runtime_dir / "logs" / "llm.jsonl"
@@ -53,16 +58,17 @@ class LLMClient:
         return LlmStatus(
             mode=LlmMode(self.s.llm_mode),
             model=self.s.llm_model if self.s.llm_mode == "live" else "mock",
-            base_url_host=urlparse(self.s.llm_base_url).netloc,
+            base_url_host=self._host(),
             fallback_to_mock=self.s.llm_fallback_to_mock,
             last_error=self.last_error,
         )
 
     def complete_text(
-        self, *, task: str, prompt: str, mock_context: dict | None = None, system_extra: str | None = None
+        self, *, task: str, prompt: str, mock_context: dict | None = None, system_extra: str | None = None,
+        fast: bool = False,
     ) -> tuple[str, LlmMeta]:
         messages = self._messages(prompt, system_extra)
-        return self._run(task, messages, json_mode=False, mock_context=mock_context)
+        return self._run(task, messages, json_mode=False, mock_context=mock_context, model=self._model(fast))
 
     def complete_json(
         self,
@@ -72,11 +78,13 @@ class LLMClient:
         schema: type[T],
         mock_context: dict | None = None,
         system_extra: str | None = None,
+        fast: bool = False,
     ) -> tuple[T, LlmMeta]:
         schema_json = json.dumps(schema.model_json_schema(), ensure_ascii=False)
         prompt = f"{prompt}\n\nReturn ONLY one JSON object matching this JSON Schema:\n{schema_json}"
         messages = self._messages(prompt, system_extra)
-        text, meta = self._run(task, messages, json_mode=True, mock_context=mock_context)
+        model = self._model(fast)
+        text, meta = self._run(task, messages, json_mode=True, mock_context=mock_context, model=model)
         try:
             return self._parse(text, schema), meta
         except (ValueError, ValidationError) as e:
@@ -88,7 +96,7 @@ class LLMClient:
             {"role": "assistant", "content": text},
             {"role": "user", "content": f"Invalid output: {first_error}. Return ONLY the corrected JSON object."},
         ]
-        text, meta = self._run(task + ".repair", messages, json_mode=True, mock_context=mock_context)
+        text, meta = self._run(task + ".repair", messages, json_mode=True, mock_context=mock_context, model=model)
         try:
             return self._parse(text, schema), meta
         except (ValueError, ValidationError) as e:
@@ -117,40 +125,52 @@ class LLMClient:
             )
         return self._client
 
-    def _run(self, task: str, messages: list[dict], json_mode: bool, mock_context: dict | None):
+    def _host(self) -> str:
+        return self._claude.host if self._claude else urlparse(self.s.llm_base_url).netloc
+
+    def _model(self, fast: bool) -> str:
+        """fast=True uses LLM_FAST_MODEL (same provider/key) for background extraction; empty = main model."""
+        return (self.s.llm_fast_model if fast else "") or self.s.llm_model
+
+    def _run(self, task: str, messages: list[dict], json_mode: bool, mock_context: dict | None, model: str | None = None):
         if self.s.llm_mode == "mock":
             return self._mock(task, messages, mock_context, used_fallback=False)
         try:
-            return self._live(task, messages, json_mode)
+            return self._live(task, messages, json_mode, model or self.s.llm_model)
         except LLMError:
             if self.s.llm_fallback_to_mock:
                 return self._mock(task, messages, mock_context, used_fallback=True)
             raise
 
-    def _live(self, task: str, messages: list[dict], json_mode: bool) -> tuple[str, LlmMeta]:
-        kwargs: dict = {"model": self.s.llm_model, "messages": messages, "temperature": self.s.llm_temperature}
+    def _live(self, task: str, messages: list[dict], json_mode: bool, model: str) -> tuple[str, LlmMeta]:
+        kwargs: dict = {"model": model, "messages": messages, "temperature": self.s.llm_temperature}
         if json_mode and self.s.llm_json_mode:
             kwargs["response_format"] = {"type": "json_object"}
+        if self._claude:  # Claude has no JSON mode: the prompt carries the schema and the reply is validated below
+            retryable, status_error = self._claude.retryable, self._claude.status_error
+            call = lambda: self._claude.complete(model, messages)  # noqa: E731
+        else:
+            retryable, status_error = _RETRYABLE, openai.APIStatusError
+            call = lambda: self._openai().chat.completions.create(**kwargs).choices[0].message.content or ""  # noqa: E731
         attempt = 0
         while True:
             started = time.perf_counter()
             try:
-                resp = self._openai().chat.completions.create(**kwargs)
-                text = resp.choices[0].message.content or ""
+                text = call()
                 latency = int((time.perf_counter() - started) * 1000)
-                log_id = self._log(task, messages, text, mode="live", latency_ms=latency, error=None)
+                log_id = self._log(task, messages, text, mode="live", latency_ms=latency, error=None, model=model)
                 self.last_error = None
-                return text, LlmMeta(mode=LlmMode.live, model=self.s.llm_model, log_id=log_id, latency_ms=latency)
-            except _RETRYABLE as e:
+                return text, LlmMeta(mode=LlmMode.live, model=model, log_id=log_id, latency_ms=latency)
+            except retryable as e:
                 attempt += 1
                 self.last_error = f"{type(e).__name__}: {e}"
-                self._log(task, messages, None, mode="live", latency_ms=None, error=self.last_error)
+                self._log(task, messages, None, mode="live", latency_ms=None, error=self.last_error, model=model)
                 if attempt > self.s.llm_max_retries:
                     raise LLMError(f"{task}: gave up after {attempt} attempts: {self.last_error}") from e
                 time.sleep(self._backoff(attempt, e))
-            except openai.APIStatusError as e:  # 400/401/403/404: retrying won't help
+            except status_error as e:  # 400/401/403/404: retrying won't help
                 self.last_error = f"{type(e).__name__} {e.status_code}: {e.message}"
-                self._log(task, messages, None, mode="live", latency_ms=None, error=self.last_error)
+                self._log(task, messages, None, mode="live", latency_ms=None, error=self.last_error, model=model)
                 raise LLMError(f"{task}: {self.last_error}") from e
 
     @staticmethod
@@ -170,7 +190,7 @@ class LLMClient:
         log_id = self._log(task, messages, text, mode="mock", latency_ms=0, error=None, fallback=used_fallback)
         return text, LlmMeta(mode=LlmMode.mock, model="mock", used_fallback=used_fallback, log_id=log_id, latency_ms=0)
 
-    def _log(self, task, messages, response, *, mode, latency_ms, error, fallback=False) -> str | None:
+    def _log(self, task, messages, response, *, mode, latency_ms, error, fallback=False, model=None) -> str | None:
         if not self.s.llm_log_prompts:
             return None
         log_id = uuid.uuid4().hex[:12]
@@ -180,8 +200,8 @@ class LLMClient:
             "task": task,
             "mode": mode,
             "fallback": fallback,
-            "model": self.s.llm_model if mode == "live" else "mock",
-            "base_url_host": urlparse(self.s.llm_base_url).netloc,
+            "model": (model or self.s.llm_model) if mode == "live" else "mock",
+            "base_url_host": self._host(),
             "latency_ms": latency_ms,
             "error": error,
             "messages": messages,

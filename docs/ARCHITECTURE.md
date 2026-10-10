@@ -50,6 +50,9 @@
 - **Log:** `data/runtime/logs/llm.jsonl` records every prompt, response, latency and error. It is gitignored because it contains client data.
 - **Verified in the skeleton:** mock mode end to end; live mode against Gemini with a bad key (400 → falls back to mock without retrying); live mode against an unreachable host (retries → falls back).
 
+### Claude as the model
+`LLM_PROVIDER=anthropic` + `LLM_MODEL=claude-haiku-4-5` + an Anthropic key in `LLM_API_KEY` switches the wrapper to the official Anthropic SDK (`llm/anthropic_provider.py`). Retries, JSON validation, mock fallback and logging are shared with the OpenAI-compatible path. Default `LLM_PROVIDER=openai` is unchanged.
+
 ### Stage 1 → Stage 2 (local model)
 ```env
 LLM_MODE=live

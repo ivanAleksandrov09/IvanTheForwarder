@@ -29,6 +29,12 @@ def build_prompt(kind: DraftKind, context: dict, instructions: str | None) -> st
         "CONTEXT (the only facts you may use):",
         json.dumps(context, ensure_ascii=False, indent=2),
     ]
+    if context.get("recent_emails"):
+        parts.append(
+            "`recent_emails` is earlier correspondence with this client (oldest first). Use it only as background: "
+            "stay consistent with it, refer to earlier promises or requests when relevant, never quote it at length "
+            "and never take new facts (amounts, dates) from it."
+        )
     if instructions:
         parts.append(f"OPERATOR INSTRUCTIONS: {instructions}")
     parts.append("In `rationale`, explain to the operator in English why this message and this tone (1-2 sentences).")

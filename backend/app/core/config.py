@@ -31,9 +31,12 @@ class Settings(BaseSettings):
 
     llm_mode: Literal["mock", "live"] = "mock"
     llm_fallback_to_mock: bool = True
+    llm_provider: Literal["openai", "anthropic"] = "openai"  # openai = any OpenAI-compatible API (Gemini, OpenAI, Ollama)
+    llm_max_tokens: int = 4096  # Claude requires an explicit output cap
     llm_base_url: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
     llm_api_key: str = ""
     llm_model: str = "gemini-3.8-flash"
+    llm_fast_model: str = ""  # cheap/fast model for background email analysis; empty = use llm_model
     llm_timeout_seconds: float = 30.0
     llm_max_retries: int = 4
     llm_temperature: float = 0.3

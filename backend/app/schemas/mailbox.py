@@ -4,7 +4,7 @@ from datetime import date
 
 from pydantic import Field
 
-from app.schemas.common import ContractModel, EmailAddress, UtcDatetime
+from app.schemas.common import ClientId, ContractModel, EmailAddress, EmailId, UtcDatetime
 from app.schemas.enums import EmailIntent, Language, MailboxProvider
 
 
@@ -28,6 +28,7 @@ class EmailExtraction(ContractModel):
     intent: EmailIntent
     summary: str = Field(description="one sentence, in English")
     language: Language | None = None
+    company_name: str | None = None  # sender's company as written in the signature/body, used to identify the client
     origin: str | None = None
     destination: str | None = None
     cargo_description: str | None = None
@@ -35,3 +36,16 @@ class EmailExtraction(ContractModel):
     requested_date: date | None = None  # pickup/delivery/payment date mentioned
     invoice_number: str | None = None
     urgent: bool = False
+
+
+class LinkEmailRequest(ContractModel):
+    client_id: ClientId | None = None  # null = unlink
+
+
+class EmailInsight(ContractModel):
+    """Stored result of the background analysis of one email."""
+
+    email_id: EmailId  # primary key
+    extracted_at: UtcDatetime
+    extraction: EmailExtraction
+    model: str

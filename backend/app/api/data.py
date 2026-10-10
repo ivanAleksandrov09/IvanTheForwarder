@@ -1,15 +1,14 @@
 """Read access to gathered data + connector control. Owner: A."""
 
 import imaplib
-import json
-
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 
 from app.connectors import mailbox_store
 from app.connectors.email_imap import ImapEmailConnector
 from app.connectors.ingest import sync
 from app.connectors.registry import use_imap, use_mock_email
 from app.core.config import get_settings
+from app.connectors.insights import analyze_email, process_new_emails
 from app.deps import get_connectors, get_llm, get_repo, get_seed
 from app.llm import LLMClient
 from app.repository import Repository
@@ -18,7 +17,8 @@ from app.schemas import (
     ConnectorInfo,
     Document,
     Email,
-    EmailExtraction,
+    EmailInsight,
+    LinkEmailRequest,
     MailboxLoginRequest,
     MailboxProvider,
     MailboxStatus,
@@ -141,17 +141,28 @@ def mailbox_logout(connectors=Depends(get_connectors)) -> MailboxStatus:
     return _mailbox_status(connectors)
 
 
+@router.get("/email-insights")
+def list_email_insights(repo: Repository = Depends(get_repo)) -> list[EmailInsight]:
+    """Background analysis results (one per analyzed email)."""
+    return repo.email_insights.list()
+
+
 @router.post("/emails/{email_id}/extract")
-def extract_email(email_id: str, repo: Repository = Depends(get_repo), llm: LLMClient = Depends(get_llm)) -> EmailExtraction:
-    """LLM reads one email and returns structured facts. Nothing is stored."""
+def extract_email(email_id: str, repo: Repository = Depends(get_repo), llm: LLMClient = Depends(get_llm)) -> EmailInsight:
+    """Re-run the analysis for one email now (normally this happens automatically in the background)."""
+    insight = analyze_email(email_id, repo, llm)
+    if insight is None:
+        raise HTTPException(502, "LLM unavailable: analysis not stored")
+    return insight
+
+
+@router.post("/emails/{email_id}/link")
+def link_email(email_id: str, body: LinkEmailRequest, repo: Repository = Depends(get_repo)) -> Email:
+    """Manually (un)link an email to a client. Survives re-sync."""
+    if body.client_id:
+        repo.clients.require(body.client_id)
     email = repo.emails.require(email_id)
-    ctx = {"subject": email.subject, "body": email.body_text[:4000]}
-    prompt = (
-        "TASK: Extract structured facts from the email in CONTEXT. Use null for anything not stated; never guess. "
-        "Dates as YYYY-MM-DD.\nCONTEXT:\n" + json.dumps({"from": email.from_address, **ctx}, ensure_ascii=False)
-    )
-    result, _meta = llm.complete_json(task="email.extract", prompt=prompt, schema=EmailExtraction, mock_context=ctx)
-    return result
+    return repo.emails.upsert(email.model_copy(update={"client_id": body.client_id}))
 
 
 @router.get("/connectors")
@@ -160,8 +171,18 @@ def list_connectors(connectors=Depends(get_connectors)) -> list[ConnectorInfo]:
 
 
 @router.post("/connectors/{source}/sync")
-def sync_connector(source: SourceType, repo: Repository = Depends(get_repo), connectors=Depends(get_connectors)) -> SyncResult:
+def sync_connector(
+    source: SourceType,
+    background: BackgroundTasks,
+    repo: Repository = Depends(get_repo),
+    connectors=Depends(get_connectors),
+    llm: LLMClient = Depends(get_llm),
+) -> SyncResult:
     connector = connectors.get(source)
     if connector is None:
         raise HTTPException(404, f"no connector configured for {source}")
-    return sync(connector, repo)
+    result = sync(connector, repo)
+    creds = mailbox_store.load(get_settings())
+    if isinstance(connector, ImapEmailConnector) and creds:
+        background.add_task(process_new_emails, repo, llm, creds.username)  # analysis never blocks the response
+    return result

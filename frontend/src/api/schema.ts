@@ -269,6 +269,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/email-insights": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Email Insights
+         * @description Background analysis results (one per analyzed email).
+         */
+        get: operations["list_email_insights_api_email_insights_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/emails": {
         parameters: {
             query?: never;
@@ -297,9 +317,29 @@ export interface paths {
         put?: never;
         /**
          * Extract Email
-         * @description LLM reads one email and returns structured facts. Nothing is stored.
+         * @description Re-run the analysis for one email now (normally this happens automatically in the background).
          */
         post: operations["extract_email_api_emails__email_id__extract_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/emails/{email_id}/link": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Link Email
+         * @description Manually (un)link an email to a client. Survives re-sync.
+         */
+        post: operations["link_email_api_emails__email_id__link_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -906,6 +946,8 @@ export interface components {
         EmailExtraction: {
             /** Cargo Description */
             cargo_description?: string | null;
+            /** Company Name */
+            company_name?: string | null;
             /** Destination */
             destination?: string | null;
             intent: components["schemas"]["EmailIntent"];
@@ -928,6 +970,22 @@ export interface components {
             urgent: boolean;
             /** Weight Kg */
             weight_kg?: number | null;
+        };
+        /**
+         * EmailInsight
+         * @description Stored result of the background analysis of one email.
+         */
+        EmailInsight: {
+            /** Email Id */
+            email_id: string;
+            /**
+             * Extracted At
+             * Format: date-time
+             */
+            extracted_at: string;
+            extraction: components["schemas"]["EmailExtraction"];
+            /** Model */
+            model: string;
         };
         /**
          * EmailIntent
@@ -1081,6 +1139,11 @@ export interface components {
          * @enum {string}
          */
         Language: "bg" | "en" | "ru" | "tr" | "ro";
+        /** LinkEmailRequest */
+        LinkEmailRequest: {
+            /** Client Id */
+            client_id?: string | null;
+        };
         /** LlmMeta */
         LlmMeta: {
             /** Latency Ms */
@@ -1912,6 +1975,26 @@ export interface operations {
             };
         };
     };
+    list_email_insights_api_email_insights_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EmailInsight"][];
+                };
+            };
+        };
+    };
     list_emails_api_emails_get: {
         parameters: {
             query?: {
@@ -1960,7 +2043,42 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EmailExtraction"];
+                    "application/json": components["schemas"]["EmailInsight"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    link_email_api_emails__email_id__link_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                email_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LinkEmailRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Email"];
                 };
             };
             /** @description Validation Error */

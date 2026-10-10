@@ -59,6 +59,15 @@ Read **[CONVENTIONS.md](CONVENTIONS.md)** before your first commit. Architecture
 ### Connectors (A)
 TODO(owner A)
 ### Risk & events (B)
-TODO(owner B)
+Client risk is a transparent score: start at 30, add the impact of each listed factor, then clamp to 0–100.
+Every factor includes its measured values and links to the supporting invoices, shipments, incidents, or emails.
+The profile also reports confidence and a suggested message tone; it never sends a message. Email response
+time is measured only for replies linked by an explicit thread ID. Try the demo with `npm run dev`, then
+select a client or use **Scan for events** to see the risk profile and event evidence.
+
+Margin risk is based on average shipment margin (price minus cost, divided by price); margins below 12% are
+flagged with the thinnest observed lane. Damage/claim incidents, delay complaints, incompatible cargo
+restrictions, and email replies averaging at least 48 hours add their own evidence-backed factors. Missing
+source data is left unknown rather than guessed.
 ### Drafting, outbound & UI (C)
 TODO(owner C)

@@ -11,6 +11,7 @@ from app.repository import Repository
 from app.schemas import (
     ClientMetrics,
     Confidence,
+    Direction,
     EntityType,
     EvidenceRef,
     IncidentType,
@@ -34,8 +35,29 @@ def _days(a: datetime, b: datetime) -> int:
     return (a.date() - b.date()).days
 
 
+def _email_responses(repo: Repository, client_id: str) -> list[tuple[float, str, str]]:
+    """Return outbound-to-inbound reply times from explicitly linked email threads."""
+    threads: dict[str, list] = {}
+    for email in repo.emails.list(client_id=client_id):
+        if email.thread_id:
+            threads.setdefault(email.thread_id, []).append(email)
+
+    responses = []
+    for emails in threads.values():
+        pending_outbound = None
+        for email in sorted(emails, key=lambda item: item.sent_at):
+            if email.direction == Direction.outbound:
+                pending_outbound = email
+            elif email.direction == Direction.inbound and pending_outbound:
+                hours = (email.sent_at - pending_outbound.sent_at).total_seconds() / 3600
+                if hours >= 0:
+                    responses.append((hours, pending_outbound.id, email.id))
+                pending_outbound = None
+    return responses
+
+
 def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProfile:
-    repo.clients.require(client_id)
+    client = repo.clients.require(client_id)
     invoices = [i for i in repo.invoices.list(client_id=client_id) if i.status != InvoiceStatus.cancelled]
     payments = repo.payments.list(client_id=client_id)
     shipments = repo.shipments.list(client_id=client_id)
@@ -54,13 +76,15 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
     overdue_minor = sum(i.total.amount_minor - paid_sum.get(i.id, 0) for i in overdue)
     fines = [x for x in incidents if x.type == IncidentType.fine]
 
-    margins = [
-        (s.price.amount_minor - s.cost.amount_minor) / s.price.amount_minor * 100
+    margin_records = [
+        (s, (s.price.amount_minor - s.cost.amount_minor) / s.price.amount_minor * 100)
         for s in shipments
-        if s.cost and s.price.amount_minor > 0
+        if s.cost and s.price.amount_minor > 0 and s.price.currency == s.cost.currency
     ]
+    margins = [margin for _, margin in margin_records]
     delivered = [s for s in shipments if s.status == ShipmentStatus.delivered and s.delivered_at]
     delayed = [s for s in delivered if (s.delivered_at - s.delivery_planned_at).total_seconds() > 3600]
+    email_responses = _email_responses(repo, client_id)
 
     metrics = ClientMetrics(
         invoices_total=len(invoices),
@@ -76,7 +100,9 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
         fines_count=len(fines),
         fines_total=Money.of(sum(f.cost.amount_minor for f in fines if f.cost), currency) if fines else None,
         avg_margin_pct=round(sum(margins) / len(margins), 1) if margins else None,
-        avg_email_response_hours=None,  # TODO(owner B): from email threads (inbound -> our reply / their reply)
+        avg_email_response_hours=round(sum(row[0] for row in email_responses) / len(email_responses), 1)
+        if email_responses
+        else None,
     )
 
     factors: list[RiskFactor] = []
@@ -92,16 +118,28 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
                     label="Pays late",
                     impact=min(40, int(avg)),
                     explanation=f"Paid {len(late)} of {len(paid)} invoices late, on average {avg:.0f} days after the due date.",
-                    evidence=[EvidenceRef(entity_type=EntityType.invoice, entity_id=i.id, note=f"{delays[i.id]} days late") for i in late[:5]],
+                    evidence=[
+                        EvidenceRef(
+                            entity_type=EntityType.invoice,
+                            entity_id=i.id,
+                            note=f"{delays[i.id]} days late",
+                        )
+                        for i in late
+                    ],
                 )
             )
         elif len(paid) >= MIN_PAID_INVOICES and avg <= 2:
+            on_time = [i for i in paid if delays[i.id] <= 0]
             factors.append(
                 RiskFactor(
                     code=RiskFactorCode.good_payment_history,
                     label="Pays on time",
                     impact=-20,
-                    explanation=f"{len(paid) - len(late)} of {len(paid)} invoices paid on time (average {avg:+.0f} days vs due date).",
+                    explanation=f"{len(on_time)} of {len(paid)} invoices paid on time (average {avg:+.0f} days vs due date).",
+                    evidence=[
+                        EvidenceRef(entity_type=EntityType.invoice, entity_id=i.id)
+                        for i in on_time
+                    ],
                 )
             )
     if overdue:
@@ -125,6 +163,149 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
                 evidence=[EvidenceRef(entity_type=EntityType.incident, entity_id=f.id) for f in fines],
             )
         )
+    delay_incidents = [i for i in incidents if i.type == IncidentType.delay]
+    fined_shipment_ids = {i.shipment_id for i in fines if i.shipment_id}
+    delay_emails = [
+        email
+        for email in repo.emails.list(client_id=client_id)
+        if email.direction == Direction.inbound
+        and {"penalty", "complaint"}.intersection(label.lower() for label in email.labels)
+        and (not email.shipment_id or email.shipment_id not in fined_shipment_ids)
+    ]
+    if delay_incidents or delay_emails:
+        factors.append(
+            RiskFactor(
+                code=RiskFactorCode.delay_sensitivity,
+                label="Sensitive to delivery delays",
+                impact=min(25, 8 * (len(delay_incidents) + len(delay_emails))),
+                explanation=(
+                    f"Recorded {len(delay_incidents)} delay incident(s) and "
+                    f"{len(delay_emails)} additional penalty/complaint email(s) about delivery timing."
+                ),
+                evidence=[
+                    *[
+                        EvidenceRef(entity_type=EntityType.incident, entity_id=i.id)
+                        for i in delay_incidents
+                    ],
+                    *[
+                        EvidenceRef(entity_type=EntityType.email, entity_id=email.id)
+                        for email in delay_emails
+                    ],
+                ],
+            )
+        )
+    damage_claims = [i for i in incidents if i.type in (IncidentType.damage, IncidentType.claim)]
+    if damage_claims:
+        documented_costs: dict[str, int] = {}
+        for incident in damage_claims:
+            if incident.cost:
+                documented_costs[incident.cost.currency] = (
+                    documented_costs.get(incident.cost.currency, 0) + incident.cost.amount_minor
+                )
+        cost_text = ", ".join(
+            format_money(Money.of(amount, currency), Language.en)
+            for currency, amount in sorted(documented_costs.items())
+        ) or "no documented costs"
+        factors.append(
+            RiskFactor(
+                code=RiskFactorCode.damage_claims,
+                label="Damage or cargo claims",
+                impact=min(30, 15 * len(damage_claims)),
+                explanation=(
+                    f"Recorded {len(damage_claims)} damage/claim incident(s); "
+                    f"{sum(i.cost is not None for i in damage_claims)} have documented costs totaling {cost_text}."
+                ),
+                evidence=[
+                    EvidenceRef(entity_type=EntityType.incident, entity_id=i.id)
+                    for i in damage_claims
+                ],
+            )
+        )
+    if margin_records and metrics.avg_margin_pct is not None and metrics.avg_margin_pct < 12:
+        low_margin_records = [(shipment, margin) for shipment, margin in margin_records if margin < 12]
+        lane_margins: dict[tuple[str, str], list[float]] = {}
+        for shipment, margin in margin_records:
+            lane = (shipment.origin.city, shipment.destination.city)
+            lane_margins.setdefault(lane, []).append(margin)
+        worst_lane, worst_lane_margins = min(
+            lane_margins.items(), key=lambda item: sum(item[1]) / len(item[1])
+        )
+        avg_margin = metrics.avg_margin_pct
+        impact = min(25, max(5, round((12 - avg_margin) * 2)))
+        factors.append(
+            RiskFactor(
+                code=RiskFactorCode.low_margin,
+                label="Low shipment margins",
+                impact=impact,
+                explanation=(
+                    f"Average margin was {avg_margin:.1f}% across {len(margin_records)} shipment(s), below 12%; "
+                    f"thinnest lane {worst_lane[0]} → {worst_lane[1]} averaged "
+                    f"{sum(worst_lane_margins) / len(worst_lane_margins):.1f}% "
+                    f"across {len(worst_lane_margins)} shipment(s)."
+                ),
+                evidence=[
+                    EvidenceRef(
+                        entity_type=EntityType.shipment,
+                        entity_id=shipment.id,
+                        note=f"{margin:.1f}% margin",
+                    )
+                    for shipment, margin in low_margin_records
+                ],
+            )
+        )
+    restricted_shipments = []
+    for shipment in shipments:
+        outside_accepted = (
+            bool(client.accepted_cargo_types)
+            and shipment.cargo_type not in client.accepted_cargo_types
+        )
+        if (
+            shipment.cargo_type in client.refused_cargo_types
+            or outside_accepted
+        ):
+            restricted_shipments.append(shipment)
+    if restricted_shipments:
+        conflict_counts: dict[str, int] = {}
+        for shipment in restricted_shipments:
+            conflict_counts[shipment.cargo_type.value] = conflict_counts.get(shipment.cargo_type.value, 0) + 1
+        conflict_text = ", ".join(
+            f"{cargo_type}: {count}" for cargo_type, count in sorted(conflict_counts.items())
+        )
+        factors.append(
+            RiskFactor(
+                code=RiskFactorCode.cargo_restrictions,
+                label="Cargo restrictions conflict with shipments",
+                impact=min(20, 8 * len(restricted_shipments)),
+                explanation=(
+                    f"{len(restricted_shipments)} of {len(shipments)} shipment(s) conflicted with the client's "
+                    f"accepted/refused cargo list ({conflict_text})."
+                ),
+                evidence=[
+                    EvidenceRef(entity_type=EntityType.shipment, entity_id=s.id)
+                    for s in restricted_shipments
+                ],
+            )
+        )
+    if email_responses and metrics.avg_email_response_hours is not None and metrics.avg_email_response_hours >= 48:
+        factors.append(
+            RiskFactor(
+                code=RiskFactorCode.slow_communication,
+                label="Slow email responses",
+                impact=min(20, max(5, int(metrics.avg_email_response_hours // 24) * 2)),
+                explanation=(
+                    f"Across {len(email_responses)} tracked reply/replies, email response averaged "
+                    f"{metrics.avg_email_response_hours:.1f} hours (48-hour threshold)."
+                ),
+                evidence=[
+                    ref
+                    for _, outbound_id, inbound_id in email_responses
+                    for ref in (
+                        EvidenceRef(entity_type=EntityType.email, entity_id=outbound_id),
+                        EvidenceRef(entity_type=EntityType.email, entity_id=inbound_id),
+                    )
+                ],
+            )
+        )
     if len(paid) < MIN_PAID_INVOICES:
         factors.append(
             RiskFactor(
@@ -132,13 +313,15 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
                 label="Little history",
                 impact=10,
                 explanation=f"Only {len(paid)} paid invoice(s) on record; score is a rough estimate.",
+                evidence=[
+                    EvidenceRef(
+                        entity_type=EntityType.client,
+                        entity_id=client_id,
+                        note=f"{len(paid)} paid invoice(s) recorded",
+                    )
+                ],
             )
         )
-    # TODO(owner B): delay_sensitivity  (client complaints in emails, tight slots, incidents of type delay)
-    # TODO(owner B): low_margin         (avg_margin_pct below company threshold, per route)
-    # TODO(owner B): slow_communication (avg_email_response_hours)
-    # TODO(owner B): cargo_restrictions (refused_cargo_types vs requested cargo; observed vs declared)
-    # TODO(owner B): damage_claims      (incidents of type damage/claim)
 
     factors.sort(key=lambda f: abs(f.impact), reverse=True)
     score = max(0, min(100, BASE_SCORE + sum(f.impact for f in factors)))

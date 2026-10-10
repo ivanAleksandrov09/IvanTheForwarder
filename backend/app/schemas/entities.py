@@ -48,8 +48,9 @@ class Contact(ContractModel):
     language: Language
 
 
-class Client(ContractModel):
-    id: ClientId
+class ClientInput(ContractModel):
+    """Editable client fields (create / replace). The server assigns id and created_at."""
+
     name: str  # legal name in original script, e.g. "Балкан Стил ООД"
     name_latin: str | None = None  # only if the client itself uses one; never auto-transliterated
     vat_number: str | None = None  # e.g. "BG204512378"
@@ -62,6 +63,10 @@ class Client(ContractModel):
     accepted_cargo_types: list[CargoType] = []  # declared in contract/emails
     refused_cargo_types: list[CargoType] = []
     notes: str | None = None  # internal; NEVER copied into outgoing messages
+
+
+class Client(ClientInput):
+    id: ClientId
     created_at: UtcDatetime
 
 

@@ -17,6 +17,7 @@ from typing import Any, Generic, TypeVar
 from app.core import clock
 from app.core.errors import NotFoundError
 from app.schemas import (
+    CompanyProfile,
     COLLECTIONS,
     PAYLOAD_COLLECTION,
     CallLog,
@@ -125,6 +126,9 @@ class Collection(Generic[T]):
             self._db.conn.execute("DELETE FROM docs WHERE collection=?", (self.name,))
 
 
+KEEP_ON_RESET = {"company"}  # user-entered settings survive a demo reset
+
+
 class Repository:
     """Typed access to every collection: repo.clients.get("cli_0001"), repo.drafts.upsert(d), ..."""
 
@@ -145,6 +149,7 @@ class Repository:
         self.drafts: Collection[DraftMessage] = c("drafts")
         self.risk_profiles: Collection[RiskProfile] = c("risk_profiles")
         self.email_insights: Collection[EmailInsight] = c("email_insights")
+        self.company: Collection[CompanyProfile] = c("company")
 
     def collection(self, name: str) -> Collection:
         return getattr(self, name)
@@ -157,7 +162,8 @@ class Repository:
 
     def wipe(self) -> None:
         for name in COLLECTIONS:
-            self.collection(name).clear()
+            if name not in KEEP_ON_RESET:
+                self.collection(name).clear()
 
     def stats(self) -> dict[str, int]:
         return {name: self.collection(name).count() for name in COLLECTIONS}

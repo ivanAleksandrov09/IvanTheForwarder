@@ -12,6 +12,7 @@ from app.core import clock
 from app.core.config import Settings, get_settings
 from app.core.ids import stable_id
 from app.deps import get_llm, get_repo
+from app.events.document_checks import check_invoice_due_soon, link_document
 from app.llm import LLMClient
 from app.repository import Repository
 from app.schemas import Document, DocumentType, SourceType
@@ -61,7 +62,7 @@ def scan_once(folder: Path, repo: Repository, llm: LLMClient) -> int:
             _failures[doc_id] = _failures.get(doc_id, 0) + 1
             log.warning("extraction failed for %s (attempt %d/%d): %s", path.name, _failures[doc_id], MAX_ATTEMPTS, exc)
             continue
-        repo.documents.upsert(
+        stored_doc = repo.documents.upsert(
             Document(
                 id=doc_id,
                 doc_type=extracted.doc_type,
@@ -74,6 +75,7 @@ def scan_once(folder: Path, repo: Repository, llm: LLMClient) -> int:
             )
         )
         log.warning("extracted %s as %s", path.name, extracted.doc_type)
+        check_invoice_due_soon(link_document(stored_doc, repo), repo, llm, clock.now())
         stored += 1
     return stored
 

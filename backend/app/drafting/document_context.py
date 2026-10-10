@@ -1,6 +1,12 @@
 """Facts already extracted from a client's documents, as LLM context for drafting. Never re-reads the files."""
 
+from datetime import UTC, date, datetime, time
+
+from app.core.formatting import format_date
 from app.repository import Repository
+from app.schemas import Document, Language
+
+DATE_FORMATS = ("%Y-%m-%d", "%d.%m.%Y", "%d/%m/%Y")
 
 MAX_FIELDS = 12
 FIELD_CHARS = 80
@@ -32,3 +38,31 @@ def recent_documents(repo: Repository, client_id: str | None, shipment_id: str |
         }
         for d in sorted(docs[-limit:], key=lambda d: d.received_at)
     ]
+
+
+def due_date(fields: dict[str, str]) -> date | None:
+    raw = (fields.get("due_date") or fields.get("maturity_date") or "").strip()
+    for fmt in DATE_FORMATS:
+        try:
+            return datetime.strptime(raw, fmt).date()
+        except ValueError:
+            continue
+    return None
+
+
+def document_invoice_context(doc: Document, language: Language, now: datetime) -> dict:
+    """Invoice fields for a payment reminder built from a file: only facts the file states."""
+    f = doc.extracted_fields
+    due = due_date(f)
+    ctx = {
+        "invoice_number": f.get("invoice_number"),
+        "invoice_total": " ".join(x for x in (f.get("total_amount"), f.get("currency")) if x) or None,
+        "invoice_due": format_date(datetime.combine(due, time(12), tzinfo=UTC), language) if due else None,
+    }
+    if due is not None:
+        days = (due - now.date()).days
+        if days >= 0:
+            ctx["days_until_due"] = days
+        else:
+            ctx["days_overdue"] = -days
+    return ctx

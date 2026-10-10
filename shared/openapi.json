@@ -135,15 +135,118 @@
           }
         },
         "required": [
-          "id",
           "name",
           "country",
           "city",
           "preferred_language",
           "payment_terms_days",
+          "id",
           "created_at"
         ],
         "title": "Client",
+        "type": "object"
+      },
+      "ClientInput": {
+        "additionalProperties": false,
+        "description": "Editable client fields (create / replace). The server assigns id and created_at.",
+        "properties": {
+          "accepted_cargo_types": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/CargoType"
+            },
+            "title": "Accepted Cargo Types",
+            "type": "array"
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "contacts": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Contact"
+            },
+            "title": "Contacts",
+            "type": "array"
+          },
+          "country": {
+            "pattern": "^[A-Z]{2}$",
+            "title": "Country",
+            "type": "string"
+          },
+          "credit_limit": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Money"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "name_latin": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name Latin"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "payment_terms_days": {
+            "minimum": 0.0,
+            "title": "Payment Terms Days",
+            "type": "integer"
+          },
+          "preferred_language": {
+            "$ref": "#/components/schemas/Language"
+          },
+          "refused_cargo_types": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/CargoType"
+            },
+            "title": "Refused Cargo Types",
+            "type": "array"
+          },
+          "vat_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vat Number"
+          }
+        },
+        "required": [
+          "name",
+          "country",
+          "city",
+          "preferred_language",
+          "payment_terms_days"
+        ],
+        "title": "ClientInput",
         "type": "object"
       },
       "ClientMetrics": {
@@ -277,6 +380,35 @@
           "fines_count"
         ],
         "title": "ClientMetrics",
+        "type": "object"
+      },
+      "CompanyInput": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "name_latin": {
+            "title": "Name Latin",
+            "type": "string"
+          },
+          "operator_name": {
+            "title": "Operator Name",
+            "type": "string"
+          },
+          "operator_name_latin": {
+            "title": "Operator Name Latin",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "name_latin",
+          "operator_name",
+          "operator_name_latin"
+        ],
+        "title": "CompanyInput",
         "type": "object"
       },
       "Confidence": {
@@ -1270,6 +1402,7 @@
         "enum": [
           "shipment_delayed",
           "invoice_overdue",
+          "invoice_due_soon",
           "payment_received",
           "email_received",
           "document_received",
@@ -2821,9 +2954,82 @@
         "tags": [
           "data"
         ]
+      },
+      "post": {
+        "operationId": "create_client_api_clients_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Client",
+        "tags": [
+          "data"
+        ]
       }
     },
     "/api/clients/{client_id}": {
+      "delete": {
+        "description": "Refused while shipments, invoices, payments, incidents or sent/approved drafts belong to the client.\nUnsent drafts are removed with it; emails, documents and events are unlinked.",
+        "operationId": "delete_client_api_clients__client_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "title": "Client Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Client",
+        "tags": [
+          "data"
+        ]
+      },
       "get": {
         "operationId": "get_client_api_clients__client_id__get",
         "parameters": [
@@ -2860,6 +3066,57 @@
           }
         },
         "summary": "Get Client",
+        "tags": [
+          "data"
+        ]
+      },
+      "put": {
+        "description": "Replace the editable fields; id and created_at are kept.",
+        "operationId": "update_client_api_clients__client_id__put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "title": "Client Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Update Client",
         "tags": [
           "data"
         ]
@@ -2904,6 +3161,66 @@
         "summary": "Client Risk",
         "tags": [
           "risk"
+        ]
+      }
+    },
+    "/api/company": {
+      "get": {
+        "operationId": "get_company_api_company_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyInput"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get Company",
+        "tags": [
+          "data"
+        ]
+      },
+      "put": {
+        "operationId": "put_company_api_company_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompanyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyInput"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Put Company",
+        "tags": [
+          "data"
         ]
       }
     },

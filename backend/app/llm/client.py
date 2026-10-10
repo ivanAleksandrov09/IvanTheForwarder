@@ -54,6 +54,9 @@ class LLMClient:
         self.system_prompt = build_system_prompt(settings.company_name, settings.operator_name)
         self.log_path = settings.runtime_dir / "logs" / "llm.jsonl"
 
+    def set_company(self, name: str, operator: str) -> None:
+        self.system_prompt = build_system_prompt(name, operator)
+
     # ------------------------------------------------------------------ public API
     def status(self) -> LlmStatus:
         return LlmStatus(

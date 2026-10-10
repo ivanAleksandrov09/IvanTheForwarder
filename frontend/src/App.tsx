@@ -7,6 +7,8 @@ import { EventsList } from "./components/EventsList";
 import { ClientDetail } from "./components/ClientDetail";
 import { TruckMap } from "./components/TruckMap";
 import { MailboxPanel } from "./components/MailboxPanel";
+import { ClientForm } from "./components/ClientForm";
+import { CompanyName } from "./components/CompanyName";
 import { t, type UiLang } from "./i18n";
 
 // Hello-world dashboard: clients + explainable risk, events, approval queue.
@@ -24,6 +26,7 @@ export default function App() {
   const [trucks, setTrucks] = useState<Truck[]>([]);
   const [showMap, setShowMap] = useState(false);
   const [showMailbox, setShowMailbox] = useState(false);
+  const [editing, setEditing] = useState<Client | "new" | null>(null);
 
   const refresh = useCallback(async () => {
     try {
@@ -69,6 +72,7 @@ export default function App() {
 
   return (
     <div className="app">
+      <CompanyName />
       <header>
         <h1>
           Ivan <span className="muted">· AI assistant for forwarders</span>
@@ -96,6 +100,16 @@ export default function App() {
       {loading && <p className="muted">{t("loading", lang)}</p>}
       {error && <button onClick={refresh}>{t("retry", lang)}</button>}
       {showMailbox && <MailboxPanel onSynced={refresh} />}
+      {editing && (
+        <ClientForm
+          key={editing === "new" ? "new" : editing.id}
+          client={editing === "new" ? null : editing}
+          onDone={() => {
+            setEditing(null);
+            refresh();
+          }}
+        />
+      )}
       {showMap && trucks.length > 0 && <section className="panel map-panel"><h2>Truck positions</h2><TruckMap truckIds={trucks.map((truck) => truck.id)} /></section>}
       {selectedClientId ? (
         <ClientDetail
@@ -108,7 +122,7 @@ export default function App() {
         />
       ) : <main>
         <section>
-          <h2>{t("clients", lang)}</h2>
+          <h2>{t("clients", lang)} <button onClick={() => setEditing("new")}>Add client</button></h2>
           <ClientRiskTable
             clients={clients}
             risk={risk}
@@ -117,6 +131,7 @@ export default function App() {
               run("draft", () => unwrap(api.POST("/api/drafts/generate", { body: { kind: "payment_reminder", client_id } })))
             }
             onSelectClient={setSelectedClientId}
+            onEditClient={setEditing}
           />
           <h2>{t("events", lang)}</h2>
           <EventsList events={events} />

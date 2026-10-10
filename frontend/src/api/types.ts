@@ -3,6 +3,9 @@ import type { components } from "./schema";
 
 type S = components["schemas"];
 export type Client = S["Client"];
+export type ClientInput = S["ClientInput"];
+export type CompanyInput = S["CompanyInput"];
+export type Contact = S["Contact"];
 export type RiskProfile = S["RiskProfile"];
 export type RiskFactor = S["RiskFactor"];
 export type DomainEvent = S["DomainEvent"];

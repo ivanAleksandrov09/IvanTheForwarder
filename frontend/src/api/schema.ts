@@ -14,7 +14,8 @@ export interface paths {
         /** List Clients */
         get: operations["list_clients_api_clients_get"];
         put?: never;
-        post?: never;
+        /** Create Client */
+        post: operations["create_client_api_clients_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -30,9 +31,18 @@ export interface paths {
         };
         /** Get Client */
         get: operations["get_client_api_clients__client_id__get"];
-        put?: never;
+        /**
+         * Update Client
+         * @description Replace the editable fields; id and created_at are kept.
+         */
+        put: operations["update_client_api_clients__client_id__put"];
         post?: never;
-        delete?: never;
+        /**
+         * Delete Client
+         * @description Refused while shipments, invoices, payments, incidents or sent/approved drafts belong to the client.
+         *     Unsent drafts are removed with it; emails, documents and events are unlinked.
+         */
+        delete: operations["delete_client_api_clients__client_id__delete"];
         options?: never;
         head?: never;
         patch?: never;
@@ -48,6 +58,24 @@ export interface paths {
         /** Client Risk */
         get: operations["client_risk_api_clients__client_id__risk_get"];
         put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/company": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Company */
+        get: operations["get_company_api_company_get"];
+        /** Put Company */
+        put: operations["put_company_api_company_put"];
         post?: never;
         delete?: never;
         options?: never;
@@ -671,6 +699,43 @@ export interface components {
             /** Vat Number */
             vat_number?: string | null;
         };
+        /**
+         * ClientInput
+         * @description Editable client fields (create / replace). The server assigns id and created_at.
+         */
+        ClientInput: {
+            /**
+             * Accepted Cargo Types
+             * @default []
+             */
+            accepted_cargo_types: components["schemas"]["CargoType"][];
+            /** City */
+            city: string;
+            /**
+             * Contacts
+             * @default []
+             */
+            contacts: components["schemas"]["Contact"][];
+            /** Country */
+            country: string;
+            credit_limit?: components["schemas"]["Money"] | null;
+            /** Name */
+            name: string;
+            /** Name Latin */
+            name_latin?: string | null;
+            /** Notes */
+            notes?: string | null;
+            /** Payment Terms Days */
+            payment_terms_days: number;
+            preferred_language: components["schemas"]["Language"];
+            /**
+             * Refused Cargo Types
+             * @default []
+             */
+            refused_cargo_types: components["schemas"]["CargoType"][];
+            /** Vat Number */
+            vat_number?: string | null;
+        };
         /** ClientMetrics */
         ClientMetrics: {
             /** Avg Email Response Hours */
@@ -699,6 +764,17 @@ export interface components {
             overdue_amount?: components["schemas"]["Money"] | null;
             /** Shipments Total */
             shipments_total: number;
+        };
+        /** CompanyInput */
+        CompanyInput: {
+            /** Name */
+            name: string;
+            /** Name Latin */
+            name_latin: string;
+            /** Operator Name */
+            operator_name: string;
+            /** Operator Name Latin */
+            operator_name_latin: string;
         };
         /**
          * Confidence
@@ -1022,7 +1098,7 @@ export interface components {
          * EventType
          * @enum {string}
          */
-        EventType: "shipment_delayed" | "invoice_overdue" | "payment_received" | "email_received" | "document_received" | "risk_level_changed" | "truck_idle";
+        EventType: "shipment_delayed" | "invoice_overdue" | "invoice_due_soon" | "payment_received" | "email_received" | "document_received" | "risk_level_changed" | "truck_idle";
         /**
          * EvidenceRef
          * @description Points at the stored object that justifies a claim (risk factor, event, draft).
@@ -1547,6 +1623,39 @@ export interface operations {
             };
         };
     };
+    create_client_api_clients_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ClientInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Client"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     get_client_api_clients__client_id__get: {
         parameters: {
             query?: never;
@@ -1578,6 +1687,70 @@ export interface operations {
             };
         };
     };
+    update_client_api_clients__client_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                client_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ClientInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Client"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_client_api_clients__client_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                client_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     client_risk_api_clients__client_id__risk_get: {
         parameters: {
             query?: never;
@@ -1596,6 +1769,59 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["RiskProfile"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_company_api_company_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CompanyInput"];
+                };
+            };
+        };
+    };
+    put_company_api_company_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CompanyInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CompanyInput"];
                 };
             };
             /** @description Validation Error */

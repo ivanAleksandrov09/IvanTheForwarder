@@ -9,10 +9,11 @@ type Props = {
   lang: UiLang;
   onDraftReminder: (clientId: string) => void;
   onSelectClient: (clientId: string) => void;
+  onEditClient: (client: Client) => void;
 };
 
 // Explainability rule: never show a score without its factors.
-export function ClientRiskTable({ clients, risk, lang, onDraftReminder, onSelectClient }: Props) {
+export function ClientRiskTable({ clients, risk, lang, onDraftReminder, onSelectClient, onEditClient }: Props) {
   const [open, setOpen] = useState<string | null>(null);
   const byClient = new Map(risk.map((r) => [r.client_id, r]));
 
@@ -49,6 +50,14 @@ export function ClientRiskTable({ clients, risk, lang, onDraftReminder, onSelect
                 </td>
                 <td>{formatMoney(r?.metrics.overdue_amount)}</td>
                 <td>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onEditClient(c);
+                    }}
+                  >
+                    Edit
+                  </button>
                   {r && r.metrics.open_overdue_invoices > 0 && (
                     <button
                       onClick={(e) => {

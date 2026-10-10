@@ -1,0 +1,295 @@
+{
+  "_note": "ASSUMED Zeron-shaped sample data. Zeron's real API is not public; adjust field names when the vendor documentation arrives.",
+  "counterparties": [
+    {
+      "id": "C-1001",
+      "name": "Балкан Стил ООД",
+      "vatNumber": "BG204512378",
+      "country": "BG",
+      "city": "Перник",
+      "contactName": "Георги Петров",
+      "email": "lmartin9886@gmail.com",
+      "phone": "+359888123456",
+      "language": "bg",
+      "paymentTermDays": 30,
+      "modified": "2026-10-15T07:00:00Z"
+    },
+    {
+      "id": "C-1002",
+      "name": "Rhein Logistik GmbH",
+      "vatNumber": "DE298765431",
+      "country": "DE",
+      "city": "München",
+      "contactName": "Anna Weber",
+      "email": "a.weber@rhein-logistik.de",
+      "phone": "+498912345678",
+      "language": "en",
+      "paymentTermDays": 45,
+      "modified": "2026-10-15T07:00:00Z"
+    },
+    {
+      "id": "C-2001",
+      "name": "Lohmann Logistikservice GmbH",
+      "vatNumber": "DE262896804",
+      "country": "DE",
+      "city": "Versmold",
+      "contactName": "Danail Aleksandrov",
+      "email": "d.aleksandrov@lohmann-logistik.example",
+      "phone": null,
+      "language": "en",
+      "paymentTermDays": 30,
+      "modified": "2026-10-15T07:00:00Z"
+    }
+  ],
+  "vehicles": [
+    {
+      "id": "V-03",
+      "plate": "СВ 1234 АВ",
+      "label": "Truck 3",
+      "driver": null,
+      "driverPhone": null,
+      "trailerType": "TENT",
+      "capacityKg": 24000,
+      "status": "ON_ROUTE",
+      "own": true,
+      "modified": "2026-10-15T07:00:00Z"
+    },
+    {
+      "id": "V-04",
+      "plate": "СВ 5567 ТМ",
+      "label": "Truck 4",
+      "driver": null,
+      "driverPhone": null,
+      "trailerType": "REEFER",
+      "capacityKg": 22000,
+      "status": "ON_ROUTE",
+      "own": true,
+      "modified": "2026-10-15T07:00:00Z"
+    },
+    {
+      "id": "V-07",
+      "plate": "СВ 2045 КН",
+      "label": "Truck 7",
+      "driver": "Стефан Георгиев",
+      "driverPhone": "+359888555017",
+      "trailerType": "TENT",
+      "capacityKg": 24000,
+      "status": "ON_ROUTE",
+      "own": true,
+      "modified": "2026-10-15T07:00:00Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD-1150",
+      "number": "SPD-2026-1150",
+      "counterpartyId": "C-2001",
+      "vehicleId": "V-07",
+      "status": "IN_TRANSIT",
+      "cargoType": "GENERAL",
+      "cargo": "General goods, about 6 600 kg",
+      "weightKg": 6600,
+      "pallets": 12,
+      "from": {
+        "city": "София",
+        "country": "BG",
+        "lat": 42.6977,
+        "lon": 23.3219
+      },
+      "to": {
+        "city": "Versmold",
+        "country": "DE",
+        "lat": 52.0449,
+        "lon": 8.1544
+      },
+      "distanceKm": 1850,
+      "pickupPlanned": "2026-10-14T06:00:00Z",
+      "pickedUp": "2026-10-14T08:00:00Z",
+      "deliveryPlanned": "2026-10-16T12:00:00Z",
+      "eta": "2026-10-16T14:30:00Z",
+      "delivered": null,
+      "price": {
+        "amount": "1900.00",
+        "currency": "EUR"
+      },
+      "cost": {
+        "amount": "1500.00",
+        "currency": "EUR"
+      },
+      "cmr": "BG 0460001",
+      "created": "2026-10-12T09:00:00Z",
+      "modified": "2026-10-15T07:00:00Z"
+    },
+    {
+      "id": "ORD-1151",
+      "number": "SPD-2026-1151",
+      "counterpartyId": "C-1001",
+      "vehicleId": null,
+      "status": "CONFIRMED",
+      "cargoType": "STEEL",
+      "cargo": "Rebar, 22 t",
+      "weightKg": 22000,
+      "pallets": null,
+      "from": {
+        "city": "Перник",
+        "country": "BG",
+        "lat": 42.6052,
+        "lon": 23.0378
+      },
+      "to": {
+        "city": "București",
+        "country": "RO",
+        "lat": 44.4268,
+        "lon": 26.1025
+      },
+      "distanceKm": 420,
+      "pickupPlanned": "2026-10-17T07:00:00Z",
+      "pickedUp": null,
+      "deliveryPlanned": "2026-10-18T10:00:00Z",
+      "eta": null,
+      "delivered": null,
+      "price": {
+        "amount": "1250.00",
+        "currency": "EUR"
+      },
+      "cost": null,
+      "cmr": null,
+      "created": "2026-10-13T10:00:00Z",
+      "modified": "2026-10-15T07:00:00Z"
+    },
+    {
+      "id": "ORD-1149",
+      "number": "SPD-2026-1149",
+      "counterpartyId": "C-1002",
+      "vehicleId": "V-04",
+      "status": "DELIVERED",
+      "cargoType": "GENERAL",
+      "cargo": "Machine parts",
+      "weightKg": 9800,
+      "pallets": 18,
+      "from": {
+        "city": "София",
+        "country": "BG",
+        "lat": 42.6977,
+        "lon": 23.3219
+      },
+      "to": {
+        "city": "Köln",
+        "country": "DE",
+        "lat": 50.9375,
+        "lon": 6.9603
+      },
+      "distanceKm": 1900,
+      "pickupPlanned": "2026-10-06T06:00:00Z",
+      "pickedUp": "2026-10-06T06:30:00Z",
+      "deliveryPlanned": "2026-10-08T12:00:00Z",
+      "eta": "2026-10-08T11:40:00Z",
+      "delivered": "2026-10-08T11:45:00Z",
+      "price": {
+        "amount": "2100.00",
+        "currency": "EUR"
+      },
+      "cost": {
+        "amount": "1700.00",
+        "currency": "EUR"
+      },
+      "cmr": "BG 0459877",
+      "created": "2026-10-04T08:00:00Z",
+      "modified": "2026-10-15T07:00:00Z"
+    }
+  ],
+  "invoices": [
+    {
+      "id": "INV-9001",
+      "number": "0000013901",
+      "counterpartyId": "C-1001",
+      "orderIds": [],
+      "issueDate": "2026-09-01",
+      "dueDate": "2026-10-01",
+      "net": "1000.00",
+      "vat": "200.00",
+      "total": "1200.00",
+      "currency": "EUR",
+      "status": "ISSUED",
+      "modified": "2026-10-15T07:00:00Z"
+    },
+    {
+      "id": "INV-9002",
+      "number": "0000013902",
+      "counterpartyId": "C-2001",
+      "orderIds": [
+        "ORD-1150"
+      ],
+      "issueDate": "2026-10-09",
+      "dueDate": "2026-10-19",
+      "net": "960.00",
+      "vat": "0.00",
+      "total": "960.00",
+      "currency": "EUR",
+      "status": "ISSUED",
+      "modified": "2026-10-15T07:00:00Z"
+    },
+    {
+      "id": "INV-9003",
+      "number": "0000013903",
+      "counterpartyId": "C-1002",
+      "orderIds": [
+        "ORD-1149"
+      ],
+      "issueDate": "2026-10-08",
+      "dueDate": "2026-11-22",
+      "net": "2100.00",
+      "vat": "0.00",
+      "total": "2100.00",
+      "currency": "EUR",
+      "status": "PAID",
+      "modified": "2026-10-15T07:00:00Z"
+    },
+    {
+      "id": "INV-9004",
+      "number": "0000013904",
+      "counterpartyId": "C-2001",
+      "orderIds": [],
+      "issueDate": "2026-09-12",
+      "dueDate": "2026-09-29",
+      "net": "960.00",
+      "vat": "0.00",
+      "total": "960.00",
+      "currency": "EUR",
+      "status": "ISSUED",
+      "modified": "2026-10-15T07:00:00Z"
+    }
+  ],
+  "positions": [
+    {
+      "id": "P-70001",
+      "vehicleId": "V-07",
+      "time": "2026-10-15T07:05:00Z",
+      "lat": 48.2102,
+      "lon": 14.11,
+      "speedKmh": 80.0,
+      "heading": 315,
+      "modified": "2026-10-15T07:05:00Z"
+    },
+    {
+      "id": "P-70002",
+      "vehicleId": "V-07",
+      "time": "2026-10-15T07:15:00Z",
+      "lat": 48.2631,
+      "lon": 14.0102,
+      "speedKmh": 78.0,
+      "heading": 315,
+      "modified": "2026-10-15T07:15:00Z"
+    },
+    {
+      "id": "P-70003",
+      "vehicleId": "V-07",
+      "time": "2026-10-15T07:25:00Z",
+      "lat": 48.3046,
+      "lon": 13.912,
+      "speedKmh": 79.0,
+      "heading": 315,
+      "modified": "2026-10-15T07:25:00Z"
+    }
+  ]
+}

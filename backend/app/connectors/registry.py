@@ -6,6 +6,7 @@ from app.connectors.email_imap import ImapEmailConnector
 from app.connectors.email_mock import MockEmailConnector
 from app.connectors.gps_mock import MockGpsConnector
 from app.connectors.gps_traccar import TraccarGpsConnector
+from app.connectors.zeron import ZeronConnector
 from app.core.config import Settings
 from app.repository import SeedStore
 from app.schemas import SourceType
@@ -31,6 +32,10 @@ def build_connectors(settings: Settings, seed: SeedStore) -> dict[SourceType, Ba
         connectors.append(TraccarGpsConnector(settings))
     else:  # mock by default
         connectors.append(MockGpsConnector(seed))
+    if settings.connector_erp in ("zeron", "zeron_mock"):
+        from app.deps import get_repo  # lazy: deps imports this module
+
+        connectors.append(ZeronConnector(settings, get_repo, mock=settings.connector_erp == "zeron_mock"))
     # TODO(owner A): documents (mock: feeds/documents_inbox.json; real: watched folder + OCR/vision)
     # TODO(owner A): erp (mock: feeds/erp_*.json; real: ERP export/CSV/API)
     # STRETCH(owner A): call_log, erp_screenshot (vision), external_web (speditor.net -> scrape or mock)

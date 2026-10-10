@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { api, unwrap } from "../api/client";
 import type { CompanyInput } from "../api/types";
 
-const empty: CompanyInput = { name: "", name_latin: "", operator_name: "", operator_name_latin: "" };
+const empty: CompanyInput = { name: "", name_latin: "", operator_name: "", operator_name_latin: "", erp_system: "", gps_system: "", other_systems: "" };
 
 // Our own company, shown in the top-right corner. Used in every draft's signature and in the AI's instructions.
 export function CompanyName() {

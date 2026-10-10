@@ -13,14 +13,14 @@ def test_defaults_come_from_env_until_saved(client):
 
 def test_save_is_used_by_drafts_and_system_prompt_and_survives_reset(client):
     assert client.put("/api/company", json=NEW).status_code == 200
-    assert client.get("/api/company").json() == NEW
+    assert {k: client.get("/api/company").json()[k] for k in NEW} == NEW
     assert get_llm().system_prompt.count("Нова Спедиция ЕООД") >= 1
 
     ctx, _to, _ids = _context(GenerateDraftRequest(kind=DraftKind.generic, client_id="cli_0001"), get_repo())
     assert ctx["company_name"] == NEW["name"] and ctx["company_name_latin"] == NEW["name_latin"]
 
     assert client.post("/api/system/reset").status_code == 200
-    assert client.get("/api/company").json() == NEW  # not wiped by reset
+    assert {k: client.get("/api/company").json()[k] for k in NEW} == NEW  # not wiped by reset
 
 
 def test_invalid_company_is_rejected(client):

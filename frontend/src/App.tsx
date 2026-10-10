@@ -10,6 +10,7 @@ import { MailboxPanel } from "./components/MailboxPanel";
 import { ClientForm } from "./components/ClientForm";
 import { CompanyName } from "./components/CompanyName";
 import { LoadsPanel } from "./components/LoadsPanel";
+import { OnboardingPanel } from "./components/OnboardingPanel";
 import { t, type UiLang } from "./i18n";
 
 // Hello-world dashboard: clients + explainable risk, events, approval queue.
@@ -29,6 +30,7 @@ export default function App() {
   const [showMailbox, setShowMailbox] = useState(false);
   const [editing, setEditing] = useState<Client | "new" | null>(null);
   const [showLoads, setShowLoads] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   const refresh = useCallback(async () => {
     try {
@@ -96,6 +98,7 @@ export default function App() {
           </button>
           <button onClick={() => setShowMailbox(!showMailbox)}>{showMailbox ? "Hide mailbox" : "Connect email"}</button>
           <button onClick={() => setShowLoads(!showLoads)}>{showLoads ? "Hide loads" : "Show loads"}</button>
+          <button onClick={() => setShowOnboarding(!showOnboarding)}>{showOnboarding ? "Hide setup" : "Connect systems"}</button>
           {trucks.length > 0 && <button onClick={() => setShowMap(!showMap)}>{showMap ? "Hide map" : "Show truck map"}</button>}
         </div>
       </header>
@@ -103,6 +106,7 @@ export default function App() {
       {loading && <p className="muted">{t("loading", lang)}</p>}
       {error && <button onClick={refresh}>{t("retry", lang)}</button>}
       {showMailbox && <MailboxPanel onSynced={refresh} />}
+      {showOnboarding && <OnboardingPanel />}
       {editing && (
         <ClientForm
           key={editing === "new" ? "new" : editing.id}

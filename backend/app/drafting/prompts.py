@@ -42,6 +42,12 @@ def build_prompt(kind: DraftKind, context: dict, instructions: str | None) -> st
             "stay consistent with it, refer to earlier promises or requests when relevant, never quote it at length "
             "and never take new facts (amounts, dates) from it."
         )
+    if context.get("account_summary"):
+        parts.append(
+            "`account_summary` is the client's current standing from our ERP (open invoices, active loads). Use it for accuracy "
+            "and mention it only when it helps the task (e.g. which load or invoice is meant); never list it unprompted, "
+            "and never invent numbers that are not in it."
+        )
     if context.get("recent_documents"):
         parts.append(
             "`recent_documents` are facts automatically extracted from documents on file for this client (CMR, invoices, orders). "

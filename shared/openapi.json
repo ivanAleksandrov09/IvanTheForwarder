@@ -385,6 +385,16 @@
       "CompanyInput": {
         "additionalProperties": false,
         "properties": {
+          "erp_system": {
+            "default": "",
+            "title": "Erp System",
+            "type": "string"
+          },
+          "gps_system": {
+            "default": "",
+            "title": "Gps System",
+            "type": "string"
+          },
           "name": {
             "title": "Name",
             "type": "string"
@@ -399,6 +409,11 @@
           },
           "operator_name_latin": {
             "title": "Operator Name Latin",
+            "type": "string"
+          },
+          "other_systems": {
+            "default": "",
+            "title": "Other Systems",
             "type": "string"
           }
         },
@@ -2268,6 +2283,41 @@
           "currency"
         ],
         "title": "Money",
+        "type": "object"
+      },
+      "OnboardingEmail": {
+        "additionalProperties": false,
+        "description": "A drafted email to a system's support team asking for integration access. Never sent by the app.",
+        "properties": {
+          "body": {
+            "title": "Body",
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "erp",
+              "gps",
+              "other"
+            ],
+            "title": "Role",
+            "type": "string"
+          },
+          "subject": {
+            "title": "Subject",
+            "type": "string"
+          },
+          "system": {
+            "title": "System",
+            "type": "string"
+          }
+        },
+        "required": [
+          "role",
+          "system",
+          "subject",
+          "body"
+        ],
+        "title": "OnboardingEmail",
         "type": "object"
       },
       "Payment": {
@@ -4283,6 +4333,58 @@
         "summary": "Refresh",
         "tags": [
           "loads"
+        ]
+      }
+    },
+    "/api/onboarding/emails": {
+      "post": {
+        "description": "Draft one integration-access email per system saved in the company profile (ERP, GPS, other).",
+        "operationId": "onboarding_emails_api_onboarding_emails_post",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "language",
+            "required": false,
+            "schema": {
+              "default": "en",
+              "enum": [
+                "en",
+                "bg"
+              ],
+              "title": "Language",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/OnboardingEmail"
+                  },
+                  "title": "Response Onboarding Emails Api Onboarding Emails Post",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Onboarding Emails",
+        "tags": [
+          "data"
         ]
       }
     },

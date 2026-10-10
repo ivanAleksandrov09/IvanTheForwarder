@@ -1,6 +1,8 @@
 """Read access to gathered data + connector control. Owner: A."""
 
 import imaplib
+from typing import Literal
+
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 
 from app.connectors import mailbox_store
@@ -14,7 +16,8 @@ from app.core.ids import new_id
 from app.connectors.insights import analyze_email, process_new_emails
 from app.company import effective, save as save_company
 from app.events.document_checks import recheck_documents
-from app.schemas import CompanyInput
+from app.onboarding import build_emails
+from app.schemas import CompanyInput, OnboardingEmail
 from app.deps import get_connectors, get_llm, get_repo, get_seed
 from app.llm import LLMClient
 from app.repository import Repository
@@ -107,6 +110,12 @@ def put_company(body: CompanyInput, repo: Repository = Depends(get_repo), llm: L
     saved = save_company(repo, body)
     llm.set_company(saved.name, saved.operator_name)
     return effective(repo, get_settings())
+
+
+@router.post("/onboarding/emails")
+def onboarding_emails(language: Literal["en", "bg"] = "en", repo: Repository = Depends(get_repo)) -> list[OnboardingEmail]:
+    """Draft one integration-access email per system saved in the company profile (ERP, GPS, other)."""
+    return build_emails(effective(repo, get_settings()), language)
 
 
 @router.get("/trucks")

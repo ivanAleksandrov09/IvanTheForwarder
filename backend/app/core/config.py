@@ -54,7 +54,7 @@ class Settings(BaseSettings):
     connector_email: Literal["mock", "imap"] = "mock"
     connector_documents: Literal["mock"] = "mock"  # TODO(owner A): add real options
     connector_gps: Literal["mock", "traccar"] = "mock"
-    connector_erp: Literal["mock"] = "mock"
+    connector_erp: Literal["mock", "zeron", "zeron_mock"] = "mock"  # zeron_mock = sample data, no network
     imap_host: str = ""
     imap_user: str = ""
     imap_password: str = ""
@@ -63,6 +63,8 @@ class Settings(BaseSettings):
     traccar_user: str = ""
     traccar_password: str = ""
     status_update_hours: float = 4  # min hours between routine status drafts per shipment; 0 = off
+    zeron_url: str = ""  # base URL of the Zeron V/4 web services (assumed REST + JSON)
+    zeron_token: str = ""
     traccar_device_map: str = ""  # comma-separated Traccar device ID to Ivan truck ID pairs
 
     outbound_mode: Literal["log", "smtp"] = "log"

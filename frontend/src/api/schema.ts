@@ -499,6 +499,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/onboarding/emails": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Onboarding Emails
+         * @description Draft one integration-access email per system saved in the company profile (ERP, GPS, other).
+         */
+        post: operations["onboarding_emails_api_onboarding_emails_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/payments": {
         parameters: {
             query?: never;
@@ -801,6 +821,16 @@ export interface components {
         };
         /** CompanyInput */
         CompanyInput: {
+            /**
+             * Erp System
+             * @default
+             */
+            erp_system: string;
+            /**
+             * Gps System
+             * @default
+             */
+            gps_system: string;
             /** Name */
             name: string;
             /** Name Latin */
@@ -809,6 +839,11 @@ export interface components {
             operator_name: string;
             /** Operator Name Latin */
             operator_name_latin: string;
+            /**
+             * Other Systems
+             * @default
+             */
+            other_systems: string;
         };
         /**
          * Confidence
@@ -1398,6 +1433,23 @@ export interface components {
             amount_minor: number;
             /** Currency */
             currency: string;
+        };
+        /**
+         * OnboardingEmail
+         * @description A drafted email to a system's support team asking for integration access. Never sent by the app.
+         */
+        OnboardingEmail: {
+            /** Body */
+            body: string;
+            /**
+             * Role
+             * @enum {string}
+             */
+            role: "erp" | "gps" | "other";
+            /** Subject */
+            subject: string;
+            /** System */
+            system: string;
         };
         /** Payment */
         Payment: {
@@ -2569,6 +2621,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["LoadOffer"][];
+                };
+            };
+        };
+    };
+    onboarding_emails_api_onboarding_emails_post: {
+        parameters: {
+            query?: {
+                language?: "en" | "bg";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnboardingEmail"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

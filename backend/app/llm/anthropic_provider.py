@@ -31,15 +31,15 @@ class AnthropicProvider:
             )
         return self._client
 
-    def complete(self, model: str, messages: list[dict]) -> str:
+    def complete(self, model: str, messages: list[dict], effort: str | None = None) -> str:
         """messages = [{"role": "system", ...}, user/assistant turns...] as built by LLMClient."""
         system = "\n\n".join(m["content"] for m in messages if m["role"] == "system")
         turns = [m for m in messages if m["role"] != "system"]
         response = self._get().messages.create(
             model=model,
             max_tokens=self.s.llm_max_tokens,
-            temperature=self.s.llm_temperature,
             system=system,
             messages=turns,
+            extra_body={"output_config": {"effort": effort}} if effort else None,
         )
         return "".join(block.text for block in response.content if block.type == "text")

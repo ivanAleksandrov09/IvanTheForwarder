@@ -25,6 +25,8 @@ class Settings(BaseSettings):
     data_dir: Path = REPO_ROOT / "data"
     db_path: Path | None = None  # default: data/runtime/app.db
     auto_seed: bool = True  # load data/seed into an empty DB on startup
+    watch_folder: Path = REPO_ROOT / "incoming"  # drop PDF/PNG/JPG files here; new ones are extracted automatically
+    watch_interval_seconds: int = 30
 
     clock_mode: Literal["fixed", "real"] = "fixed"
     demo_now: datetime = datetime.fromisoformat(DEFAULT_DEMO_NOW)
@@ -40,6 +42,7 @@ class Settings(BaseSettings):
     llm_timeout_seconds: float = 30.0
     llm_max_retries: int = 4
     llm_temperature: float = 0.3
+    llm_document_effort: str = "low"  # Claude output_config.effort for document extraction; empty = omit
     llm_json_mode: bool = True
     llm_log_prompts: bool = True
 

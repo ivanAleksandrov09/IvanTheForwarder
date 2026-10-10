@@ -13,6 +13,7 @@ Usage:
     obj,  meta = llm.complete_json(task="draft.payment_reminder", prompt="...", schema=DraftContent, mock_context={...})
 """
 
+import base64
 import json
 import random
 import re
@@ -105,6 +106,20 @@ class LLMClient:
                 return self._parse(text, schema), meta
             raise LLMError(f"LLM returned invalid JSON for {task!r}: {e}") from e
 
+    def extract_document(
+        self, *, task: str, data: bytes, mime_type: str, prompt: str, schema: type[T]
+    ) -> tuple[T, LlmMeta]:
+        """Reads a PDF or image with Claude (LLM_PROVIDER=anthropic). Raises LLMError on failure, no mock fallback."""
+        if self._claude is None:
+            raise LLMError("document extraction needs LLM_PROVIDER=anthropic")
+        schema_json = json.dumps(schema.model_json_schema(), ensure_ascii=False)
+        source = {"type": "base64", "media_type": mime_type, "data": base64.b64encode(data).decode("ascii")}
+        file_block = {"type": "document", "source": source} if mime_type == "application/pdf" else {"type": "image", "source": source}
+        content = [file_block, {"type": "text", "text": f"{prompt}\n\nReturn ONLY one JSON object matching this JSON Schema:\n{schema_json}"}]
+        messages = [{"role": "system", "content": self.system_prompt}, {"role": "user", "content": content}]
+        text, meta = self._live(task, messages, json_mode=False, model=self._model(fast=True), effort=self.s.llm_document_effort or None)
+        return self._parse(text, schema), meta
+
     # ------------------------------------------------------------------ internals
     def _messages(self, prompt: str, system_extra: str | None) -> list[dict]:
         system = self.system_prompt + (f"\n{system_extra}" if system_extra else "")
@@ -142,13 +157,13 @@ class LLMClient:
                 return self._mock(task, messages, mock_context, used_fallback=True)
             raise
 
-    def _live(self, task: str, messages: list[dict], json_mode: bool, model: str) -> tuple[str, LlmMeta]:
+    def _live(self, task: str, messages: list[dict], json_mode: bool, model: str, effort: str | None = None) -> tuple[str, LlmMeta]:
         kwargs: dict = {"model": model, "messages": messages, "temperature": self.s.llm_temperature}
         if json_mode and self.s.llm_json_mode:
             kwargs["response_format"] = {"type": "json_object"}
         if self._claude:  # Claude has no JSON mode: the prompt carries the schema and the reply is validated below
             retryable, status_error = self._claude.retryable, self._claude.status_error
-            call = lambda: self._claude.complete(model, messages)  # noqa: E731
+            call = lambda: self._claude.complete(model, messages, effort)  # noqa: E731
         else:
             retryable, status_error = _RETRYABLE, openai.APIStatusError
             call = lambda: self._openai().chat.completions.create(**kwargs).choices[0].message.content or ""  # noqa: E731

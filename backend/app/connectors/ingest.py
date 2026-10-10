@@ -12,7 +12,7 @@ def sync(connector: BaseConnector, repo: Repository) -> SyncResult:
     upserted = 0
     envelopes = []
     try:
-        envelopes = connector.fetch(since=None)  # TODO(owner A): pass connector.last_sync_at for incremental sync
+        envelopes = connector.fetch(since=connector.last_sync_at)
         for env in envelopes:
             # TODO(owner A): link email -> client by sender domain / contact list when client_id is null
             # TODO(owner A): dedupe by env.external_id (Message-ID) when the source has no stable ids

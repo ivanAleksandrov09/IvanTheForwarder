@@ -42,11 +42,16 @@ class Settings(BaseSettings):
 
     connector_email: Literal["mock", "imap"] = "mock"
     connector_documents: Literal["mock"] = "mock"  # TODO(owner A): add real options
-    connector_gps: Literal["mock"] = "mock"
+    connector_gps: Literal["mock", "traccar"] = "mock"
     connector_erp: Literal["mock"] = "mock"
     imap_host: str = ""
     imap_user: str = ""
     imap_password: str = ""
+    traccar_url: str = ""
+    traccar_token: str = ""
+    traccar_user: str = ""
+    traccar_password: str = ""
+    traccar_device_map: str = ""  # comma-separated Traccar device ID to Ivan truck ID pairs
 
     outbound_mode: Literal["log", "smtp"] = "log"
     smtp_host: str = ""

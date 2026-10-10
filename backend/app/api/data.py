@@ -8,7 +8,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from app.connectors import mailbox_store
 from app.connectors.email_imap import ImapEmailConnector
 from app.connectors.ingest import sync
-from app.connectors.registry import use_imap, use_mock_email
+from app.connectors.registry import use_default_email, use_imap
 from app.core import clock
 from app.core.config import get_settings
 from app.core.errors import ConflictError
@@ -200,7 +200,7 @@ def mailbox_login(body: MailboxLoginRequest, connectors=Depends(get_connectors))
     try:
         connector.test_login(creds)
     except (imaplib.IMAP4.error, OSError) as exc:
-        use_mock_email(connectors, get_seed())
+        use_default_email(connectors, get_settings(), get_seed())
         raise HTTPException(400, f"Login failed: {exc}") from None  # never echo the password
     mailbox_store.save(settings, creds)
     return _mailbox_status(connectors)
@@ -209,7 +209,7 @@ def mailbox_login(body: MailboxLoginRequest, connectors=Depends(get_connectors))
 @router.post("/connectors/email/logout")
 def mailbox_logout(connectors=Depends(get_connectors)) -> MailboxStatus:
     mailbox_store.clear(get_settings())
-    use_mock_email(connectors, get_seed())
+    use_default_email(connectors, get_settings(), get_seed())
     return _mailbox_status(connectors)
 
 

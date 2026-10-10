@@ -5,11 +5,13 @@ import time
 
 from app.connectors import folder_watch
 from app.connectors.folder_watch import ExtractedDocument, scan_once
+from app.core.config import REPO_ROOT, Settings
 from app.deps import get_repo
 from app.schemas import LlmMeta, LlmMode
 
 
 class FakeLlm:
+    s = Settings(_env_file=None, llm_mode="live", llm_provider="anthropic")  # scan_once sends files to Claude
     def __init__(self, fail=False):
         self.calls, self.fail = 0, fail
 
@@ -159,7 +161,7 @@ class _Page:
     def __init__(self, text):
         self.text = text
 
-    def extract_text(self):
+    def extract_text(self, **kwargs):
         return self.text
 
 
@@ -269,7 +271,7 @@ def test_past_due_pdf_gives_client_without_invoices_a_risk_level(tmp_path, monke
 def test_default_watch_folder_is_docs_incoming():
     settings = Settings(_env_file=None)
 
-    assert settings.watch_folder == REPO_ROOT / "docs" / "incoming"
+    assert settings.watch_folder == REPO_ROOT / "incoming"
 
 
 def test_local_invoice_extraction_handles_bulgarian_labels_and_amounts():

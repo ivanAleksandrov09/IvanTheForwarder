@@ -652,7 +652,7 @@ export interface paths {
         put?: never;
         /**
          * Reset Demo
-         * @description Wipe the DB and reload data/seed. For demo rehearsals.
+         * @description Wipe the DB. Reloads the mock data/seed only when AUTO_SEED is on (tests and demos).
          */
         post: operations["reset_demo_api_system_reset_post"];
         delete?: never;

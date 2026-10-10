@@ -10,6 +10,10 @@ def client(tmp_path, monkeypatch):
     monkeypatch.setenv("LLM_MODE", "mock")
     monkeypatch.setenv("OUTBOUND_MODE", "log")
     monkeypatch.setenv("CLOCK_MODE", "fixed")
+    monkeypatch.setenv("AUTO_SEED", "true")  # tests still run on the mock seed data (open question: see chat)
+    monkeypatch.setenv("CONNECTOR_EMAIL", "mock")
+    monkeypatch.setenv("CONNECTOR_GPS", "mock")
+    monkeypatch.setenv("WATCH_FOLDER", str(tmp_path / "incoming"))  # never read the real incoming/ folder in tests
     from app.core import config
     from app.deps import reset_singletons
 

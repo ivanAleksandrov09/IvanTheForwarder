@@ -36,8 +36,9 @@ def llm_ping(body: LlmPingRequest, llm: LLMClient = Depends(get_llm)) -> LlmPing
 
 @router.post("/reset")
 def reset_demo(repo: Repository = Depends(get_repo), seed: SeedStore = Depends(get_seed)) -> ResetResponse:
-    """Wipe the DB and reload data/seed. For demo rehearsals."""
+    """Wipe the DB. Reloads the mock data/seed only when AUTO_SEED is on (tests and demos)."""
     if get_settings().app_env not in ("dev", "demo", "test"):
         raise HTTPException(403, "reset disabled")
     repo.wipe()
-    return ResetResponse(collections=load_seed_into(repo, seed))
+    loaded = load_seed_into(repo, seed) if get_settings().auto_seed else {}
+    return ResetResponse(collections=loaded)

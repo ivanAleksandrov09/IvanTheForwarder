@@ -19,18 +19,25 @@ def use_imap(connectors: dict[SourceType, BaseConnector], settings: Settings) ->
     return connector
 
 
-def use_mock_email(connectors: dict[SourceType, BaseConnector], seed: SeedStore) -> None:
-    connectors[SourceType.email] = MockEmailConnector(seed)
+def use_default_email(connectors: dict[SourceType, BaseConnector], settings: Settings, seed: SeedStore) -> None:
+    """After a logout or a failed login: back to the configured default (mock only if enabled, otherwise none)."""
+    if settings.connector_email == "mock":
+        connectors[SourceType.email] = MockEmailConnector(seed)
+    else:
+        connectors.pop(SourceType.email, None)
 
 
 def build_connectors(settings: Settings, seed: SeedStore) -> dict[SourceType, BaseConnector]:
     connectors: list[BaseConnector] = []
 
     use_imap_email = settings.connector_email == "imap" or mailbox_store.is_saved(settings)  # saved login survives restarts
-    connectors.append(ImapEmailConnector(settings) if use_imap_email else MockEmailConnector(seed))
+    if use_imap_email:
+        connectors.append(ImapEmailConnector(settings))
+    elif settings.connector_email == "mock":
+        connectors.append(MockEmailConnector(seed))
     if settings.connector_gps == "traccar":
         connectors.append(TraccarGpsConnector(settings))
-    else:  # mock by default
+    elif settings.connector_gps == "mock":
         connectors.append(MockGpsConnector(seed))
     if settings.connector_erp in ("zeron", "zeron_mock"):
         from app.deps import get_repo  # lazy: deps imports this module

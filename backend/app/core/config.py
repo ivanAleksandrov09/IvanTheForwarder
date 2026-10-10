@@ -24,8 +24,8 @@ class Settings(BaseSettings):
 
     data_dir: Path = REPO_ROOT / "data"
     db_path: Path | None = None  # default: data/runtime/app.db
-    auto_seed: bool = True  # load data/seed into an empty DB on startup
-    watch_folder: Path = REPO_ROOT / "docs" / "incoming"  # drop PDF/PNG/JPG files here; new ones are extracted automatically
+    auto_seed: bool = False  # true = load the mock data/seed into an empty DB (tests and demos only)
+    watch_folder: Path = REPO_ROOT / "incoming"  # drop PDF/PNG/JPG files here; new ones are extracted automatically
     watch_interval_seconds: int = 5  # the frontend refreshes the risk table every 5s
     loads_weekday: int = 0  # weekly load search: 0 = Monday
     loads_time: str = "08:00"  # local time, HH:MM
@@ -51,9 +51,9 @@ class Settings(BaseSettings):
     llm_json_mode: bool = True
     llm_log_prompts: bool = True
 
-    connector_email: Literal["mock", "imap"] = "mock"
+    connector_email: Literal["off", "mock", "imap"] = "off"  # off = no mailbox data unless a real login is saved
     connector_documents: Literal["mock"] = "mock"  # TODO(owner A): add real options
-    connector_gps: Literal["mock", "traccar"] = "mock"
+    connector_gps: Literal["off", "mock", "traccar"] = "off"
     connector_erp: Literal["mock", "zeron", "zeron_mock"] = "mock"  # zeron_mock = sample data, no network
     imap_host: str = ""
     imap_user: str = ""

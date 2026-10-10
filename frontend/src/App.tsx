@@ -7,6 +7,7 @@ import { EventsList } from "./components/EventsList";
 import { ClientDetail } from "./components/ClientDetail";
 import { TruckMap } from "./components/TruckMap";
 import { MailboxPanel } from "./components/MailboxPanel";
+import { LoadsPanel } from "./components/LoadsPanel";
 import { t, type UiLang } from "./i18n";
 
 // Hello-world dashboard: clients + explainable risk, events, approval queue.
@@ -24,6 +25,7 @@ export default function App() {
   const [trucks, setTrucks] = useState<Truck[]>([]);
   const [showMap, setShowMap] = useState(false);
   const [showMailbox, setShowMailbox] = useState(false);
+  const [showLoads, setShowLoads] = useState(false);
 
   const refresh = useCallback(async () => {
     try {
@@ -89,6 +91,7 @@ export default function App() {
             {t("reset", lang)}
           </button>
           <button onClick={() => setShowMailbox(!showMailbox)}>{showMailbox ? "Hide mailbox" : "Connect email"}</button>
+          <button onClick={() => setShowLoads(!showLoads)}>{showLoads ? "Hide loads" : "Show loads"}</button>
           {trucks.length > 0 && <button onClick={() => setShowMap(!showMap)}>{showMap ? "Hide map" : "Show truck map"}</button>}
         </div>
       </header>
@@ -96,6 +99,7 @@ export default function App() {
       {loading && <p className="muted">{t("loading", lang)}</p>}
       {error && <button onClick={refresh}>{t("retry", lang)}</button>}
       {showMailbox && <MailboxPanel onSynced={refresh} />}
+      {showLoads && <LoadsPanel />}
       {showMap && trucks.length > 0 && <section className="panel map-panel"><h2>Truck positions</h2><TruckMap truckIds={trucks.map((truck) => truck.id)} /></section>}
       {selectedClientId ? (
         <ClientDetail

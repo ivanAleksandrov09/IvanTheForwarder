@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { api, unwrap } from "./api/client";
-import type { Client, DomainEvent, DraftMessage, HealthResponse, RiskProfile } from "./api/types";
+import type { Client, DomainEvent, DraftMessage, HealthResponse, RiskProfile, UpdateDraftRequest } from "./api/types";
 import { ClientRiskTable } from "./components/ClientRiskTable";
 import { DraftQueue } from "./components/DraftQueue";
 import { EventsList } from "./components/EventsList";
@@ -9,7 +9,7 @@ import { t, type UiLang } from "./i18n";
 // Hello-world dashboard: clients + explainable risk, events, approval queue.
 // TODO(owner C): routing (Dashboard / Client detail / Map), truck map, client emails timeline.
 export default function App() {
-  const [lang, setLang] = useState<UiLang>("bg");
+  const [lang] = useState<UiLang>("en");
   const [health, setHealth] = useState<HealthResponse>();
   const [clients, setClients] = useState<Client[]>([]);
   const [risk, setRisk] = useState<RiskProfile[]>([]);
@@ -17,6 +17,7 @@ export default function App() {
   const [drafts, setDrafts] = useState<DraftMessage[]>([]);
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const refresh = useCallback(async () => {
     try {
@@ -35,6 +36,8 @@ export default function App() {
       setError(null);
     } catch (err) {
       setError(`Backend unreachable or failed: ${(err as Error).message}`);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -77,10 +80,11 @@ export default function App() {
           <button disabled={!!busy} onClick={() => run("reset", () => unwrap(api.POST("/api/system/reset")))}>
             {t("reset", lang)}
           </button>
-          <button onClick={() => setLang(lang === "bg" ? "en" : "bg")}>{lang === "bg" ? "EN" : "BG"}</button>
         </div>
       </header>
       {error && <div className="error">{error}</div>}
+      {loading && <p className="muted">{t("loading", lang)}</p>}
+      {error && <button onClick={refresh}>{t("retry", lang)}</button>}
       <main>
         <section>
           <h2>{t("clients", lang)}</h2>
@@ -105,11 +109,11 @@ export default function App() {
             onApprove={(id) =>
               run("approve", () => unwrap(api.POST("/api/drafts/{draft_id}/approve", { params: { path: { draft_id: id } }, body: { reviewed_by: "operator" } })))
             }
-            onReject={(id) =>
-              run("reject", () => unwrap(api.POST("/api/drafts/{draft_id}/reject", { params: { path: { draft_id: id } }, body: { reviewed_by: "operator" } })))
+            onReject={(id, reason) =>
+              run("reject", () => unwrap(api.POST("/api/drafts/{draft_id}/reject", { params: { path: { draft_id: id } }, body: { reviewed_by: "operator", reason } })))
             }
-            onSave={(id, body) =>
-              run("save", () => unwrap(api.PATCH("/api/drafts/{draft_id}", { params: { path: { draft_id: id } }, body: { body } })))
+            onSave={(id, patch: UpdateDraftRequest) =>
+              run("save", () => unwrap(api.PATCH("/api/drafts/{draft_id}", { params: { path: { draft_id: id } }, body: patch })))
             }
           />
         </section>

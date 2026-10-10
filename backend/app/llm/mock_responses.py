@@ -108,6 +108,18 @@ def _generic(ctx: dict) -> str:
     )
 
 
+def _cover(ctx: dict) -> str:
+    lang = ctx.get("language", "en")
+    reference = ctx.get("shipment_reference", ctx.get("invoice_number", "[REF]"))
+    if lang == "bg":
+        subject = f"Документи за {reference}"
+        body = f"Здравейте,\n\nИзпращаме Ви документите за {reference}.\n\nС уважение,\n{_get(ctx, 'operator_name', '')}"
+    else:
+        subject = f"Documents for {reference}"
+        body = f"Dear {_get(ctx, 'contact_name', '[NAME]')},\n\nPlease find the requested documents for {reference} attached.\n\nKind regards,\n{_get(ctx, 'operator_name', '')}"
+    return json.dumps({"subject": subject, "body": body, "language": lang, "tone": ctx.get("tone", "formal"), "rationale": "[MOCK] Cover email prepared from stored document facts."}, ensure_ascii=False)
+
+
 MOCK_RESPONSES: dict[str, MockValue] = {
     "system.ping": lambda ctx: (
         "Здравейте! Аз съм Иван, AI асистентът на Вашата спедиция (mock режим – без външен API)."
@@ -117,6 +129,9 @@ MOCK_RESPONSES: dict[str, MockValue] = {
     "draft.payment_reminder": _payment_reminder,
     "draft.delay_notice": _delay_notice,
     "draft.generic": _generic,
+    "draft.quote_reply": _generic,
+    "draft.invoice": _cover,
+    "draft.cmr": _cover,
 }
 
 

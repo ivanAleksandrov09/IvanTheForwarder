@@ -61,4 +61,10 @@ TODO(owner A)
 ### Risk & events (B)
 TODO(owner B)
 ### Drafting, outbound & UI (C)
-TODO(owner C)
+The approval queue supports mock/live LLM drafts, editable subject/body, rationale and fallback indicators,
+rejection reasons, confirmation before sending, and sent/failed history. Payment reminders are de-duplicated
+per client and include all overdue invoices. Delay notices display destination-local times (including
+Europe/Berlin for German deliveries), and successfully sent event drafts mark their source event handled.
+The default log sender writes to `data/runtime/outbox.jsonl`; `OUTBOUND_MODE=smtp` enables UTF-8 STARTTLS
+delivery to a sandbox such as Mailtrap or MailHog. The dashboard includes Bulgarian/English UI strings,
+loading/error states, explainable risk factors, events, and the client draft actions.

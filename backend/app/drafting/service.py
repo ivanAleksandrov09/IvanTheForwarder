@@ -1,5 +1,7 @@
 """Builds a DraftMessage: gather context -> LLM (validated JSON) -> queue as pending_review. Owner: C."""
 
+from zoneinfo import ZoneInfo
+
 from app.core import clock
 from app.core.config import get_settings
 from app.core.errors import NotFoundError
@@ -55,12 +57,25 @@ def _context(req: GenerateDraftRequest, repo: Repository) -> tuple[dict, list[st
         if inv is None:
             raise NotFoundError(f"no overdue invoice for {client.id}")
         ids["invoice_id"] = inv.id
+        overdue = repo.invoices.list(
+            client_id=client.id,
+            where=lambda i: i.status in (InvoiceStatus.issued, InvoiceStatus.partially_paid) and i.due_at < now,
+        )
         ctx |= {
             "invoice_number": inv.number,
             "invoice_total": format_money(inv.total, language),
             "invoice_issued": format_date(inv.issued_at, language),
             "invoice_due": format_date(inv.due_at, language),
             "days_overdue": (now.date() - inv.due_at.date()).days,
+            "overdue_invoices": [
+                {
+                    "number": item.number,
+                    "total": format_money(item.total, language),
+                    "due": format_date(item.due_at, language),
+                    "days_overdue": (now.date() - item.due_at.date()).days,
+                }
+                for item in sorted(overdue, key=lambda item: item.due_at)
+            ],
         }
 
     if req.kind == DraftKind.delay_notice:
@@ -70,18 +85,30 @@ def _context(req: GenerateDraftRequest, repo: Repository) -> tuple[dict, list[st
         truck = repo.trucks.get(shp.truck_id) if shp.truck_id else None
         event = repo.events.get(req.event_id) if req.event_id else None
         delay_min = int((shp.eta_at - shp.delivery_planned_at).total_seconds() // 60) if shp.eta_at else None
+        destination_zone = "Europe/Berlin" if shp.destination.country == "DE" else "Europe/Sofia"
+        zone = ZoneInfo(destination_zone)
         ctx |= {
             "shipment_reference": shp.reference,
             "route": f"{shp.origin.city} → {shp.destination.city}",
             "plate_number": truck.plate_number if truck else None,
-            "planned": format_datetime(shp.delivery_planned_at, language),
-            "eta": format_datetime(shp.eta_at, language) if shp.eta_at else None,
+            "planned": format_datetime(shp.delivery_planned_at.astimezone(zone), language),
+            "eta": format_datetime(shp.eta_at.astimezone(zone), language) if shp.eta_at else None,
             "delay_text": f"{delay_min // 60}h {delay_min % 60:02d}min" if delay_min else None,
             "delay_reason": (event.data.get("reason") if event else None),
+            "destination_timezone": destination_zone,
         }
-        # TODO(owner C): show destination-local times (Munich = Europe/Berlin), not Sofia time
-
-    # TODO(owner C): quote_reply / invoice / cmr contexts (+ attach Document ids)
+    if req.kind in (DraftKind.invoice, DraftKind.cmr) and req.invoice_id:
+        inv = repo.invoices.require(req.invoice_id)
+        ids["invoice_id"] = inv.id
+        ctx |= {
+            "invoice_number": inv.number,
+            "invoice_total": format_money(inv.total, language),
+            "invoice_due": format_date(inv.due_at, language),
+        }
+    if req.kind == DraftKind.cmr and req.shipment_id:
+        shipment = repo.shipments.require(req.shipment_id)
+        ids["shipment_id"] = shipment.id
+        ctx |= {"shipment_reference": shipment.reference, "cmr_number": shipment.cmr_number}
     return ctx, ([contact.email] if contact else []), ids
 
 

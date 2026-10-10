@@ -85,7 +85,11 @@ select a client or use **Scan for events** to see the risk profile and event evi
 Margin risk is based on average shipment margin (price minus cost, divided by price); margins below 12% are
 flagged with the thinnest observed lane. Damage/claim incidents, delay complaints, incompatible cargo
 restrictions, and email replies averaging at least 48 hours add their own evidence-backed factors. Missing
-source data is left unknown rather than guessed.
+source data is left unknown rather than guessed. Linked email insights (including exact invoice numbers and
+complaint/delay intent) can support invoice and delay factors. Document extractions are matched by stored
+links or unique exact invoice/shipment references, and Traccar GPS positions are matched to a shipment by
+its ID or a unique truck/time window. These files and GPS points corroborate existing risk evidence; they do
+not create standalone risk signals or replace invoice/payment records.
 ### Drafting, outbound & UI (C)
 The approval queue supports mock/live LLM drafts, editable subject/body, rationale and fallback indicators,
 rejection reasons, confirmation before sending, and sent/failed history. Payment reminders are de-duplicated

@@ -1,9 +1,10 @@
 """Explainable client risk scoring. Owner: B.
 
 score = BASE + sum(factor.impact), clamped to 0..100. Each factor carries a sentence with the numbers
-and EvidenceRefs to the invoices/incidents that produced it. No black-box numbers.
+and EvidenceRefs to its source records. No black-box numbers.
 """
 
+from collections.abc import Sequence
 from datetime import datetime
 
 from app.core.formatting import format_money
@@ -12,9 +13,12 @@ from app.schemas import (
     ClientMetrics,
     Confidence,
     Direction,
+    Document,
     EntityType,
     EvidenceRef,
+    GpsPing,
     IncidentType,
+    Invoice,
     InvoiceStatus,
     Language,
     Money,
@@ -22,6 +26,7 @@ from app.schemas import (
     RiskFactorCode,
     RiskLevel,
     RiskProfile,
+    Shipment,
     ShipmentStatus,
     Tone,
 )
@@ -54,6 +59,97 @@ def _email_responses(repo: Repository, client_id: str) -> list[tuple[float, str,
                     responses.append((hours, pending_outbound.id, email.id))
                 pending_outbound = None
     return responses
+
+
+def _linked_documents(
+    repo: Repository,
+    client_id: str,
+    *,
+    invoices: Sequence[Invoice] = (),
+    shipments: Sequence[Shipment] = (),
+    email_ids: Sequence[str] = (),
+) -> list[Document]:
+    """Find documents linked by stored IDs, attachments, or exact extracted references."""
+    invoice_number_counts: dict[str, int] = {}
+    for invoice in repo.invoices.list():
+        invoice_number_counts[invoice.number] = invoice_number_counts.get(invoice.number, 0) + 1
+    shipment_reference_counts: dict[str, int] = {}
+    for shipment in repo.shipments.list():
+        shipment_reference_counts[shipment.reference] = (
+            shipment_reference_counts.get(shipment.reference, 0) + 1
+        )
+    email_document_ids = {
+        document_id
+        for email in repo.emails.list(client_id=client_id)
+        if email.id in email_ids
+        for document_id in email.attachment_document_ids
+    }
+    documents = []
+    for document in repo.documents.list():
+        if document.client_id not in (None, client_id):
+            continue
+        if (
+            document.id in email_document_ids
+            or document.email_id in email_ids
+            or any(
+                document.invoice_id == invoice.id
+                or (
+                    document.extracted_fields.get("invoice_number") == invoice.number
+                    and invoice_number_counts[invoice.number] == 1
+                )
+                for invoice in invoices
+            )
+            or any(
+                document.shipment_id == shipment.id
+                or (
+                    document.extracted_fields.get("shipment_reference") == shipment.reference
+                    and shipment_reference_counts[shipment.reference] == 1
+                )
+                for shipment in shipments
+            )
+        ):
+            documents.append(document)
+    return documents
+
+
+def _emails_for_invoice(repo: Repository, client_id: str, invoice: Invoice) -> list[str]:
+    """Find client-linked emails that explicitly mention this invoice number in extracted facts."""
+    if len(repo.invoices.list(client_id=client_id, number=invoice.number)) != 1:
+        return []
+    return [
+        email.id
+        for email in repo.emails.list(client_id=client_id)
+        if (insight := repo.email_insights.get(email.id)) is not None
+        and insight.extraction.invoice_number == invoice.number
+    ]
+
+
+def _gps_pings_for_shipment(
+    repo: Repository,
+    shipment: Shipment,
+    now: datetime,
+    shipments: Sequence[Shipment],
+) -> list[GpsPing]:
+    """Use direct shipment links, or a unique truck/time match when Traccar has no shipment ID."""
+    related = []
+    for ping in repo.gps_pings.list():
+        if ping.shipment_id == shipment.id:
+            related.append(ping)
+            continue
+        if shipment.truck_id is None or ping.truck_id != shipment.truck_id:
+            continue
+
+        candidates = []
+        for candidate in shipments:
+            if candidate.truck_id != ping.truck_id:
+                continue
+            start = candidate.picked_up_at or candidate.pickup_planned_at
+            end = candidate.delivered_at or candidate.eta_at or now
+            if start <= ping.recorded_at <= end:
+                candidates.append(candidate)
+        if len(candidates) == 1 and candidates[0].id == shipment.id:
+            related.append(ping)
+    return related
 
 
 def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProfile:
@@ -112,6 +208,9 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
         late = [i for i in paid if delays[i.id] > 3]
         avg = metrics.avg_payment_delay_days or 0
         if avg > 7:
+            invoice_email_ids = {
+                invoice.id: _emails_for_invoice(repo, client_id, invoice) for invoice in late
+            }
             factors.append(
                 RiskFactor(
                     code=RiskFactorCode.late_payment_history,
@@ -119,17 +218,41 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
                     impact=min(40, int(avg)),
                     explanation=f"Paid {len(late)} of {len(paid)} invoices late, on average {avg:.0f} days after the due date.",
                     evidence=[
-                        EvidenceRef(
-                            entity_type=EntityType.invoice,
-                            entity_id=i.id,
-                            note=f"{delays[i.id]} days late",
-                        )
-                        for i in late
+                        *[
+                            EvidenceRef(
+                                entity_type=EntityType.invoice,
+                                entity_id=i.id,
+                                note=f"{delays[i.id]} days late",
+                            )
+                            for i in late
+                        ],
+                        *[
+                            EvidenceRef(entity_type=EntityType.document, entity_id=document.id)
+                            for document in _linked_documents(
+                                repo,
+                                client_id,
+                                invoices=late,
+                                email_ids=[
+                                    email_id
+                                    for email_ids in invoice_email_ids.values()
+                                    for email_id in email_ids
+                                ],
+                            )
+                        ],
+                        *[
+                            EvidenceRef(entity_type=EntityType.email, entity_id=email_id)
+                            for email_ids in invoice_email_ids.values()
+                            for email_id in email_ids
+                        ],
                     ],
                 )
             )
         elif len(paid) >= MIN_PAID_INVOICES and avg <= 2:
             on_time = [i for i in paid if delays[i.id] <= 0]
+            invoice_email_ids = {
+                invoice.id: _emails_for_invoice(repo, client_id, invoice)
+                for invoice in on_time
+            }
             factors.append(
                 RiskFactor(
                     code=RiskFactorCode.good_payment_history,
@@ -139,18 +262,62 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
                     evidence=[
                         EvidenceRef(entity_type=EntityType.invoice, entity_id=i.id)
                         for i in on_time
+                    ]
+                    + [
+                        EvidenceRef(entity_type=EntityType.document, entity_id=document.id)
+                        for document in _linked_documents(
+                            repo,
+                            client_id,
+                            invoices=on_time,
+                            email_ids=[
+                                email_id
+                                for email_ids in invoice_email_ids.values()
+                                for email_id in email_ids
+                            ],
+                        )
+                    ]
+                    + [
+                        EvidenceRef(entity_type=EntityType.email, entity_id=email_id)
+                        for email_ids in invoice_email_ids.values()
+                        for email_id in email_ids
                     ],
                 )
             )
     if overdue:
         worst = max(_days(now, i.due_at) for i in overdue)
+        invoice_email_ids = {invoice.id: _emails_for_invoice(repo, client_id, invoice) for invoice in overdue}
         factors.append(
             RiskFactor(
                 code=RiskFactorCode.currently_overdue,
                 label="Has overdue invoices",
                 impact=min(30, 10 + worst // 3),
                 explanation=f"{len(overdue)} unpaid invoice(s) past due, {format_money(metrics.overdue_amount, Language.en)} in total; oldest {worst} days overdue.",
-                evidence=[EvidenceRef(entity_type=EntityType.invoice, entity_id=i.id, note=f"due {i.due_at.date()}") for i in overdue],
+                evidence=[
+                    *[
+                        EvidenceRef(
+                            entity_type=EntityType.invoice,
+                            entity_id=i.id,
+                            note=f"due {i.due_at.date()}",
+                        )
+                        for i in overdue
+                    ],
+                    *[
+                        EvidenceRef(entity_type=EntityType.document, entity_id=document.id)
+                        for document in _linked_documents(
+                            repo,
+                            client_id,
+                            invoices=overdue,
+                            email_ids=[
+                                email_id for email_ids in invoice_email_ids.values() for email_id in email_ids
+                            ],
+                        )
+                    ],
+                    *[
+                        EvidenceRef(entity_type=EntityType.email, entity_id=email_id)
+                        for email_ids in invoice_email_ids.values()
+                        for email_id in email_ids
+                    ],
+                ],
             )
         )
     if fines:
@@ -165,14 +332,41 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
         )
     delay_incidents = [i for i in incidents if i.type == IncidentType.delay]
     fined_shipment_ids = {i.shipment_id for i in fines if i.shipment_id}
+    client_emails = repo.emails.list(client_id=client_id)
     delay_emails = [
         email
-        for email in repo.emails.list(client_id=client_id)
+        for email in client_emails
         if email.direction == Direction.inbound
-        and {"penalty", "complaint"}.intersection(label.lower() for label in email.labels)
+        and (
+            {"penalty", "complaint"}.intersection(label.lower() for label in email.labels)
+            or (
+                (insight := repo.email_insights.get(email.id)) is not None
+                and insight.extraction.intent.value in {"complaint", "delay_inquiry"}
+            )
+        )
         and (not email.shipment_id or email.shipment_id not in fined_shipment_ids)
     ]
     if delay_incidents or delay_emails:
+        delay_shipment_ids = {
+            shipment_id
+            for shipment_id in (
+                *(incident.shipment_id for incident in delay_incidents),
+                *(email.shipment_id for email in delay_emails),
+            )
+            if shipment_id
+        }
+        delay_shipments = [shipment for shipment in shipments if shipment.id in delay_shipment_ids]
+        delay_documents = _linked_documents(
+            repo,
+            client_id,
+            shipments=delay_shipments,
+            email_ids=[email.id for email in delay_emails],
+        )
+        delay_pings = [
+            ping
+            for shipment in delay_shipments
+            for ping in _gps_pings_for_shipment(repo, shipment, now, shipments)
+        ]
         factors.append(
             RiskFactor(
                 code=RiskFactorCode.delay_sensitivity,
@@ -191,11 +385,26 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
                         EvidenceRef(entity_type=EntityType.email, entity_id=email.id)
                         for email in delay_emails
                     ],
+                    *[
+                        EvidenceRef(entity_type=EntityType.shipment, entity_id=shipment.id)
+                        for shipment in delay_shipments
+                    ],
+                    *[
+                        EvidenceRef(entity_type=EntityType.document, entity_id=document.id)
+                        for document in delay_documents
+                    ],
+                    *[
+                        EvidenceRef(entity_type=EntityType.gps_ping, entity_id=ping.id)
+                        for ping in delay_pings
+                    ],
                 ],
             )
         )
     damage_claims = [i for i in incidents if i.type in (IncidentType.damage, IncidentType.claim)]
     if damage_claims:
+        claim_shipments = [
+            shipment for shipment in shipments if any(i.shipment_id == shipment.id for i in damage_claims)
+        ]
         documented_costs: dict[str, int] = {}
         for incident in damage_claims:
             if incident.cost:
@@ -218,6 +427,10 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
                 evidence=[
                     EvidenceRef(entity_type=EntityType.incident, entity_id=i.id)
                     for i in damage_claims
+                ]
+                + [
+                    EvidenceRef(entity_type=EntityType.document, entity_id=document.id)
+                    for document in _linked_documents(repo, client_id, shipments=claim_shipments)
                 ],
             )
         )

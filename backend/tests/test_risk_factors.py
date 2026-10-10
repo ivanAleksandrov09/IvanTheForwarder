@@ -6,16 +6,25 @@ from app.schemas import (
     CargoType,
     Client,
     Direction,
+    Document,
+    DocumentType,
     Email,
+    EmailExtraction,
+    EmailInsight,
+    GpsPing,
     Incident,
     IncidentType,
+    Invoice,
+    InvoiceStatus,
     Language,
     Location,
     Money,
     Severity,
     Shipment,
     ShipmentStatus,
+    SourceType,
 )
+from app.schemas.enums import EmailIntent
 
 NOW = datetime(2026, 10, 15, 7, 30, tzinfo=UTC)
 
@@ -218,3 +227,177 @@ def test_slow_communication_uses_explicit_thread_reply_pairs():
     assert "72.0 hours" in factor.explanation
     assert {e.entity_id for e in factor.evidence} == {"eml_test1", "eml_test2"}
     _assert_explained(factor)
+
+
+def test_linked_email_insight_document_and_traccar_ping_support_delay_risk():
+    repo = Repository(":memory:")
+    repo.clients.upsert(_client())
+    shipment = _shipment(
+        "shp_test1",
+        truck_id="trk_test1",
+        status=ShipmentStatus.in_transit,
+        pickup_planned_at=NOW - timedelta(days=1),
+        delivery_planned_at=NOW + timedelta(hours=3),
+        delivered_at=None,
+        eta_at=NOW + timedelta(hours=4),
+        created_at=NOW - timedelta(days=2),
+    )
+    repo.shipments.upsert(shipment)
+    email = Email(
+        id="eml_test1",
+        mailbox="office@example.com",
+        direction=Direction.inbound,
+        from_address="client@example.com",
+        to_addresses=["office@example.com"],
+        subject="Delivery issue",
+        body_text="Please explain the delay.",
+        sent_at=NOW,
+        client_id="cli_test1",
+        shipment_id=shipment.id,
+    )
+    repo.emails.upsert(email)
+    repo.email_insights.upsert(
+        EmailInsight(
+            email_id=email.id,
+            extracted_at=NOW,
+            extraction=EmailExtraction(
+                intent=EmailIntent.complaint,
+                summary="The client complained about a delayed delivery.",
+            ),
+            model="test",
+        )
+    )
+    repo.documents.upsert(
+        Document(
+            id="doc_test1",
+            doc_type=DocumentType.transport_order,
+            filename="transport-order.pdf",
+            mime_type="application/pdf",
+            source=SourceType.documents,
+            received_at=NOW,
+            extracted_fields={"shipment_reference": shipment.reference},
+        )
+    )
+    repo.gps_pings.upsert(
+        GpsPing(
+            id="gps_test1",
+            truck_id="trk_test1",
+            recorded_at=NOW,
+            lat=42.7,
+            lon=23.3,
+            speed_kmh=0,
+        )
+    )
+
+    factor = _factor(compute_profile("cli_test1", repo, NOW), "delay_sensitivity")
+
+    assert "1 additional penalty/complaint email(s)" in factor.explanation
+    assert {(e.entity_type.value, e.entity_id) for e in factor.evidence} == {
+        ("email", "eml_test1"),
+        ("shipment", "shp_test1"),
+        ("document", "doc_test1"),
+        ("gps_ping", "gps_test1"),
+    }
+
+
+def test_invoice_document_is_evidence_but_does_not_create_overdue_status():
+    repo = Repository(":memory:")
+    repo.clients.upsert(_client())
+    invoice = Invoice(
+        id="inv_test1",
+        number="1234567890",
+        client_id="cli_test1",
+        issued_at=NOW - timedelta(days=40),
+        due_at=NOW - timedelta(days=10),
+        net=Money.of(100_000),
+        vat=Money.of(0),
+        total=Money.of(100_000),
+        status=InvoiceStatus.issued,
+    )
+    repo.invoices.upsert(invoice)
+    email = Email(
+        id="eml_test1",
+        mailbox="office@example.com",
+        direction=Direction.inbound,
+        from_address="client@example.com",
+        to_addresses=["office@example.com"],
+        subject="Invoice question",
+        body_text="Could you confirm the due date?",
+        sent_at=NOW,
+        client_id="cli_test1",
+        attachment_document_ids=["doc_test1"],
+    )
+    repo.emails.upsert(email)
+    repo.email_insights.upsert(
+        EmailInsight(
+            email_id=email.id,
+            extracted_at=NOW,
+            extraction=EmailExtraction(
+                intent=EmailIntent.payment_question,
+                summary="The client asked about the invoice due date.",
+                invoice_number=invoice.number,
+            ),
+            model="test",
+        )
+    )
+    repo.documents.upsert(
+        Document(
+            id="doc_test1",
+            doc_type=DocumentType.invoice,
+            filename="invoice.pdf",
+            mime_type="application/pdf",
+            source=SourceType.documents,
+            received_at=NOW,
+            extracted_fields={"invoice_number": invoice.number},
+        )
+    )
+
+    factor = _factor(compute_profile("cli_test1", repo, NOW), "currently_overdue")
+
+    assert {(e.entity_type.value, e.entity_id) for e in factor.evidence} == {
+        ("invoice", "inv_test1"),
+        ("document", "doc_test1"),
+        ("email", "eml_test1"),
+    }
+
+
+def test_unlinked_document_and_traccar_ping_do_not_create_delay_risk():
+    repo = Repository(":memory:")
+    repo.clients.upsert(_client())
+    repo.shipments.upsert(
+        _shipment(
+            "shp_test1",
+            truck_id="trk_test1",
+            status=ShipmentStatus.in_transit,
+            pickup_planned_at=NOW - timedelta(days=1),
+            delivery_planned_at=NOW + timedelta(hours=3),
+            delivered_at=None,
+            eta_at=NOW + timedelta(hours=4),
+            created_at=NOW - timedelta(days=2),
+        )
+    )
+    repo.documents.upsert(
+        Document(
+            id="doc_test1",
+            doc_type=DocumentType.other,
+            filename="unlinked.pdf",
+            mime_type="application/pdf",
+            source=SourceType.documents,
+            received_at=NOW,
+            extracted_fields={"shipment_reference": "unknown-reference"},
+        )
+    )
+    repo.gps_pings.upsert(
+        GpsPing(
+            id="gps_test1",
+            truck_id="trk_other",
+            recorded_at=NOW,
+            lat=42.7,
+            lon=23.3,
+            speed_kmh=0,
+        )
+    )
+
+    profile = compute_profile("cli_test1", repo, NOW)
+
+    assert all(factor.code.value != "delay_sensitivity" for factor in profile.factors)

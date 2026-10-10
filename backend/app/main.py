@@ -10,10 +10,12 @@ from fastapi.responses import JSONResponse
 
 from app.connectors.autosync import autosync_loop
 from app.connectors.folder_watch import watch_loop
-from app.api import data, drafts, risk, system
+from app.loads.search import loads_weekly_loop
+from app.api import data, drafts, loads, risk, system
 from app.core.config import get_settings
+from app.company import effective
 from app.core.errors import ConflictError, NotFoundError
-from app.deps import get_repo, get_seed
+from app.deps import get_llm, get_repo, get_seed
 from app.llm import LLMError
 from app.repository.repo import load_seed_into
 
@@ -27,10 +29,13 @@ async def lifespan(_: FastAPI):
     if s.auto_seed and repo.is_empty():
         loaded = load_seed_into(repo, get_seed())
         log.warning("Seeded empty DB %s: %s", s.resolved_db_path, loaded)
+    company = effective(repo, s)
+    get_llm().set_company(company.name, company.operator_name)
     log.warning("LLM mode=%s model=%s | clock=%s", s.llm_mode, s.llm_model, s.clock_mode)
     tasks = [
         asyncio.create_task(autosync_loop()),  # polls a connected mailbox + analyzes new mail in the background
         asyncio.create_task(watch_loop()),  # extracts new files dropped into the watch folder
+        asyncio.create_task(loads_weekly_loop()),  # searches the web for open loads every Monday
     ]
     yield
     for task in tasks:
@@ -66,5 +71,5 @@ def _llm(_: Request, e: LLMError):
     return JSONResponse(status_code=502, content={"detail": f"LLM error: {e}"})
 
 
-for r in (system.router, data.router, risk.router, drafts.router):
+for r in (system.router, data.router, risk.router, drafts.router, loads.router):
     app.include_router(r)

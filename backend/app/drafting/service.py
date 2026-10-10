@@ -7,6 +7,9 @@ from app.core.config import get_settings
 from app.core.errors import NotFoundError
 from app.core.formatting import format_date, format_datetime, format_money
 from app.core.ids import new_id
+from app.company import effective
+from app.drafting.erp_context import account_summary
+from app.drafting.document_context import document_invoice_context, recent_documents
 from app.drafting.email_context import recent_emails
 from app.drafting.prompts import build_prompt
 from app.drafting.tracking import MOVING_KMH, latest_ping, remaining_km
@@ -15,6 +18,7 @@ from app.repository import Repository
 from app.risk.scoring import get_profile
 from app.schemas import (
     DraftChannel,
+    Document,
     DraftContent,
     DraftKind,
     DraftMessage,
@@ -25,9 +29,9 @@ from app.schemas import (
 )
 
 
-def _context(req: GenerateDraftRequest, repo: Repository) -> tuple[dict, list[str], dict]:
+def _context(req: GenerateDraftRequest, repo: Repository, document: Document | None = None) -> tuple[dict, list[str], dict]:
     """Returns (context for the LLM, recipient addresses, resolved ids). Only facts we hold go in here."""
-    s = get_settings()
+    company = effective(repo, get_settings())
     now = clock.now()
     client = repo.clients.require(req.client_id)
     profile = get_profile(client.id, repo, now)
@@ -39,9 +43,9 @@ def _context(req: GenerateDraftRequest, repo: Repository) -> tuple[dict, list[st
         "kind": req.kind.value,
         "language": language.value,
         "tone": tone.value,
-        "company_name": s.company_name,
-        "company_name_latin": s.company_name_latin,
-        "operator_name": s.operator_name if language == Language.bg else s.operator_name_latin,
+        "company_name": company.name,
+        "company_name_latin": company.name_latin,
+        "operator_name": company.operator_name if language == Language.bg else company.operator_name_latin,
         "client_name": client.name,
         "contact_name": contact.name if contact else None,
         "today": format_date(now, language),
@@ -49,7 +53,9 @@ def _context(req: GenerateDraftRequest, repo: Repository) -> tuple[dict, list[st
     }
     ids: dict = {"invoice_id": req.invoice_id, "shipment_id": req.shipment_id}
 
-    if req.kind == DraftKind.payment_reminder:
+    if req.kind == DraftKind.payment_reminder and document is not None:
+        ctx |= document_invoice_context(document, language, now)  # no invoice record: facts from the file only
+    if req.kind == DraftKind.payment_reminder and document is None:
         inv = repo.invoices.get(req.invoice_id) if req.invoice_id else None
         if inv is None:  # default: oldest unpaid invoice past due
             open_ = repo.invoices.list(
@@ -64,12 +70,13 @@ def _context(req: GenerateDraftRequest, repo: Repository) -> tuple[dict, list[st
             client_id=client.id,
             where=lambda i: i.status in (InvoiceStatus.issued, InvoiceStatus.partially_paid) and i.due_at < now,
         )
+        not_due_yet = inv.due_at >= now
         ctx |= {
             "invoice_number": inv.number,
             "invoice_total": format_money(inv.total, language),
             "invoice_issued": format_date(inv.issued_at, language),
             "invoice_due": format_date(inv.due_at, language),
-            "days_overdue": (now.date() - inv.due_at.date()).days,
+            **({"days_until_due": (inv.due_at.date() - now.date()).days} if not_due_yet else {"days_overdue": (now.date() - inv.due_at.date()).days}),
             "overdue_invoices": [
                 {
                     "number": item.number,
@@ -132,11 +139,17 @@ def _context(req: GenerateDraftRequest, repo: Repository) -> tuple[dict, list[st
         shipment = repo.shipments.require(req.shipment_id)
         ids["shipment_id"] = shipment.id
         ctx |= {"shipment_reference": shipment.reference, "cmr_number": shipment.cmr_number}
+    standing = account_summary(repo, client.id, language, now)
+    if standing:
+        ctx["account_summary"] = standing
+    documents = recent_documents(repo, client.id, ids["shipment_id"])
+    if documents:
+        ctx["recent_documents"] = documents
     return ctx, ([contact.email] if contact else []), ids
 
 
-def generate_draft(req: GenerateDraftRequest, repo: Repository, llm: LLMClient) -> DraftMessage:
-    ctx, to, ids = _context(req, repo)
+def generate_draft(req: GenerateDraftRequest, repo: Repository, llm: LLMClient, document: Document | None = None) -> DraftMessage:
+    ctx, to, ids = _context(req, repo, document)
     content, meta = llm.complete_json(
         task=f"draft.{req.kind.value}",
         prompt=build_prompt(req.kind, ctx, req.instructions),

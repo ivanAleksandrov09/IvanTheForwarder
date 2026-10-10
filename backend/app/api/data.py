@@ -1,19 +1,30 @@
 """Read access to gathered data + connector control. Owner: A."""
 
 import imaplib
+from typing import Literal
+
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 
 from app.connectors import mailbox_store
 from app.connectors.email_imap import ImapEmailConnector
 from app.connectors.ingest import sync
 from app.connectors.registry import use_imap, use_mock_email
+from app.core import clock
 from app.core.config import get_settings
+from app.core.errors import ConflictError
+from app.core.ids import new_id
 from app.connectors.insights import analyze_email, process_new_emails
+from app.company import effective, save as save_company
+from app.events.document_checks import recheck_documents
+from app.onboarding import build_emails
+from app.schemas import CompanyInput, OnboardingEmail
 from app.deps import get_connectors, get_llm, get_repo, get_seed
 from app.llm import LLMClient
 from app.repository import Repository
 from app.schemas import (
     Client,
+    DraftStatus,
+    ClientInput,
     ConnectorInfo,
     Document,
     Email,
@@ -44,6 +55,67 @@ def list_clients(repo: Repository = Depends(get_repo)) -> list[Client]:
 @router.get("/clients/{client_id}")
 def get_client(client_id: str, repo: Repository = Depends(get_repo)) -> Client:
     return repo.clients.require(client_id)
+
+
+@router.post("/clients")
+def create_client(
+    body: ClientInput, background: BackgroundTasks, repo: Repository = Depends(get_repo), llm: LLMClient = Depends(get_llm)
+) -> Client:
+    background.add_task(recheck_documents, repo, llm)  # a new client may match files already read
+    return repo.clients.upsert(Client(id=new_id("cli"), created_at=clock.now(), **dict(body)))
+
+
+@router.put("/clients/{client_id}")
+def update_client(
+    client_id: str, body: ClientInput, background: BackgroundTasks, repo: Repository = Depends(get_repo), llm: LLMClient = Depends(get_llm)
+) -> Client:
+    """Replace the editable fields; id and created_at are kept."""
+    existing = repo.clients.require(client_id)
+    background.add_task(recheck_documents, repo, llm)
+    return repo.clients.upsert(Client(id=existing.id, created_at=existing.created_at, **dict(body)))
+
+
+@router.delete("/clients/{client_id}", status_code=204)
+def delete_client(client_id: str, background: BackgroundTasks, repo: Repository = Depends(get_repo), llm: LLMClient = Depends(get_llm)) -> None:
+    """Refused while shipments, invoices, payments, incidents or sent/approved drafts belong to the client.
+    Unsent drafts are removed with it; emails, documents and events are unlinked."""
+    repo.clients.require(client_id)
+    for name in ("shipments", "invoices", "payments", "incidents"):
+        if repo.collection(name).list(client_id=client_id):
+            raise ConflictError(f"client still has {name}: delete or reassign them first")
+    drafts = repo.drafts.list(client_id=client_id)
+    if any(d.status in (DraftStatus.approved, DraftStatus.sent) for d in drafts):
+        raise ConflictError("client has approved or sent drafts: they must stay on record")
+    unsent = {d.id for d in drafts}
+    for draft in drafts:
+        repo.drafts.delete(draft.id)
+    for collection in (repo.emails, repo.documents, repo.call_logs, repo.events):
+        for item in collection.list(client_id=client_id):
+            update = {"client_id": None}
+            if collection is repo.events:
+                update["draft_ids"] = [d for d in item.draft_ids if d not in unsent]
+            collection.upsert(item.model_copy(update=update))
+    repo.risk_profiles.delete(client_id)
+    repo.clients.delete(client_id)
+    background.add_task(recheck_documents, repo, llm)
+
+
+@router.get("/company")
+def get_company(repo: Repository = Depends(get_repo)) -> CompanyInput:
+    return effective(repo, get_settings())
+
+
+@router.put("/company")
+def put_company(body: CompanyInput, repo: Repository = Depends(get_repo), llm: LLMClient = Depends(get_llm)) -> CompanyInput:
+    saved = save_company(repo, body)
+    llm.set_company(saved.name, saved.operator_name)
+    return effective(repo, get_settings())
+
+
+@router.post("/onboarding/emails")
+def onboarding_emails(language: Literal["en", "bg"] = "en", repo: Repository = Depends(get_repo)) -> list[OnboardingEmail]:
+    """Draft one integration-access email per system saved in the company profile (ERP, GPS, other)."""
+    return build_emails(effective(repo, get_settings()), language)
 
 
 @router.get("/trucks")

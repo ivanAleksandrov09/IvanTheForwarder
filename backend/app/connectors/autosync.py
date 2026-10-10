@@ -24,6 +24,10 @@ def tick() -> None:
         sync(connector, repo)
         process_new_emails(repo, get_llm(), creds.username)
 
+    erp_connector = get_connectors().get(SourceType.erp)  # clients, trucks, loads, invoices (+ positions) from the ERP
+    if erp_connector is not None:
+        sync(erp_connector, get_repo())
+
     # Also pull live GPS and draft status updates
     gps_connector = get_connectors().get(SourceType.gps)
     if gps_connector is not None:

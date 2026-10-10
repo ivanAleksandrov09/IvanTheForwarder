@@ -16,6 +16,7 @@ from app.core import clock
 from app.core.config import Settings, get_settings
 from app.core.ids import stable_id
 from app.deps import get_llm, get_repo
+from app.events.document_checks import check_invoice_due_soon, link_document
 from app.llm import LLMClient, LLMError
 from app.repository import Repository
 from app.schemas import Document, DocumentType, SourceType
@@ -29,11 +30,6 @@ MIME_BY_SUFFIX = {
     ".jpeg": "image/jpeg",
 }
 SETTLE_SECONDS = 5  # skip files modified this recently: they may still be being copied in
-_INVOICE_NUMBER = re.compile(
-    r"\b(?:invoice|фактура)\s*(?:(?:no\.?|number|№)|#)?\s*[:#№]?\s*([0-9]{10})\b",
-    re.IGNORECASE,
-)
-_DATE = re.compile(r"\b\d{4}-\d{2}-\d{2}\b|\b\d{1,2}[./]\d{1,2}[./]\d{4}\b")
 
 PROMPT = (
     "You read one document from a freight forwarder (CMR, invoice, rate sheet, transport order, "
@@ -188,26 +184,28 @@ def scan_once(folder: Path, repo: Repository, llm: LLMClient) -> int:
         if time.time() - st.st_mtime < SETTLE_SECONDS:
             continue
         doc_id = stable_id("doc", path.name, str(st.st_size), str(st.st_mtime_ns))
-        if repo.documents.get(doc_id) is not None:
-            continue
+        if repo.documents.get(doc_id) is not None or _failures.get(doc_id, 0) >= MAX_ATTEMPTS:
+            continue  # already analyzed (or given up): only new or changed files cost an API call
         try:
-            extracted, _method = _extract(path, mime, llm)
-        except (LLMError, OSError, PdfReadError, RuntimeError, ValidationError) as exc:
-            # Retried on the next scan; do not store a partial or invalid extraction.
+            extracted, _ = llm.extract_document(
+                task="document.extract", data=path.read_bytes(), mime_type=mime, prompt=PROMPT, schema=ExtractedDocument
+            )
+        except Exception as exc:  # retried on the next scan: nothing is stored for this file
             log.warning("extraction failed for %s: %s", path.name, exc)
             continue
-        document = Document(
-            id=doc_id,
-            doc_type=extracted.doc_type,
-            filename=path.name,
-            mime_type=mime,
-            source=SourceType.documents,
-            received_at=clock.now(),
-            extracted_fields={k: str(v) for k, v in extracted.fields.items()},
-            extraction_confidence=extracted.confidence,
+        repo.documents.upsert(
+            Document(
+                id=doc_id,
+                doc_type=extracted.doc_type,
+                filename=path.name,
+                mime_type=mime,
+                source=SourceType.documents,
+                received_at=clock.now(),
+                extracted_fields={k: str(v) for k, v in extracted.fields.items()},
+                extraction_confidence=extracted.confidence,
+            )
         )
-        repo.documents.upsert(_link_document(document, repo))
-        log.info("extracted %s as %s via %s", path.name, extracted.doc_type, _method)
+        log.warning("extracted %s as %s", path.name, extracted.doc_type)
         stored += 1
     return stored
 

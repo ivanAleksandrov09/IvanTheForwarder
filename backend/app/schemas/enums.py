@@ -175,6 +175,7 @@ class RiskFactorCode(StrEnum):
 class EventType(StrEnum):
     shipment_delayed = "shipment_delayed"
     invoice_overdue = "invoice_overdue"
+    invoice_due_soon = "invoice_due_soon"
     payment_received = "payment_received"
     email_received = "email_received"
     document_received = "document_received"

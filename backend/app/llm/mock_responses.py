@@ -21,6 +21,18 @@ def _get(ctx: dict, key: str, placeholder: str) -> str:
 
 def _payment_reminder(ctx: dict) -> str:
     lang = ctx.get("language", "en")
+    if "days_until_due" in ctx:  # not overdue yet: friendly heads-up before the due date
+        n, due = _get(ctx, "invoice_number", "[NUMBER]"), _get(ctx, "invoice_due", "[DATE]")
+        total, who = _get(ctx, "invoice_total", "[AMOUNT]"), _get(ctx, "contact_name", "[NAME]")
+        sign = _get(ctx, "operator_name", "") + chr(10) + _get(ctx, "company_name", "")
+        if lang == "bg":
+            subject = f"Напомняне: фактура № {n} е с падеж {due}"
+            body = f"Здравейте, {who},\n\nНапомняме, че фактура № {n} на стойност {total} е с падеж {due}.\n\nС уважение,\n{sign}"
+        else:
+            subject = f"Reminder: invoice {n} is due {due}"
+            body = f"Dear {who},\n\nA friendly reminder that invoice {n} for {total} is due on {due}.\n\nKind regards,\n{sign}"
+        rationale = "[MOCK] Invoice from a scanned file is due soon."
+        return json.dumps({"subject": subject, "body": body, "language": lang, "tone": ctx.get("tone", "friendly"), "rationale": rationale}, ensure_ascii=False)
     if lang == "bg":
         subject = f"Напомняне за плащане по фактура № {_get(ctx, 'invoice_number', '[НОМЕР]')}"
         body = (

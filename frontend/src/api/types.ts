@@ -3,6 +3,10 @@ import type { components } from "./schema";
 
 type S = components["schemas"];
 export type Client = S["Client"];
+export type ClientInput = S["ClientInput"];
+export type CompanyInput = S["CompanyInput"];
+export type OnboardingEmail = S["OnboardingEmail"];
+export type Contact = S["Contact"];
 export type RiskProfile = S["RiskProfile"];
 export type RiskFactor = S["RiskFactor"];
 export type DomainEvent = S["DomainEvent"];
@@ -19,3 +23,4 @@ export type Truck = S["Truck"];
 export type MailboxStatus = S["MailboxStatus"];
 export type EmailExtraction = S["EmailExtraction"];
 export type EmailInsight = S["EmailInsight"];
+export type LoadOffer = S["LoadOffer"];

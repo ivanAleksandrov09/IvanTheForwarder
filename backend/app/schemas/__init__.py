@@ -28,6 +28,7 @@ from app.schemas.drafts import (
 from app.schemas.entities import (
     CallLog,
     Client,
+    ClientInput,
     Contact,
     Document,
     Email,
@@ -40,6 +41,7 @@ from app.schemas.entities import (
 )
 from app.schemas.enums import *  # noqa: F401,F403  (re-export every enum)
 from app.schemas.enums import PayloadType
+from app.schemas.company import CompanyInput, CompanyProfile, OnboardingEmail
 from app.schemas.events import DomainEvent
 from app.schemas.mailbox import EmailExtraction, EmailInsight, LinkEmailRequest, MailboxLoginRequest, MailboxStatus
 from app.schemas.risk import ClientMetrics, RiskFactor, RiskProfile
@@ -60,6 +62,7 @@ COLLECTIONS: dict[str, tuple[type[ContractModel], str]] = {
     "drafts": (DraftMessage, "id"),
     "risk_profiles": (RiskProfile, "client_id"),
     "email_insights": (EmailInsight, "email_id"),
+    "company": (CompanyProfile, "id"),
 }
 
 # Collections shipped as seed files in data/seed/<name>.json (derived data like events/drafts/risk is not seeded).

@@ -28,6 +28,7 @@ class AnthropicProvider:
                 api_key=self.s.llm_api_key or None,  # None -> SDK falls back to ANTHROPIC_API_KEY / `ant auth login`
                 timeout=self.s.llm_timeout_seconds,
                 max_retries=0,  # llm/client.py retries (with logging)
+                default_headers={"anthropic-workspace-id": self.s.llm_workspace_id} if self.s.llm_workspace_id else None,
             )
         return self._client
 

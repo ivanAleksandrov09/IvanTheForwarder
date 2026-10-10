@@ -54,6 +54,9 @@ class LLMClient:
         self.system_prompt = build_system_prompt(settings.company_name, settings.operator_name)
         self.log_path = settings.runtime_dir / "logs" / "llm.jsonl"
 
+    def set_company(self, name: str, operator: str) -> None:
+        self.system_prompt = build_system_prompt(name, operator)
+
     # ------------------------------------------------------------------ public API
     def status(self) -> LlmStatus:
         return LlmStatus(
@@ -117,7 +120,7 @@ class LLMClient:
         file_block = {"type": "document", "source": source} if mime_type == "application/pdf" else {"type": "image", "source": source}
         content = [file_block, {"type": "text", "text": f"{prompt}\n\nReturn ONLY one JSON object matching this JSON Schema:\n{schema_json}"}]
         messages = [{"role": "system", "content": self.system_prompt}, {"role": "user", "content": content}]
-        text, meta = self._live(task, messages, json_mode=False, model=self._model(fast=True), effort=self.s.llm_document_effort or None)
+        text, meta = self._live(task, messages, json_mode=False, model=self.s.llm_document_model or self._model(fast=True), effort=self.s.llm_document_effort or None)
         return self._parse(text, schema), meta
 
     # ------------------------------------------------------------------ internals

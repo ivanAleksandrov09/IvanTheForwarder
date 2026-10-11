@@ -46,7 +46,7 @@ class Settings(BaseSettings):
     llm_timeout_seconds: float = 30.0
     llm_max_retries: int = 4
     llm_temperature: float = 0.3
-    llm_effort: str = "low"
+    llm_effort: str = ""  # sent only when set: claude-haiku-4-5 rejects it
     llm_document_model: str = ""  # model for reading PDFs/images; empty = LLM_FAST_MODEL, then LLM_MODEL
     llm_document_effort: str = ""  # empty = use LLM_EFFORT
     llm_json_mode: bool = True

@@ -16,16 +16,16 @@ from app.schemas.common import ContractModel
 log = logging.getLogger("forwarder.loads")
 
 PROMPT = (
-    "You help a Bulgarian road freight forwarder find full-truckload cargo it can take. "
-    "Search the web for 5 currently open truck load offers (freight exchanges, load boards, company cargo postings) "
-    "departing from Bulgaria (Sofia, Plovdiv, Stara Zagora, Pernik, Varna, Burgas) or returning to Bulgaria, "
-    "to EU, Balkan or Turkish destinations. Accept general, steel, palletized, furniture, textile, grain and food cargo. "
-    "Exclude refrigerated, pharma, ADR/dangerous and bulk. "
+    "You help a Bulgarian road freight forwarder find cargo it can take. "
+    "Search the web for up to 5 example road freight loads (full truck or part load) advertised on any freight exchange, "
+    "load board or forwarder cargo page, loading anywhere in Bulgaria, Romania, Greece, Serbia or Turkey, going to anywhere in Europe. "
+    "Recent postings are preferred, but older ones are acceptable if that is all you can find. "
     "Only include an offer if you found it on a specific page; never invent a URL, price or date. "
     "Use null for any value the page does not show. "
     "Answer with ONLY a JSON array of up to 5 objects, no prose, with keys: "
-    "origin ('City, CC'), destination ('City, CC'), pickup_date (YYYY-MM-DD), cargo, weight_kg (integer or null), "
-    "vehicle (tent, mega, box or flatbed), price_eur (integer or null), source (site name), source_url (full https URL)."
+    "origin ('City, CC'), destination ('City, CC'), pickup_date (YYYY-MM-DD or null), cargo, weight_kg (integer or null), "
+    "vehicle (tent, mega, box or flatbed, or null), price_eur (integer or null), source (site name), source_url (full https URL). "
+    "If you find fewer than 5, return what you found; return [] only if you found none at all."
 )
 OFFER_FIELDS = ("origin", "destination", "pickup_date", "cargo", "weight_kg", "vehicle", "price_eur", "source", "source_url")
 MAX_PAUSES = 3  # server-side search loops; more than this means something is wrong
@@ -56,25 +56,42 @@ def read_offers() -> list[LoadOffer]:
     return [LoadOffer.model_validate(item) for item in json.loads(path.read_text(encoding="utf-8"))]
 
 
+def _create(client: anthropic.Anthropic, s: Settings, messages: list, extra_body: dict | None):
+    return client.messages.create(
+        model=s.llm_fast_model or s.llm_model,
+        max_tokens=s.llm_max_tokens,
+        tools=[{"type": "web_search_20260209", "name": "web_search", "allowed_callers": ["direct"]}],
+        messages=messages,
+        **({"extra_body": extra_body} if extra_body else {}),
+    )
+
+
 def _ask_claude(s: Settings) -> list:
-    client = anthropic.Anthropic(api_key=s.llm_api_key, timeout=120, max_retries=2)
-    prompt = f"{PROMPT} Today is {date.today().isoformat()}; pickup_date must be today or later, and no two offers may share a source_url."
+    client = anthropic.Anthropic(
+        api_key=s.llm_api_key,
+        timeout=120,
+        max_retries=2,
+        default_headers={"anthropic-workspace-id": s.llm_workspace_id} if s.llm_workspace_id else None,
+    )
+    prompt = f"{PROMPT} Today is {date.today().isoformat()}."
     messages: list = [{"role": "user", "content": prompt}]
+    extra_body = {"output_config": {"effort": s.loads_effort}} if s.loads_effort else None
     for _ in range(MAX_PAUSES):
-        response = client.messages.create(
-            model=s.llm_fast_model or s.llm_model,
-            max_tokens=s.llm_max_tokens,
-            tools=[{"type": "web_search_20260209", "name": "web_search"}],
-            messages=messages,
-            extra_body={"output_config": {"effort": s.loads_effort}},
-        )
+        try:
+            response = _create(client, s, messages, extra_body)
+        except anthropic.BadRequestError as exc:
+            if extra_body is None or "effort" not in str(exc):
+                raise
+            extra_body = None  # this model has no effort setting (e.g. Haiku 4.5): search without it
+            response = _create(client, s, messages, extra_body)
         if response.stop_reason != "pause_turn":
             break
         messages = [*messages, {"role": "assistant", "content": response.content}]
     text = "".join(block.text for block in response.content if block.type == "text")
     start, end = text.find("["), text.rfind("]") + 1
     if start < 0 or end <= start:
-        raise ValueError("Claude's answer contained no JSON array")
+        log.warning("load search: no JSON array in Claude's answer, treating it as no offers: %s", text[:200])
+        return []
     return json.loads(text[start:end])
 
 
@@ -91,20 +108,30 @@ def search_loads(s: Settings) -> list[LoadOffer]:
         raise RuntimeError("LLM_API_KEY is not set")
     items: list = []
     for _ in range(3):  # Claude sometimes answers with an empty list; ask again before giving up
-        items = _ask_claude(s)
+        try:
+            items = _ask_claude(s)
+        except anthropic.APIError as exc:  # auth, workspace, quota, tool not enabled...: report it instead of a bare 500
+            raise RuntimeError(f"Claude request failed: {getattr(exc, 'message', exc)}") from exc
         if items:
             break
     offers: list[LoadOffer] = []
+    seen: set[str] = set()
     for item in items:
         url = item.get("source_url") if isinstance(item, dict) else None
         if not isinstance(url, str):
             continue
+        # Several offers can come from one listing page, so the id covers the route and date, not just the URL.
+        key = "|".join(str(item.get(k)) for k in ("source_url", "origin", "destination", "pickup_date", "cargo"))
+        offer_id = f"ld_{hashlib.sha1(key.encode()).hexdigest()[:12]}"
+        if offer_id in seen:
+            continue
+        seen.add(offer_id)
         try:
             offers.append(
                 LoadOffer(
-                    id=f"ld_{hashlib.sha1(url.encode()).hexdigest()[:12]}",
+                    id=offer_id,
                     verified=_reachable(url),
-                    **{key: item.get(key) for key in OFFER_FIELDS},
+                    **{k: item.get(k) for k in OFFER_FIELDS},
                 )
             )
         except ValidationError as exc:

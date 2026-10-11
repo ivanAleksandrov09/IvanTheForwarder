@@ -66,6 +66,8 @@ class Settings(BaseSettings):
     status_update_hours: float = 4  # min hours between routine status drafts per shipment; 0 = off
     zeron_url: str = ""  # base URL of the Zeron V/4 web services (assumed REST + JSON)
     zeron_token: str = ""
+    network_url: str = ""  # central index base URL; empty = write the profile to a local file instead
+    network_token: str = ""
     traccar_device_map: str = ""  # comma-separated Traccar device ID to Ivan truck ID pairs
 
     outbound_mode: Literal["log", "smtp"] = "log"

@@ -1,0 +1,25 @@
+# Central index database (separate from the company app and from any local Postgres on 5432).
+#   docker compose up -d central-db
+# Then: cd backend && uv run uvicorn central.main:app --port 8100   (the schema is applied on start)
+# DEV credentials only: change them, and do not publish the port, anywhere real.
+# The pgvector image is plain Postgres plus the extension, so embeddings can be added later with CREATE EXTENSION vector.
+services:
+  central-db:
+    image: pgvector/pgvector:pg16
+    container_name: central-db
+    environment:
+      POSTGRES_USER: central
+      POSTGRES_PASSWORD: central
+      POSTGRES_DB: central
+    ports:
+      - "5434:5432"
+    volumes:
+      - central-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U central -d central"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  central-db-data:

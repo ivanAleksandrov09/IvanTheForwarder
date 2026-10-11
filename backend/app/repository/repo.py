@@ -18,6 +18,7 @@ from app.core import clock
 from app.core.errors import NotFoundError
 from app.schemas import (
     CompanyProfile,
+    ProfileSettings,
     COLLECTIONS,
     PAYLOAD_COLLECTION,
     CallLog,
@@ -128,7 +129,7 @@ class Collection(Generic[T]):
             self._db.conn.execute("DELETE FROM docs WHERE collection=?", (self.name,))
 
 
-KEEP_ON_RESET = {"company"}  # user-entered settings survive a demo reset
+KEEP_ON_RESET = {"company", "network_profile"}  # user-entered settings survive a demo reset
 
 
 class Repository:
@@ -154,6 +155,7 @@ class Repository:
         self.risk_profiles: Collection[RiskProfile] = c("risk_profiles")
         self.email_insights: Collection[EmailInsight] = c("email_insights")
         self.company: Collection[CompanyProfile] = c("company")
+        self.network_profile: Collection[ProfileSettings] = c("network_profile")
 
     def collection(self, name: str) -> Collection:
         return getattr(self, name)

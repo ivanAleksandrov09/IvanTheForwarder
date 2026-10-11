@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Freight network: find a carrier</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>Find a freight company</h1>
+    <p>Companies listed here chose to share a capacity summary. Filter by what you need to move and where.</p>
+  </header>
+  <main>
+    <form id="filters">
+      <div class="grid">
+        <label>Search<input id="q" placeholder="name, region or notes, e.g. pharma"></label>
+        <label>Home region<input id="region" placeholder="e.g. Sofia"></label>
+        <label>Countries served (all of)<input id="countries" placeholder="BG, DE"></label>
+        <label>Lanes (all of)<input id="lanes" placeholder="BG-DE, RO-TR"></label>
+        <label>Minimum load capacity (kg)<input id="min_load" type="number" min="0" step="500"></label>
+      </div>
+      <fieldset><legend>Trailer types (any of)</legend><div id="trailers"></div></fieldset>
+      <fieldset><legend>Cargo handled (all of)</legend><div id="cargo"></div></fieldset>
+      <fieldset><legend>Languages (any of)</legend><div id="languages"></div></fieldset>
+      <label class="inline"><input id="adr" type="checkbox"> Dangerous goods (ADR)</label>
+      <div class="actions"><button type="submit">Search</button> <button type="reset" id="reset">Clear</button></div>
+    </form>
+    <section>
+      <p id="status" role="status"></p>
+      <div id="results"></div>
+      <button id="more" type="button" hidden>Show more</button>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

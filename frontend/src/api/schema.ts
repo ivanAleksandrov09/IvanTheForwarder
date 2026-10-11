@@ -584,6 +584,64 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/network/profile": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Profile
+         * @description The saved choices plus a preview of exactly what would be sent.
+         */
+        get: operations["get_profile_api_network_profile_get"];
+        /** Save Profile */
+        put: operations["save_profile_api_network_profile_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/network/publish": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Publish Profile */
+        post: operations["publish_profile_api_network_publish_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/network/withdraw": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Withdraw Profile
+         * @description Stops all future sharing first, then asks the central index to delete what it holds.
+         */
+        post: operations["withdraw_profile_api_network_withdraw_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/onboarding/emails": {
         parameters: {
             query?: never;
@@ -1386,6 +1444,15 @@ export interface components {
             /** Note */
             note?: string | null;
         };
+        /** FleetSummary */
+        FleetSummary: {
+            /** Max Capacity Kg */
+            max_capacity_kg: number;
+            /** Trailer Types */
+            trailer_types: components["schemas"]["TrailerType"][];
+            /** Trucks */
+            trucks: number;
+        };
         /** GenerateDraftRequest */
         GenerateDraftRequest: {
             /** Client Id */
@@ -1506,6 +1573,15 @@ export interface components {
          * @enum {string}
          */
         InvoiceStatus: "draft" | "issued" | "partially_paid" | "paid" | "cancelled";
+        /** LaneStat */
+        LaneStat: {
+            /** From Country */
+            from_country: string;
+            /** Shipments */
+            shipments: number;
+            /** To Country */
+            to_country: string;
+        };
         /**
          * Language
          * @enum {string}
@@ -1681,6 +1757,181 @@ export interface components {
          * @enum {string}
          */
         PaymentMethod: "bank_transfer" | "cash" | "card" | "offset";
+        /** ProfileSettings */
+        ProfileSettings: {
+            /**
+             * Adr
+             * @default false
+             */
+            adr: boolean;
+            /**
+             * Cargo Types
+             * @default []
+             */
+            cargo_types: components["schemas"]["CargoType"][];
+            /** Company Uid */
+            company_uid: string;
+            /**
+             * Consent
+             * @default false
+             */
+            consent: boolean;
+            /** Contact Email */
+            contact_email?: string | null;
+            /** Contact Phone */
+            contact_phone?: string | null;
+            /**
+             * Countries Served
+             * @default []
+             */
+            countries_served: string[];
+            /**
+             * Home Region
+             * @default
+             */
+            home_region: string;
+            /**
+             * Id
+             * @default profile
+             */
+            id: string;
+            /**
+             * Languages
+             * @default []
+             */
+            languages: components["schemas"]["Language"][];
+            /**
+             * Last Publish Status
+             * @default
+             */
+            last_publish_status: string;
+            /** Last Published At */
+            last_published_at?: string | null;
+            /** Max Load Kg */
+            max_load_kg?: number | null;
+            /**
+             * Public Notes
+             * @default
+             */
+            public_notes: string;
+            /**
+             * Share Contact
+             * @default false
+             */
+            share_contact: boolean;
+            /**
+             * Trailer Types
+             * @default []
+             */
+            trailer_types: components["schemas"]["TrailerType"][];
+        };
+        /**
+         * ProfileSettingsInput
+         * @description What the company decides. Blank lists / no max load = taken from our own fleet and history.
+         */
+        ProfileSettingsInput: {
+            /**
+             * Adr
+             * @default false
+             */
+            adr: boolean;
+            /**
+             * Cargo Types
+             * @default []
+             */
+            cargo_types: components["schemas"]["CargoType"][];
+            /**
+             * Consent
+             * @default false
+             */
+            consent: boolean;
+            /** Contact Email */
+            contact_email?: string | null;
+            /** Contact Phone */
+            contact_phone?: string | null;
+            /**
+             * Countries Served
+             * @default []
+             */
+            countries_served: string[];
+            /**
+             * Home Region
+             * @default
+             */
+            home_region: string;
+            /**
+             * Languages
+             * @default []
+             */
+            languages: components["schemas"]["Language"][];
+            /** Max Load Kg */
+            max_load_kg?: number | null;
+            /**
+             * Public Notes
+             * @default
+             */
+            public_notes: string;
+            /**
+             * Share Contact
+             * @default false
+             */
+            share_contact: boolean;
+            /**
+             * Trailer Types
+             * @default []
+             */
+            trailer_types: components["schemas"]["TrailerType"][];
+        };
+        /**
+         * PublicCompanyProfile
+         * @description Exactly what would be sent to the central index.
+         */
+        PublicCompanyProfile: {
+            /** Adr */
+            adr: boolean;
+            /** Cargo Types */
+            cargo_types: components["schemas"]["CargoType"][];
+            /** Company Uid */
+            company_uid: string;
+            /** Contact Email */
+            contact_email?: string | null;
+            /** Contact Phone */
+            contact_phone?: string | null;
+            /** Countries Served */
+            countries_served: string[];
+            fleet: components["schemas"]["FleetSummary"];
+            /** Home Region */
+            home_region: string;
+            /** Lanes */
+            lanes: components["schemas"]["LaneStat"][];
+            /** Languages */
+            languages: components["schemas"]["Language"][];
+            /** Max Load Kg */
+            max_load_kg: number;
+            /** Name */
+            name: string;
+            /** Name Latin */
+            name_latin: string;
+            /** Public Notes */
+            public_notes: string;
+            /**
+             * Schema Version
+             * @default 1
+             */
+            schema_version: number;
+            /** Trailer Types */
+            trailer_types: components["schemas"]["TrailerType"][];
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /** PublicProfileState */
+        PublicProfileState: {
+            preview: components["schemas"]["PublicCompanyProfile"];
+            settings: components["schemas"]["ProfileSettings"];
+        };
         /** RejectDraftRequest */
         RejectDraftRequest: {
             /** Reason */
@@ -2978,6 +3229,99 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["LoadOffer"][];
+                };
+            };
+        };
+    };
+    get_profile_api_network_profile_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicProfileState"];
+                };
+            };
+        };
+    };
+    save_profile_api_network_profile_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ProfileSettingsInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicProfileState"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    publish_profile_api_network_publish_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicProfileState"];
+                };
+            };
+        };
+    };
+    withdraw_profile_api_network_withdraw_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PublicProfileState"];
                 };
             };
         };

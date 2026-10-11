@@ -14,10 +14,15 @@ dependencies = [
     "pypdf>=5.0",
     "python-multipart>=0.0.9",
     "openai-whisper>=20250625",
+    "psycopg[binary]>=3.2",
 ]
 
 [dependency-groups]
-dev = ["pytest>=8", "ruff>=0.6"]
+dev = [
+    "pgserver>=0.1.4",
+    "pytest>=8",
+ "ruff>=0.6",
+]
 
 [tool.uv]
 package = false

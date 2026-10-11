@@ -1865,6 +1865,33 @@
         "title": "EvidenceRef",
         "type": "object"
       },
+      "FleetSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "max_capacity_kg": {
+            "title": "Max Capacity Kg",
+            "type": "integer"
+          },
+          "trailer_types": {
+            "items": {
+              "$ref": "#/components/schemas/TrailerType"
+            },
+            "title": "Trailer Types",
+            "type": "array"
+          },
+          "trucks": {
+            "title": "Trucks",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "trucks",
+          "trailer_types",
+          "max_capacity_kg"
+        ],
+        "title": "FleetSummary",
+        "type": "object"
+      },
       "GenerateDraftRequest": {
         "additionalProperties": false,
         "properties": {
@@ -2249,6 +2276,32 @@
         ],
         "title": "InvoiceStatus",
         "type": "string"
+      },
+      "LaneStat": {
+        "additionalProperties": false,
+        "properties": {
+          "from_country": {
+            "pattern": "^[A-Z]{2}$",
+            "title": "From Country",
+            "type": "string"
+          },
+          "shipments": {
+            "title": "Shipments",
+            "type": "integer"
+          },
+          "to_country": {
+            "pattern": "^[A-Z]{2}$",
+            "title": "To Country",
+            "type": "string"
+          }
+        },
+        "required": [
+          "from_country",
+          "to_country",
+          "shipments"
+        ],
+        "title": "LaneStat",
+        "type": "object"
       },
       "Language": {
         "enum": [
@@ -2789,6 +2842,380 @@
         ],
         "title": "PaymentMethod",
         "type": "string"
+      },
+      "ProfileSettings": {
+        "additionalProperties": false,
+        "properties": {
+          "adr": {
+            "default": false,
+            "title": "Adr",
+            "type": "boolean"
+          },
+          "cargo_types": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/CargoType"
+            },
+            "title": "Cargo Types",
+            "type": "array"
+          },
+          "company_uid": {
+            "title": "Company Uid",
+            "type": "string"
+          },
+          "consent": {
+            "default": false,
+            "title": "Consent",
+            "type": "boolean"
+          },
+          "contact_email": {
+            "anyOf": [
+              {
+                "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact Email"
+          },
+          "contact_phone": {
+            "anyOf": [
+              {
+                "pattern": "^\\+[1-9][0-9]{6,14}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact Phone"
+          },
+          "countries_served": {
+            "default": [],
+            "items": {
+              "pattern": "^[A-Z]{2}$",
+              "type": "string"
+            },
+            "title": "Countries Served",
+            "type": "array"
+          },
+          "home_region": {
+            "default": "",
+            "title": "Home Region",
+            "type": "string"
+          },
+          "id": {
+            "default": "profile",
+            "title": "Id",
+            "type": "string"
+          },
+          "languages": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Language"
+            },
+            "title": "Languages",
+            "type": "array"
+          },
+          "last_publish_status": {
+            "default": "",
+            "title": "Last Publish Status",
+            "type": "string"
+          },
+          "last_published_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Published At"
+          },
+          "max_load_kg": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Load Kg"
+          },
+          "public_notes": {
+            "default": "",
+            "title": "Public Notes",
+            "type": "string"
+          },
+          "share_contact": {
+            "default": false,
+            "title": "Share Contact",
+            "type": "boolean"
+          },
+          "trailer_types": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/TrailerType"
+            },
+            "title": "Trailer Types",
+            "type": "array"
+          }
+        },
+        "required": [
+          "company_uid"
+        ],
+        "title": "ProfileSettings",
+        "type": "object"
+      },
+      "ProfileSettingsInput": {
+        "additionalProperties": false,
+        "description": "What the company decides. Blank lists / no max load = taken from our own fleet and history.",
+        "properties": {
+          "adr": {
+            "default": false,
+            "title": "Adr",
+            "type": "boolean"
+          },
+          "cargo_types": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/CargoType"
+            },
+            "title": "Cargo Types",
+            "type": "array"
+          },
+          "consent": {
+            "default": false,
+            "title": "Consent",
+            "type": "boolean"
+          },
+          "contact_email": {
+            "anyOf": [
+              {
+                "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact Email"
+          },
+          "contact_phone": {
+            "anyOf": [
+              {
+                "pattern": "^\\+[1-9][0-9]{6,14}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact Phone"
+          },
+          "countries_served": {
+            "default": [],
+            "items": {
+              "pattern": "^[A-Z]{2}$",
+              "type": "string"
+            },
+            "title": "Countries Served",
+            "type": "array"
+          },
+          "home_region": {
+            "default": "",
+            "title": "Home Region",
+            "type": "string"
+          },
+          "languages": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Language"
+            },
+            "title": "Languages",
+            "type": "array"
+          },
+          "max_load_kg": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Load Kg"
+          },
+          "public_notes": {
+            "default": "",
+            "title": "Public Notes",
+            "type": "string"
+          },
+          "share_contact": {
+            "default": false,
+            "title": "Share Contact",
+            "type": "boolean"
+          },
+          "trailer_types": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/TrailerType"
+            },
+            "title": "Trailer Types",
+            "type": "array"
+          }
+        },
+        "title": "ProfileSettingsInput",
+        "type": "object"
+      },
+      "PublicCompanyProfile": {
+        "additionalProperties": false,
+        "description": "Exactly what would be sent to the central index.",
+        "properties": {
+          "adr": {
+            "title": "Adr",
+            "type": "boolean"
+          },
+          "cargo_types": {
+            "items": {
+              "$ref": "#/components/schemas/CargoType"
+            },
+            "title": "Cargo Types",
+            "type": "array"
+          },
+          "company_uid": {
+            "title": "Company Uid",
+            "type": "string"
+          },
+          "contact_email": {
+            "anyOf": [
+              {
+                "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact Email"
+          },
+          "contact_phone": {
+            "anyOf": [
+              {
+                "pattern": "^\\+[1-9][0-9]{6,14}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact Phone"
+          },
+          "countries_served": {
+            "items": {
+              "pattern": "^[A-Z]{2}$",
+              "type": "string"
+            },
+            "title": "Countries Served",
+            "type": "array"
+          },
+          "fleet": {
+            "$ref": "#/components/schemas/FleetSummary"
+          },
+          "home_region": {
+            "title": "Home Region",
+            "type": "string"
+          },
+          "lanes": {
+            "items": {
+              "$ref": "#/components/schemas/LaneStat"
+            },
+            "title": "Lanes",
+            "type": "array"
+          },
+          "languages": {
+            "items": {
+              "$ref": "#/components/schemas/Language"
+            },
+            "title": "Languages",
+            "type": "array"
+          },
+          "max_load_kg": {
+            "title": "Max Load Kg",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "name_latin": {
+            "title": "Name Latin",
+            "type": "string"
+          },
+          "public_notes": {
+            "title": "Public Notes",
+            "type": "string"
+          },
+          "schema_version": {
+            "default": 1,
+            "title": "Schema Version",
+            "type": "integer"
+          },
+          "trailer_types": {
+            "items": {
+              "$ref": "#/components/schemas/TrailerType"
+            },
+            "title": "Trailer Types",
+            "type": "array"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "company_uid",
+          "name",
+          "name_latin",
+          "home_region",
+          "countries_served",
+          "lanes",
+          "fleet",
+          "max_load_kg",
+          "trailer_types",
+          "cargo_types",
+          "adr",
+          "languages",
+          "public_notes",
+          "updated_at"
+        ],
+        "title": "PublicCompanyProfile",
+        "type": "object"
+      },
+      "PublicProfileState": {
+        "additionalProperties": false,
+        "properties": {
+          "preview": {
+            "$ref": "#/components/schemas/PublicCompanyProfile"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/ProfileSettings"
+          }
+        },
+        "required": [
+          "settings",
+          "preview"
+        ],
+        "title": "PublicProfileState",
+        "type": "object"
       },
       "RejectDraftRequest": {
         "additionalProperties": false,
@@ -4950,6 +5377,110 @@
         "summary": "Refresh",
         "tags": [
           "loads"
+        ]
+      }
+    },
+    "/api/network/profile": {
+      "get": {
+        "description": "The saved choices plus a preview of exactly what would be sent.",
+        "operationId": "get_profile_api_network_profile_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicProfileState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get Profile",
+        "tags": [
+          "network"
+        ]
+      },
+      "put": {
+        "operationId": "save_profile_api_network_profile_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileSettingsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicProfileState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Save Profile",
+        "tags": [
+          "network"
+        ]
+      }
+    },
+    "/api/network/publish": {
+      "post": {
+        "operationId": "publish_profile_api_network_publish_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicProfileState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Publish Profile",
+        "tags": [
+          "network"
+        ]
+      }
+    },
+    "/api/network/withdraw": {
+      "post": {
+        "description": "Stops all future sharing first, then asks the central index to delete what it holds.",
+        "operationId": "withdraw_profile_api_network_withdraw_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicProfileState"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Withdraw Profile",
+        "tags": [
+          "network"
         ]
       }
     },

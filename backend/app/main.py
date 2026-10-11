@@ -11,7 +11,7 @@ from fastapi.responses import JSONResponse
 from app.connectors.autosync import autosync_loop
 from app.connectors.folder_watch import watch_loop
 from app.loads.search import loads_weekly_loop
-from app.api import calls, data, drafts, loads, risk, system
+from app.api import calls, data, drafts, loads, network, risk, system
 from app.core.config import get_settings
 from app.company import effective
 from app.core.errors import ConflictError, NotFoundError
@@ -71,5 +71,5 @@ def _llm(_: Request, e: LLMError):
     return JSONResponse(status_code=502, content={"detail": f"LLM error: {e}"})
 
 
-for r in (system.router, data.router, risk.router, drafts.router, loads.router, calls.router):
+for r in (system.router, data.router, risk.router, drafts.router, loads.router, calls.router, network.router):
     app.include_router(r)

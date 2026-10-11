@@ -83,3 +83,12 @@ input { width: 100%; font: inherit; padding: 8px; border: 1px solid var(--line);
 .company-corner { position: fixed; top: 8px; right: 12px; z-index: 10; background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 6px 10px; font-size: 13px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); max-width: 320px; }
 .company-corner.editing label { display: block; font-size: 11px; color: #555; margin: 4px 0; }
 .company-corner.editing input { display: block; width: 100%; box-sizing: border-box; }
+
+.network fieldset { border: 1px solid #ddd; border-radius: 6px; margin: 8px 0; }
+.network legend { font-size: 12px; color: #555; }
+.network label.inline { display: inline-block; margin-right: 12px; font-size: 13px; }
+.network label.consent { display: block; margin: 8px 0; font-weight: 600; }
+.network label { display: block; font-size: 12px; color: #555; }
+.network input:not([type=checkbox]) { display: block; width: 100%; box-sizing: border-box; }
+.network .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+.network pre.preview { max-height: 260px; overflow: auto; background: #f6f6f6; padding: 8px; border-radius: 6px; font-size: 12px; }

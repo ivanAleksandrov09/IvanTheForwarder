@@ -11,6 +11,7 @@ import { ClientForm } from "./components/ClientForm";
 import { CompanyName } from "./components/CompanyName";
 import { LoadsPanel } from "./components/LoadsPanel";
 import { OnboardingPanel } from "./components/OnboardingPanel";
+import { NetworkPanel } from "./components/NetworkPanel";
 import { CallExtractionPanel } from "./components/CallExtractionPanel";
 import { t, type UiLang } from "./i18n";
 
@@ -33,6 +34,7 @@ export default function App() {
   const [showLoads, setShowLoads] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [showCalls, setShowCalls] = useState(false);
+  const [showNetwork, setShowNetwork] = useState(false);
 
   const refresh = useCallback(async () => {
     try {
@@ -101,6 +103,7 @@ export default function App() {
           <button onClick={() => setShowMailbox(!showMailbox)}>{showMailbox ? "Hide mailbox" : "Connect email"}</button>
           <button onClick={() => setShowLoads(!showLoads)}>{showLoads ? "Hide loads" : "Show loads"}</button>
           <button onClick={() => setShowOnboarding(!showOnboarding)}>{showOnboarding ? "Hide setup" : "Connect systems"}</button>
+          <button onClick={() => setShowNetwork(!showNetwork)}>{showNetwork ? "Hide sharing" : "Share profile"}</button>
           <button onClick={() => setShowCalls(!showCalls)}>{showCalls ? "Hide call extraction" : "Process call recording"}</button>
           {trucks.length > 0 && <button onClick={() => setShowMap(!showMap)}>{showMap ? "Hide map" : "Show truck map"}</button>}
         </div>
@@ -110,6 +113,7 @@ export default function App() {
       {error && <button onClick={refresh}>{t("retry", lang)}</button>}
       {showMailbox && <MailboxPanel onSynced={refresh} />}
       {showOnboarding && <OnboardingPanel />}
+      {showNetwork && <NetworkPanel />}
       {editing && (
         <ClientForm
           key={editing === "new" ? "new" : editing.id}

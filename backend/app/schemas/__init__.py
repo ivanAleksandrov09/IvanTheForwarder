@@ -43,6 +43,14 @@ from app.schemas.enums import *  # noqa: F401,F403  (re-export every enum)
 from app.schemas.enums import PayloadType
 from app.schemas.company import CompanyInput, CompanyProfile, OnboardingEmail
 from app.schemas.events import DomainEvent
+from app.schemas.network import (
+    FleetSummary,
+    LaneStat,
+    ProfileSettings,
+    ProfileSettingsInput,
+    PublicCompanyProfile,
+    PublicProfileState,
+)
 from app.schemas.mailbox import EmailExtraction, EmailInsight, LinkEmailRequest, MailboxLoginRequest, MailboxStatus
 from app.schemas.calls import CallExtraction, CallExtractionContent, CallRecording, ConfirmCallRequest
 from app.schemas.risk import ClientMetrics, RiskFactor, RiskProfile
@@ -64,6 +72,7 @@ COLLECTIONS: dict[str, tuple[type[ContractModel], str]] = {
     "risk_profiles": (RiskProfile, "client_id"),
     "email_insights": (EmailInsight, "email_id"),
     "company": (CompanyProfile, "id"),
+    "network_profile": (ProfileSettings, "id"),
     "call_recordings": (CallRecording, "id"),
     "call_extractions": (CallExtraction, "call_id"),
 }

@@ -1,9 +1,6 @@
 """The ONLY way any module talks to an LLM. Owner: lead.
 
-OpenAI-compatible Chat Completions API, so provider = config:
-  Gemini : LLM_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai/  LLM_MODEL=gemini-2.5-flash
-  OpenAI : LLM_BASE_URL=https://api.openai.com/v1                                  LLM_MODEL=gpt-4o-mini
-  Ollama : LLM_BASE_URL=http://localhost:11434/v1                                  LLM_MODEL=qwen2.5:7b-instruct
+Claude through the official Anthropic SDK.
 
 Features: mock mode, retry with exponential backoff (+Retry-After), timeout, JSON-schema validation
 with one repair round-trip, fallback to canned responses, JSONL prompt/response log.
@@ -21,9 +18,7 @@ import time
 import uuid
 from datetime import UTC, datetime
 from typing import TypeVar
-from urllib.parse import urlparse
-
-import openai
+import anthropic
 from pydantic import BaseModel, ValidationError
 
 from app.core.config import Settings
@@ -33,7 +28,7 @@ from app.schemas import LlmMeta, LlmMode, LlmStatus
 
 T = TypeVar("T", bound=BaseModel)
 
-_RETRYABLE = (openai.RateLimitError, openai.APITimeoutError, openai.APIConnectionError, openai.InternalServerError)
+_RETRYABLE = (anthropic.RateLimitError, anthropic.APITimeoutError, anthropic.APIConnectionError, anthropic.InternalServerError)
 _FENCE = re.compile(r"^```(?:json)?\s*|\s*```$", re.MULTILINE)
 
 
@@ -44,12 +39,9 @@ class LLMError(RuntimeError):
 class LLMClient:
     def __init__(self, settings: Settings):
         self.s = settings
-        self._client: openai.OpenAI | None = None
-        self._claude = None
-        if settings.llm_provider == "anthropic":  # imported lazily: OpenAI-only setups don't need the SDK
-            from app.llm.anthropic_provider import AnthropicProvider
+        from app.llm.anthropic_provider import AnthropicProvider
 
-            self._claude = AnthropicProvider(settings)
+        self._claude = AnthropicProvider(settings)
         self.last_error: str | None = None
         self.system_prompt = build_system_prompt(settings.company_name, settings.operator_name)
         self.log_path = settings.runtime_dir / "logs" / "llm.jsonl"
@@ -72,7 +64,14 @@ class LLMClient:
         fast: bool = False,
     ) -> tuple[str, LlmMeta]:
         messages = self._messages(prompt, system_extra)
-        return self._run(task, messages, json_mode=False, mock_context=mock_context, model=self._model(fast))
+        return self._run(
+            task,
+            messages,
+            json_mode=False,
+            mock_context=mock_context,
+            model=self._model(fast),
+            effort=self.s.llm_effort,
+        )
 
     def complete_json(
         self,
@@ -88,7 +87,14 @@ class LLMClient:
         prompt = f"{prompt}\n\nReturn ONLY one JSON object matching this JSON Schema:\n{schema_json}"
         messages = self._messages(prompt, system_extra)
         model = self._model(fast)
-        text, meta = self._run(task, messages, json_mode=True, mock_context=mock_context, model=model)
+        text, meta = self._run(
+            task,
+            messages,
+            json_mode=True,
+            mock_context=mock_context,
+            model=model,
+            effort=self.s.llm_effort,
+        )
         try:
             return self._parse(text, schema), meta
         except (ValueError, ValidationError) as e:
@@ -100,7 +106,14 @@ class LLMClient:
             {"role": "assistant", "content": text},
             {"role": "user", "content": f"Invalid output: {first_error}. Return ONLY the corrected JSON object."},
         ]
-        text, meta = self._run(task + ".repair", messages, json_mode=True, mock_context=mock_context, model=model)
+        text, meta = self._run(
+            task + ".repair",
+            messages,
+            json_mode=True,
+            mock_context=mock_context,
+            model=model,
+            effort=self.s.llm_effort,
+        )
         try:
             return self._parse(text, schema), meta
         except (ValueError, ValidationError) as e:
@@ -120,7 +133,13 @@ class LLMClient:
         file_block = {"type": "document", "source": source} if mime_type == "application/pdf" else {"type": "image", "source": source}
         content = [file_block, {"type": "text", "text": f"{prompt}\n\nReturn ONLY one JSON object matching this JSON Schema:\n{schema_json}"}]
         messages = [{"role": "system", "content": self.system_prompt}, {"role": "user", "content": content}]
-        text, meta = self._live(task, messages, json_mode=False, model=self.s.llm_document_model or self._model(fast=True), effort=self.s.llm_document_effort or None)
+        text, meta = self._live(
+            task,
+            messages,
+            json_mode=False,
+            model=self.s.llm_document_model or self._model(fast=True),
+            effort=self.s.llm_document_effort or self.s.llm_effort,
+        )
         return self._parse(text, schema), meta
 
     # ------------------------------------------------------------------ internals
@@ -133,43 +152,34 @@ class LLMClient:
         cleaned = _FENCE.sub("", text.strip()).strip()
         return schema.model_validate(json.loads(cleaned))
 
-    def _openai(self) -> openai.OpenAI:
-        if self._client is None:
-            self._client = openai.OpenAI(
-                base_url=self.s.llm_base_url,
-                api_key=self.s.llm_api_key or "not-set",
-                timeout=self.s.llm_timeout_seconds,
-                max_retries=0,  # we retry ourselves (with logging)
-            )
-        return self._client
-
     def _host(self) -> str:
-        return self._claude.host if self._claude else urlparse(self.s.llm_base_url).netloc
+        return self._claude.host
 
     def _model(self, fast: bool) -> str:
         """fast=True uses LLM_FAST_MODEL (same provider/key) for background extraction; empty = main model."""
         return (self.s.llm_fast_model if fast else "") or self.s.llm_model
 
-    def _run(self, task: str, messages: list[dict], json_mode: bool, mock_context: dict | None, model: str | None = None):
+    def _run(
+        self,
+        task: str,
+        messages: list[dict],
+        json_mode: bool,
+        mock_context: dict | None,
+        model: str | None = None,
+        effort: str | None = None,
+    ):
         if self.s.llm_mode == "mock":
             return self._mock(task, messages, mock_context, used_fallback=False)
         try:
-            return self._live(task, messages, json_mode, model or self.s.llm_model)
+            return self._live(task, messages, json_mode, model or self.s.llm_model, effort=effort)
         except LLMError:
             if self.s.llm_fallback_to_mock:
                 return self._mock(task, messages, mock_context, used_fallback=True)
             raise
 
     def _live(self, task: str, messages: list[dict], json_mode: bool, model: str, effort: str | None = None) -> tuple[str, LlmMeta]:
-        kwargs: dict = {"model": model, "messages": messages, "temperature": self.s.llm_temperature}
-        if json_mode and self.s.llm_json_mode:
-            kwargs["response_format"] = {"type": "json_object"}
-        if self._claude:  # Claude has no JSON mode: the prompt carries the schema and the reply is validated below
-            retryable, status_error = self._claude.retryable, self._claude.status_error
-            call = lambda: self._claude.complete(model, messages, effort)  # noqa: E731
-        else:
-            retryable, status_error = _RETRYABLE, openai.APIStatusError
-            call = lambda: self._openai().chat.completions.create(**kwargs).choices[0].message.content or ""  # noqa: E731
+        retryable, status_error = self._claude.retryable, self._claude.status_error
+        call = lambda: self._claude.complete(model, messages, effort)  # noqa: E731
         attempt = 0
         while True:
             started = time.perf_counter()

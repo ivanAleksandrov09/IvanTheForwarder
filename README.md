@@ -4,8 +4,7 @@ A self-hostable assistant for small/medium Bulgarian freight forwarders (спе�
 the tools a forwarder already uses (email, documents, GPS, ERP), profiles clients with **explainable**
 risk scores, and drafts emails/documents into a **"ready to send" queue — nothing leaves without a human click**.
 
-> Hackathon MVP. Everything runs on **mock data** by default. LLM stage 1 uses a hosted API (Gemini/OpenAI)
-> through one OpenAI-compatible wrapper; stage 2 swaps to local Ollama by changing `.env` only.
+> Hackathon MVP. Everything runs on **mock data** by default. Live analysis uses Claude through Anthropic's API.
 
 ## Quick start (new teammate, ~5 min)
 Prerequisites: **Node 20+**, **Python 3.11+**, **[uv](https://docs.astral.sh/uv/getting-started/installation/)**, git.
@@ -38,6 +37,24 @@ TRACCAR_DEVICE_MAP=12:trk_0003,13:trk_0004
 `POST /api/connectors/gps/sync` or the API connector controls. Traccar speed is converted from knots
 to km/h; positions are stored as `GpsPing` records and are used by the map and delay detection.
 
+### MP3 call extraction
+
+The dashboard's **Process call recording** action accepts MP3, WAV, M4A, and OGG files. Ivan stores the
+recording locally, transcribes it, extracts logistics fields, and shows the transcript and missing fields
+for human review. Confirming the reviewed fields adds a `phone_call` load to the existing Loads section.
+No load is created automatically.
+
+The default mode is safe mock mode:
+
+```env
+STT_MODE=mock
+STT_API_KEY=
+STT_MODEL=whisper-1
+```
+
+Audio is stored under `data/runtime/calls/`; obtain the required consent before recording calls and define
+an appropriate retention/deletion policy for production use.
+
 ## Commands (repo root)
 | Command | What |
 |---|---|
@@ -55,7 +72,7 @@ backend/app/
   schemas/      ★ single source of truth for data shapes ............ lead (schema owner)
   core/         config, clock, ids, formatting ........................ lead
   repository/   SQLite JSON-doc store + SeedStore ..................... lead
-  llm/          OpenAI-compatible wrapper, system prompt, mock mode ... lead
+  llm/          Claude wrapper, system prompt, mock mode ................ lead
   connectors/   email/documents/gps/erp connectors + ingest .......... A
   risk/         explainable client scoring ............................ B
   events/       detectors (overdue, delay, ...) ....................... B

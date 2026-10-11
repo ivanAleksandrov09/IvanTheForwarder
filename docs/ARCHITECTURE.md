@@ -16,7 +16,7 @@
 | Storage | **SQLite, one table of JSON docs** (`collection, id, data`) behind a typed repository | No migrations during a hackathon. Every read and write passes through the Pydantic model. Self-hostable as a single file. |
 | Frontend | **React 19 + Vite + TypeScript**, `openapi-fetch` typed client | Fastest dev loop; generated types make API drift a compile error. |
 | Types | Pydantic → OpenAPI (`shared/openapi.json`) → `openapi-typescript` → `frontend/src/api/schema.ts` | One direction, zero hand-written duplicates. CI checks both artefacts are fresh. |
-| LLM | `openai` Python SDK against any **OpenAI-compatible** endpoint | Gemini, OpenAI and Ollama all speak this protocol, so switching provider is just a config change. |
+| LLM | Official Anthropic Python SDK | Claude Haiku handles drafting, extraction, and analysis. |
 | Runner | root `package.json` + `concurrently`; `uv` for Python | `npm install && npm run dev` is the whole setup on every OS. |
 | Deploy (pitch) | single machine / office server; Docker Compose is a stretch goal | Shows the "self-hostable" story. |
 
@@ -29,7 +29,7 @@
  connectors/ (A) ─▶ ConnectorEnvelope ─▶ ingest ─▶ repository ◀─ risk/ (B), events/ (B)
      ▲ mock: data/seed/feeds/*.json                      │              │ DomainEvent
      ▲ real: IMAP, folder+OCR, GPS API, ERP              │              ▼
-                                                         │        drafting/ (C) ─▶ llm/ wrapper ─▶ Gemini | OpenAI | Ollama | mock
+                                                         │        drafting/ (C) ─▶ llm/ wrapper ─▶ Claude Haiku | mock
                                                          │              │ DraftMessage (pending_review)
                                                          ▼              ▼
                                                    SQLite file     outbound/ (C): human approve ─▶ sender (log | smtp sandbox)
@@ -39,7 +39,7 @@
 - **Hero loop:** `POST /api/events/scan` → detectors (B) → `DomainEvent` → `drafting.proactive` (C) → risk profile (B) picks the tone → LLM returns validated `DraftContent` → `DraftMessage{pending_review}` → UI → `POST /drafts/{id}/approve` → `send_draft()` refuses anything that isn't human-approved → sender → outbound `Email` recorded.
 
 ## LLM wrapper (`backend/app/llm/`)
-- `client.py` provides `complete_text(task, prompt, mock_context)` and `complete_json(task, prompt, schema, mock_context)`, and nothing else. No module imports `openai` directly.
+- `client.py` provides `complete_text(task, prompt, mock_context)` and `complete_json(task, prompt, schema, mock_context)`, and nothing else.
 - **Config only:** `LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`, `LLM_MODE=mock|live`, `LLM_TIMEOUT_SECONDS`, `LLM_MAX_RETRIES`, `LLM_TEMPERATURE`, `LLM_JSON_MODE`, `LLM_FALLBACK_TO_MOCK`, `LLM_LOG_PROMPTS`.
 - **System message** (`system_prompt.py`) sets the role ("Ivan", drafts only), the no-invention rule (placeholders such as `[ДАТА]` instead of made-up facts), the internal-data rule (never mention risk scores to clients), language rules (Bulgarian formal Вие, number and date formats, no transliteration), tone definitions and the JSON-only output rule.
 - **Robustness:**
@@ -51,7 +51,7 @@
 - **Verified in the skeleton:** mock mode end to end; live mode against Gemini with a bad key (400 → falls back to mock without retrying); live mode against an unreachable host (retries → falls back).
 
 ### Claude as the model
-`LLM_PROVIDER=anthropic` + `LLM_MODEL=claude-haiku-4-5` + an Anthropic key in `LLM_API_KEY` switches the wrapper to the official Anthropic SDK (`llm/anthropic_provider.py`). Retries, JSON validation, mock fallback and logging are shared with the OpenAI-compatible path. Default `LLM_PROVIDER=openai` is unchanged.
+`LLM_PROVIDER=anthropic` + `LLM_MODEL=claude-haiku-5-5` + an Anthropic key in `LLM_API_KEY` uses the official Anthropic SDK (`llm/anthropic_provider.py`). Retries, JSON validation, mock fallback, and logging are shared by all Claude calls.
 
 ### Stage 1 → Stage 2 (local model)
 ```env

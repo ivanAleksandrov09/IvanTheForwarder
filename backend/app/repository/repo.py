@@ -21,6 +21,8 @@ from app.schemas import (
     COLLECTIONS,
     PAYLOAD_COLLECTION,
     CallLog,
+    CallExtraction,
+    CallRecording,
     Client,
     ContractModel,
     Document,
@@ -145,6 +147,8 @@ class Repository:
         self.payments: Collection[Payment] = c("payments")
         self.incidents: Collection[Incident] = c("incidents")
         self.call_logs: Collection[CallLog] = c("call_logs")
+        self.call_recordings: Collection[CallRecording] = c("call_recordings")
+        self.call_extractions: Collection[CallExtraction] = c("call_extractions")
         self.events: Collection[DomainEvent] = c("events")
         self.drafts: Collection[DraftMessage] = c("drafts")
         self.risk_profiles: Collection[RiskProfile] = c("risk_profiles")

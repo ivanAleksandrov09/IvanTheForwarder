@@ -65,7 +65,7 @@ For each: the number, a one-sentence pitch phrasing, the source, and a confidenc
 ## Section 5 — Judges' objection-handling sheet
 For each likely objection, give a 2–3 sentence honest answer:
 "Isn't this just ChatGPT with extra steps?" · "Why not use Logistaas/CargoWise?" · "Is the data really private if you use
-Gemini/OpenAI?" (honest answer: the demo uses a hosted model on synthetic data; the design swaps to a local model by
+Gemini or another provider?" (honest answer: the demo uses a hosted model on synthetic data; the design swaps to a local model by
 config) · "Will small forwarders pay? How much?" · "What if the AI sends something wrong?" (human approval on every
 message) · "How do you integrate with ERPs that have no API?" (screenshots + vision, CSV exports) · "Bulgarian LLM quality?"
 · "Liability for wrong risk scores / GDPR profiling of clients (companies vs natural persons)?" · "Go-to-market in Sofia?"

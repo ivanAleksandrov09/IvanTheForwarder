@@ -4,6 +4,91 @@
  */
 
 export interface paths {
+    "/api/calls": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Calls */
+        get: operations["list_calls_api_calls_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/calls/upload": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Upload Call */
+        post: operations["upload_call_api_calls_upload_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/calls/{call_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Call */
+        get: operations["get_call_api_calls__call_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/calls/{call_id}/confirm": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Confirm Call */
+        post: operations["confirm_call_api_calls__call_id__confirm_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/calls/{call_id}/extraction": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Extraction */
+        get: operations["get_extraction_api_calls__call_id__extraction_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/clients": {
         parameters: {
             query?: never;
@@ -707,6 +792,111 @@ export interface components {
              */
             reviewed_by: string;
         };
+        /** Body_upload_call_api_calls_upload_post */
+        Body_upload_call_api_calls_upload_post: {
+            /** Audio */
+            audio: string;
+            /** Language */
+            language?: string | null;
+        };
+        /** CallExtraction */
+        CallExtraction: {
+            /** Call Id */
+            call_id: string;
+            /** Cargo */
+            cargo?: string | null;
+            /** Client Name */
+            client_name?: string | null;
+            /**
+             * Confidence
+             * @default {}
+             */
+            confidence: {
+                [key: string]: number;
+            };
+            /** Contact Name */
+            contact_name?: string | null;
+            /** Delivery Date */
+            delivery_date?: string | null;
+            /** Destination */
+            destination?: string | null;
+            /**
+             * Evidence
+             * @default {}
+             */
+            evidence: {
+                [key: string]: string;
+            };
+            /**
+             * Extracted At
+             * Format: date-time
+             */
+            extracted_at: string;
+            /** Load Id */
+            load_id?: string | null;
+            /**
+             * Missing Fields
+             * @default []
+             */
+            missing_fields: string[];
+            /** Model */
+            model: string;
+            /** Origin */
+            origin?: string | null;
+            /** Pallets */
+            pallets?: number | null;
+            /** Payment Terms */
+            payment_terms?: string | null;
+            /** Pickup Date */
+            pickup_date?: string | null;
+            /** Price Eur */
+            price_eur?: number | null;
+            /**
+             * Requirements
+             * @default []
+             */
+            requirements: string[];
+            /**
+             * Status
+             * @default pending_review
+             */
+            status: string;
+            /** Summary */
+            summary: string;
+            /** Transcript */
+            transcript: string;
+            /** Vehicle */
+            vehicle?: string | null;
+            /** Weight Kg */
+            weight_kg?: number | null;
+        };
+        /** CallRecording */
+        CallRecording: {
+            /** Audio Path */
+            audio_path: string;
+            /** Content Type */
+            content_type: string;
+            /** Duration Seconds */
+            duration_seconds?: number | null;
+            /** Filename */
+            filename: string;
+            /** Id */
+            id: string;
+            /** Language */
+            language?: string | null;
+            /** Transcript */
+            transcript?: string | null;
+            /**
+             * Transcription Status
+             * @default pending
+             */
+            transcription_status: string;
+            /**
+             * Uploaded At
+             * Format: date-time
+             */
+            uploaded_at: string;
+        };
         /**
          * CargoType
          * @enum {string}
@@ -850,6 +1040,23 @@ export interface components {
          * @enum {string}
          */
         Confidence: "low" | "medium" | "high";
+        /** ConfirmCallRequest */
+        ConfirmCallRequest: {
+            /** Cargo */
+            cargo?: string | null;
+            /** Destination */
+            destination?: string | null;
+            /** Origin */
+            origin?: string | null;
+            /** Pickup Date */
+            pickup_date?: string | null;
+            /** Price Eur */
+            price_eur?: number | null;
+            /** Vehicle */
+            vehicle?: string | null;
+            /** Weight Kg */
+            weight_kg?: number | null;
+        };
         /**
          * ConnectorHealth
          * @enum {string}
@@ -1717,6 +1924,156 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    list_calls_api_calls_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CallRecording"][];
+                };
+            };
+        };
+    };
+    upload_call_api_calls_upload_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_upload_call_api_calls_upload_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CallExtraction"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_call_api_calls__call_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                call_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CallRecording"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    confirm_call_api_calls__call_id__confirm_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                call_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["ConfirmCallRequest"] | null;
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CallExtraction"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_extraction_api_calls__call_id__extraction_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                call_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CallExtraction"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     list_clients_api_clients_get: {
         parameters: {
             query?: never;

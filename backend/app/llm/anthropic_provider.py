@@ -1,14 +1,10 @@
-"""Claude provider (official Anthropic SDK). Selected with LLM_PROVIDER=anthropic. Owner: lead.
-
-Light/fast default: LLM_MODEL=claude-haiku-4-5. Used by llm/client.py, which keeps the retry/backoff, JSON
-validation, mock fallback and logging. Only the transport differs from the OpenAI-compatible path.
-"""
+"""Claude provider using the official Anthropic SDK."""
 
 import anthropic
 
 from app.core.config import Settings
 
-# the same retry policy as the OpenAI path: transient errors retry, 4xx fail fast
+# transient errors retry, 4xx errors fail fast
 RETRYABLE = (anthropic.RateLimitError, anthropic.APITimeoutError, anthropic.APIConnectionError, anthropic.InternalServerError)
 STATUS_ERROR = anthropic.APIStatusError
 

@@ -200,6 +200,20 @@ MOCK_RESPONSES: dict[str, MockValue] = {
     "draft.quote_reply": _generic,
     "draft.invoice": _cover,
     "draft.cmr": _cover,
+    "call.extract": lambda ctx: json.dumps(
+        {
+            "summary": "Mock call extraction ready for review.",
+            "client_name": ctx.get("client_name"),
+            "origin": ctx.get("origin"),
+            "destination": ctx.get("destination"),
+            "cargo": ctx.get("cargo"),
+            "requirements": [],
+            "missing_fields": ["origin", "destination", "pickup_date", "cargo"],
+            "confidence": {},
+            "evidence": {},
+        },
+        ensure_ascii=False,
+    ),
 }
 
 

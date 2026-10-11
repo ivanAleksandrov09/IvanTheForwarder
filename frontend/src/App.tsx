@@ -10,7 +10,11 @@ import { MailboxPanel } from "./components/MailboxPanel";
 import { ClientForm } from "./components/ClientForm";
 import { CompanyName } from "./components/CompanyName";
 import { LoadsPanel } from "./components/LoadsPanel";
+<<<<<<< Updated upstream
 import { OnboardingPanel } from "./components/OnboardingPanel";
+=======
+import { CallExtractionPanel } from "./components/CallExtractionPanel";
+>>>>>>> Stashed changes
 import { t, type UiLang } from "./i18n";
 
 // Hello-world dashboard: clients + explainable risk, events, approval queue.
@@ -30,7 +34,11 @@ export default function App() {
   const [showMailbox, setShowMailbox] = useState(false);
   const [editing, setEditing] = useState<Client | "new" | null>(null);
   const [showLoads, setShowLoads] = useState(false);
+<<<<<<< Updated upstream
   const [showOnboarding, setShowOnboarding] = useState(false);
+=======
+  const [showCalls, setShowCalls] = useState(false);
+>>>>>>> Stashed changes
 
   const refresh = useCallback(async () => {
     try {
@@ -98,7 +106,11 @@ export default function App() {
           </button>
           <button onClick={() => setShowMailbox(!showMailbox)}>{showMailbox ? "Hide mailbox" : "Connect email"}</button>
           <button onClick={() => setShowLoads(!showLoads)}>{showLoads ? "Hide loads" : "Show loads"}</button>
+<<<<<<< Updated upstream
           <button onClick={() => setShowOnboarding(!showOnboarding)}>{showOnboarding ? "Hide setup" : "Connect systems"}</button>
+=======
+          <button onClick={() => setShowCalls(!showCalls)}>{showCalls ? "Hide call extraction" : "Process call recording"}</button>
+>>>>>>> Stashed changes
           {trucks.length > 0 && <button onClick={() => setShowMap(!showMap)}>{showMap ? "Hide map" : "Show truck map"}</button>}
         </div>
       </header>
@@ -118,6 +130,7 @@ export default function App() {
         />
       )}
       {showLoads && <LoadsPanel />}
+      {showCalls && <CallExtractionPanel />}
       {showMap && trucks.length > 0 && <section className="panel map-panel"><h2>Truck positions</h2><TruckMap truckIds={trucks.map((truck) => truck.id)} /></section>}
       {selectedClientId ? (
         <ClientDetail

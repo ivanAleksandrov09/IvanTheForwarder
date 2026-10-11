@@ -66,7 +66,7 @@ git fetch origin && git rebase origin/main
 | # | Risk | Likelihood / impact | Mitigation |
 |---|---|---|---|
 | 1 | **Demo failure** (crash, Wi-Fi, LLM down) | M / fatal | Fixed clock and seed; **Reset demo** button; automatic mock fallback; spare laptop in mock mode; recorded video; 3 rehearsals |
-| 2 | **Free-tier rate limits** (Gemini 429s during rehearsals) | H / M | Backoff with Retry-After; mock mode for development (default); live only for rehearsals; second key or OpenAI as a config swap; ~2 LLM calls per demo |
+| 2 | **API rate limits** during rehearsals | H / M | Backoff with Retry-After; mock mode for development (default); live only for rehearsals; ~2 LLM calls per demo |
 | 3 | **Bulgarian output quality** (calques, wrong formality, gender agreement) | M / M | Strict system prompt (Вие, formats, placeholders); D or a native speaker reviews 5 sample drafts at T+5; tune prompts; editable drafts are the safety net; neutral "Здравейте, {име}" salutation |
 | 4 | **Schema drift / merge breakage** | M / H | One schema owner; `extra="forbid"`; contract tests and type-freshness check in CI; small PRs; generated files regenerated, never merged by hand |
 | 5 | **Merge conflicts** | M / M | Folder ownership; one router file per owner; merge every 2–3 h; checkpoints |

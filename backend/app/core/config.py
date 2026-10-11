@@ -30,15 +30,15 @@ class Settings(BaseSettings):
     loads_weekday: int = 0  # weekly load search: 0 = Monday
     loads_time: str = "08:00"  # local time, HH:MM
     loads_effort: str = "low"
+    whisper_model: str = "base"  # openai-whisper size: tiny, base, small, medium, large
 
     clock_mode: Literal["fixed", "real"] = "fixed"
     demo_now: datetime = datetime.fromisoformat(DEFAULT_DEMO_NOW)
 
     llm_mode: Literal["mock", "live"] = "mock"
     llm_fallback_to_mock: bool = True
-    llm_provider: Literal["openai", "anthropic"] = "openai"  # openai = any OpenAI-compatible API (Gemini, OpenAI, Ollama)
+    llm_provider: Literal["anthropic"] = "anthropic"
     llm_max_tokens: int = 4096  # Claude requires an explicit output cap
-    llm_base_url: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
     llm_api_key: str = ""
     llm_workspace_id: str = ""  # Anthropic workspace ID (required for non-scoped API keys accessing vision/document extraction)
     llm_model: str = "gemini-3.8-flash"
@@ -46,8 +46,9 @@ class Settings(BaseSettings):
     llm_timeout_seconds: float = 30.0
     llm_max_retries: int = 4
     llm_temperature: float = 0.3
+    llm_effort: str = "low"
     llm_document_model: str = ""  # model for reading PDFs/images; empty = LLM_FAST_MODEL, then LLM_MODEL
-    llm_document_effort: str = ""  # Claude output_config.effort for document extraction; empty = omit (Haiku 4.5 rejects it)
+    llm_document_effort: str = ""  # empty = use LLM_EFFORT
     llm_json_mode: bool = True
     llm_log_prompts: bool = True
 

@@ -30,7 +30,7 @@ TS types; after schema changes run `npm run gen:types` and import from frontend/
   GenerateDraftRequest, UpdateDraftRequest (PATCH: null = unchanged), ApproveDraftRequest, RejectDraftRequest.
 - LLM: from app.deps get_llm(); llm.complete_json(task="draft.<kind>", prompt=..., schema=DraftContent, mock_context=ctx)
   returns (obj, LlmMeta). It handles retries, timeout, JSON validation + repair, fallback to canned mock, and logging.
-  Never import openai directly. The system prompt already enforces: drafts only, facts only from CONTEXT (placeholders like
+  Never import the provider SDK directly. The system prompt already enforces: drafts only, facts only from CONTEXT (placeholders like
   [ДАТА]/[REASON] otherwise), never reveal risk scores to clients, bg formal Вие and bg number/date formats.
 - drafting/service.py builds CONTEXT from the repository + B's get_profile() (recommended_tone) → prompt (drafting/prompts.py) → LLM → DraftMessage.
 - drafting/proactive.py: HIGH events → drafts (EVENT_TO_DRAFT).

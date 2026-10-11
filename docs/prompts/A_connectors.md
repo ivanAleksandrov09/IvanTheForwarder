@@ -56,7 +56,7 @@ Seed data is generated deterministically by `npm run seed` (never hand-edit data
 5. ERP mock connector (feeds/erp_invoices.json + erp_payments.json → Invoice/Payment), e.g. a new payment arriving.
 6. Emit DomainEvent(email_received/document_received) on new items ONLY after agreeing the shape with B (events owner).
 7. STRETCH: IMAP connector (email_imap.py, CONNECTOR_EMAIL=imap, test with a throwaway mailbox); ERP screenshot → vision
-   via the LLM wrapper (ask the lead to add an image-capable method; never call openai directly); call logs; speditor.net
+   via the LLM wrapper (ask the lead to add an image-capable method; never call the provider SDK directly); call logs; speditor.net
    (check whether an API exists; otherwise mock feed external_web.json with clearly labelled sample data; never scrape behind a login).
 
 ## Definition of done (per task)

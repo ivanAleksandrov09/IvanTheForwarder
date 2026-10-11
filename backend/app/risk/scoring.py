@@ -10,6 +10,7 @@ from decimal import Decimal, InvalidOperation
 
 from app.core.formatting import format_money
 from app.repository import Repository
+from app.schemas.enums import EmailIntent
 from app.schemas import (
     ClientMetrics,
     Confidence,
@@ -124,6 +125,32 @@ def _emails_for_invoice(repo: Repository, client_id: str, invoice: Invoice) -> l
         if (insight := repo.email_insights.get(email.id)) is not None
         and insight.extraction.invoice_number == invoice.number
     ]
+
+
+def _broken_payment_promises(
+    repo: Repository,
+    client_id: str,
+    now: datetime,
+    open_invoice_numbers: set[str],
+) -> list[str]:
+    """Client emails that promised a payment date (sent before that date) which has passed while the invoice is still
+    open. A promise that names an invoice counts only if that invoice is open; one without a number counts for any."""
+    if not open_invoice_numbers:
+        return []
+    broken = []
+    for email in repo.emails.list(client_id=client_id):
+        insight = repo.email_insights.get(email.id)
+        if email.direction != Direction.inbound or insight is None:
+            continue
+        extraction = insight.extraction
+        if extraction.intent != EmailIntent.payment_promise or extraction.requested_date is None:
+            continue
+        if email.sent_at.date() > extraction.requested_date or extraction.requested_date >= now.date():
+            continue  # not a promise for a date in the future, or the date has not passed yet
+        if extraction.invoice_number and extraction.invoice_number not in open_invoice_numbers:
+            continue
+        broken.append(email.id)
+    return broken
 
 
 def _gps_pings_for_shipment(
@@ -619,6 +646,24 @@ def compute_profile(client_id: str, repo: Repository, now: datetime) -> RiskProf
                         note=f"{len(paid)} paid invoice(s) recorded",
                     )
                 ],
+            )
+        )
+
+    open_numbers = {i.number for i in overdue} | {
+        document.extracted_fields.get("invoice_number", "") for document, _ in past_due_documents
+    }
+    broken_promises = _broken_payment_promises(repo, client_id, now, open_numbers - {""})
+    if broken_promises:
+        factors.append(
+            RiskFactor(
+                code=RiskFactorCode.broken_payment_promise,
+                label="Payment promise missed",
+                impact=min(20, 10 * len(broken_promises)),
+                explanation=(
+                    f"{len(broken_promises)} payment date(s) promised in client email have passed while the invoice "
+                    "is still open."
+                ),
+                evidence=[EvidenceRef(entity_type=EntityType.email, entity_id=email_id) for email_id in broken_promises],
             )
         )
 

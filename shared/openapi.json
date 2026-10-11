@@ -3306,7 +3306,8 @@
           "low_margin",
           "slow_communication",
           "cargo_restrictions",
-          "insufficient_history"
+          "insufficient_history",
+          "broken_payment_promise"
         ],
         "title": "RiskFactorCode",
         "type": "string"

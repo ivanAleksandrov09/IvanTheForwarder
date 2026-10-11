@@ -401,3 +401,55 @@ def test_unlinked_document_and_traccar_ping_do_not_create_delay_risk():
     profile = compute_profile("cli_test1", repo, NOW)
 
     assert all(factor.code.value != "delay_sensitivity" for factor in profile.factors)
+
+
+def test_payment_promise_for_a_passed_date_with_open_invoice_is_a_risk_factor():
+    repo = Repository(":memory:")
+    repo.clients.upsert(_client())
+    invoice = Invoice(
+        id="inv_test1",
+        number="0000000777",
+        client_id="cli_test1",
+        shipment_ids=[],
+        issued_at=NOW - timedelta(days=40),
+        due_at=NOW - timedelta(days=10),
+        net=Money.of(100_000),
+        vat=Money.of(0),
+        total=Money.of(100_000),
+        status=InvoiceStatus.issued,
+    )
+    repo.invoices.upsert(invoice)
+    email = Email(
+        id="eml_promise1",
+        mailbox="office@example.com",
+        direction=Direction.inbound,
+        from_address="client@example.com",
+        to_addresses=["office@example.com"],
+        subject="Payment",
+        body_text="We will pay the invoice on the date below.",
+        sent_at=NOW - timedelta(days=12),
+        client_id="cli_test1",
+    )
+    repo.emails.upsert(email)
+    repo.email_insights.upsert(
+        EmailInsight(
+            email_id=email.id,
+            extracted_at=NOW,
+            extraction=EmailExtraction(
+                intent=EmailIntent.payment_promise,
+                summary="The client promised payment by a past date.",
+                invoice_number=invoice.number,
+                requested_date=(NOW - timedelta(days=10)).date(),
+            ),
+            model="test",
+        )
+    )
+
+    factor = _factor(compute_profile("cli_test1", repo, NOW), "broken_payment_promise")
+    assert factor.impact == 10
+    _assert_explained(factor)
+    assert [e.entity_id for e in factor.evidence] == ["eml_promise1"]
+
+    repo.invoices.upsert(invoice.model_copy(update={"status": InvoiceStatus.cancelled}))
+    profile = compute_profile("cli_test1", repo, NOW)
+    assert all(f.code.value != "broken_payment_promise" for f in profile.factors)

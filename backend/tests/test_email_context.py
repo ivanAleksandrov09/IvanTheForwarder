@@ -61,10 +61,12 @@ def test_recent_emails_only_linked_chronological_and_excludes_current(client):
 
 def test_drafting_and_extraction_prompts_contain_history(client):
     client.post("/api/drafts/generate", json={"kind": "payment_reminder", "client_id": "cli_0001"})
-    email_id = next(e["id"] for e in client.get("/api/emails", params={"client_id": "cli_0001"}).json())
-    client.post(f"/api/emails/{email_id}/extract")
     log = [json.loads(line) for line in (get_llm().log_path).read_text(encoding="utf-8").splitlines()]
     draft_prompt = next(r for r in log if r["task"] == "draft.payment_reminder")["messages"][1]["content"]
-    extract_prompt = next(r for r in log if r["task"] == "email.extract")["messages"][1]["content"]
     assert "recent_emails" in draft_prompt and "Повторно напомняне" in draft_prompt
+
+    from app.connectors.insights import _prompt
+
+    email = next(e for e in get_repo().emails.list(client_id="cli_0001"))
+    extract_prompt, _ = _prompt(get_repo(), email)  # the email analysis gets the same history, when a real LLM is set
     assert "previous_emails" in extract_prompt and "Балкан Стил" in extract_prompt

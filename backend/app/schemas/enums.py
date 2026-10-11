@@ -170,6 +170,7 @@ class RiskFactorCode(StrEnum):
     slow_communication = "slow_communication"
     cargo_restrictions = "cargo_restrictions"
     insufficient_history = "insufficient_history"
+    broken_payment_promise = "broken_payment_promise"
 
 
 class EventType(StrEnum):

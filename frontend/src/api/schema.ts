@@ -1968,7 +1968,7 @@ export interface components {
          * RiskFactorCode
          * @enum {string}
          */
-        RiskFactorCode: "late_payment_history" | "currently_overdue" | "good_payment_history" | "delay_sensitivity" | "fines_history" | "damage_claims" | "low_margin" | "slow_communication" | "cargo_restrictions" | "insufficient_history";
+        RiskFactorCode: "late_payment_history" | "currently_overdue" | "good_payment_history" | "delay_sensitivity" | "fines_history" | "damage_claims" | "low_margin" | "slow_communication" | "cargo_restrictions" | "insufficient_history" | "broken_payment_promise";
         /**
          * RiskLevel
          * @enum {string}

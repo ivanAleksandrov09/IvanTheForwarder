@@ -44,29 +44,30 @@ def test_unknown_domain_needs_provider(client, fake_imap):
     assert r.status_code == 400
 
 
-def test_extract_returns_valid_schema(client):
+def test_extract_without_a_real_llm_stores_nothing(client):
     email_id = client.get("/api/emails").json()[0]["id"]
     r = client.post(f"/api/emails/{email_id}/extract")
-    assert r.status_code == 200
-    assert r.json()["extraction"]["intent"] in {"quote_request", "order", "payment_promise", "payment_question",
-                                  "complaint", "delay_inquiry", "document", "other"}
+    assert r.status_code == 502  # mock LLM answers are canned text, never an analysis of the email
+    assert client.get("/api/email-insights").json() == []
 
 
-def test_sync_analyzes_in_background_and_links_by_company(client, fake_imap):
+def test_sync_without_a_real_llm_analyzes_nothing(client, fake_imap):
     FakeImap.messages = {b"1": _msg("Оферта", "Здравейте,\nМоля за цена.\nПоздрави,\nБалкан Стил ООД", sender="Dummy <dummy@gmail.com>")}
     client.post("/api/connectors/email/login", json={"email": "dummy@gmail.com", "password": "p"})
     client.post("/api/connectors/email/sync")  # TestClient runs background tasks before returning
-    insights = client.get("/api/email-insights").json()
-    assert len(insights) == 1 and insights[0]["extraction"]["intent"] == "quote_request"
+    assert client.get("/api/email-insights").json() == []
 
 
 def test_background_analysis_links_unknown_sender_by_company_name(client):
     from app.connectors.insights import analyze_email
+    from app.core.config import Settings
     from app.deps import get_repo
     from app.schemas import EmailExtraction, LlmMeta, LlmMode
     from tests.test_email_context import _email
 
     class StubLlm:
+        s = Settings(_env_file=None, llm_mode="live", llm_provider="anthropic")  # a real LLM is configured
+
         def __init__(self, fallback=False):
             self.fallback = fallback
 

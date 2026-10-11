@@ -14,7 +14,7 @@ from app.core import clock
 from app.drafting.email_context import recent_emails
 from app.llm import LLMClient
 from app.repository import Repository
-from app.schemas import Direction, EmailExtraction, EmailInsight
+from app.schemas import Direction, EmailExtraction, EmailInsight, LlmMode
 
 log = logging.getLogger("forwarder.insights")
 
@@ -46,13 +46,16 @@ def _prompt(repo: Repository, email) -> tuple[str, dict]:
 
 
 def analyze_email(email_id: str, repo: Repository, llm: LLMClient) -> EmailInsight | None:
-    """Extract, store and (if still unlinked) link by the company name found. None = LLM unavailable."""
+    """Extract, store and (if still unlinked) link by the company name found. None = no real LLM answer.
+    The mock LLM never produces stored insights: its answers are canned text, not facts from the email."""
+    if llm.s.llm_mode != "live":
+        return None
     email = repo.emails.require(email_id)
     prompt, ctx = _prompt(repo, email)
     extraction, meta = llm.complete_json(
         task="email.extract", prompt=prompt, schema=EmailExtraction, mock_context=ctx, fast=True
     )
-    if meta.used_fallback:
+    if meta.used_fallback or meta.mode != LlmMode.live:
         return None
     insight = repo.email_insights.upsert(
         EmailInsight(email_id=email_id, extracted_at=clock.now(), extraction=extraction, model=meta.model)
@@ -67,6 +70,8 @@ def analyze_email(email_id: str, repo: Repository, llm: LLMClient) -> EmailInsig
 
 def process_new_emails(repo: Repository, llm: LLMClient, mailbox: str) -> int:
     """Analyze inbound emails of `mailbox` that have no insight yet. Returns how many were analyzed."""
+    if llm.s.llm_mode != "live":  # no real LLM: nothing to analyze, and nothing mock is stored
+        return 0
     if not _lock.acquire(blocking=False):  # another run is in progress
         return 0
     try:

@@ -1,5 +1,18 @@
 # Ivan — AI assistant for freight forwarders
 
+Commands:
+
+```
+npm run dev (uv run uvicorn app.main:app --reload --port 8000,
+node node_modules/vite/bin/vite.js
+),
+docker compose up -d central-db
+
+cd C:\school\IvanTheForwarder\backend
+uv run uvicorn central.main:app --port 8100
+
+```
+
 A self-hostable assistant for small/medium Bulgarian freight forwarders (спедитори). It sits **on top of**
 the tools a forwarder already uses (email, documents, GPS, ERP), profiles clients with **explainable**
 risk scores, and drafts emails/documents into a **"ready to send" queue — nothing leaves without a human click**.
@@ -7,6 +20,7 @@ risk scores, and drafts emails/documents into a **"ready to send" queue — noth
 > Hackathon MVP. Everything runs on **mock data** by default. Live analysis uses Claude through Anthropic's API.
 
 ## Quick start (new teammate, ~5 min)
+
 Prerequisites: **Node 20+**, **Python 3.11+**, **[uv](https://docs.astral.sh/uv/getting-started/installation/)**, git.
 
 ```bash
@@ -14,6 +28,7 @@ git clone <repo-url> && cd IvanTheForwarder
 npm install          # installs root tools, backend (uv sync) and frontend
 npm run dev          # backend :8000 + frontend :5173
 ```
+
 Open http://localhost:5173 → press **Scan for events** → two drafts appear → **Approve & send**.
 API docs: http://localhost:8000/docs
 
@@ -56,17 +71,19 @@ Audio is stored under `data/runtime/calls/`; obtain the required consent before 
 an appropriate retention/deletion policy for production use.
 
 ## Commands (repo root)
-| Command | What |
-|---|---|
-| `npm run dev` | start both servers (hot reload) |
-| `npm test` | backend tests incl. the schema/contract gate |
-| `npm run typecheck` | frontend TS check |
-| `npm run gen:types` | schemas → `shared/openapi.json` → `frontend/src/api/schema.ts` |
-| `npm run seed` | regenerate `data/seed/` (deterministic) |
-| `npm run check` | everything CI runs |
+
+| Command                  | What                                                                 |
+| ------------------------ | -------------------------------------------------------------------- |
+| `npm run dev`            | start both servers (hot reload)                                      |
+| `npm test`               | backend tests incl. the schema/contract gate                         |
+| `npm run typecheck`      | frontend TS check                                                    |
+| `npm run gen:types`      | schemas → `shared/openapi.json` → `frontend/src/api/schema.ts`       |
+| `npm run seed`           | regenerate `data/seed/` (deterministic)                              |
+| `npm run check`          | everything CI runs                                                   |
 | `POST /api/system/reset` | wipe DB, reload seed (demo rehearsal) — also the "Reset demo" button |
 
 ## Layout & ownership
+
 ```
 backend/app/
   schemas/      ★ single source of truth for data shapes ............ lead (schema owner)
@@ -86,17 +103,23 @@ shared/         generated openapi.json (never edit by hand)
 data/seed/      generated seed + feeds/ (committed) · data/runtime/ (DB, logs; gitignored)
 docs/           architecture, demo script, plan, mock data, teammate prompts
 ```
+
 Read **[CONVENTIONS.md](CONVENTIONS.md)** before your first commit. Architecture: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Module notes
+
 <!-- Each owner adds a short section here: what works, how to try it, env vars, known gaps. -->
+
 ### Connectors (A)
+
 The folder watcher reads PDF files placed in `docs/incoming/`. In mock mode, searchable invoices are parsed locally
 for invoice number, customer, total, currency, and due date; a uniquely matched past-due invoice PDF adds an
 explainable risk factor. Documents with ambiguous customer matches are stored but do not affect a client's score.
 Scanned PDFs and other document types need `LLM_MODE=live`, `LLM_PROVIDER=anthropic`, and a valid API key for
 full extraction. The dashboard refreshes risk profiles automatically.
+
 ### Risk & events (B)
+
 Client risk is a transparent score: start at 30, add the impact of each listed factor, then clamp to 0–100.
 Every factor includes its measured values and links to the supporting invoices, shipments, incidents, or emails.
 The profile also reports confidence and a suggested message tone; it never sends a message. Email response
@@ -111,7 +134,9 @@ complaint/delay intent) can support invoice and delay factors. Document extracti
 links or unique exact invoice/shipment references, and Traccar GPS positions are matched to a shipment by
 its ID or a unique truck/time window. These files and GPS points corroborate existing risk evidence; they do
 not create standalone risk signals or replace invoice/payment records.
+
 ### Drafting, outbound & UI (C)
+
 The approval queue supports mock/live LLM drafts, editable subject/body, rationale and fallback indicators,
 rejection reasons, confirmation before sending, and sent/failed history. Payment reminders are de-duplicated
 per client and include all overdue invoices. Delay notices display destination-local times (including

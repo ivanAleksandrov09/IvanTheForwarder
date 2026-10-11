@@ -27,3 +27,6 @@ export type EmailExtraction = S["EmailExtraction"];
 export type EmailInsight = S["EmailInsight"];
 export type LoadOffer = S["LoadOffer"];
 export type Shipment = S["Shipment"];
+export type CallRecording = S["CallRecording"];
+export type CallExtraction = S["CallExtraction"];
+export type ConfirmCallRequest = S["ConfirmCallRequest"];

@@ -14,7 +14,7 @@ import { MailboxPanel as MailboxConnect } from "@/components/MailboxPanel";
 import { LoadsPanel } from "@/components/LoadsPanel";
 import { OnboardingPanel } from "@/components/OnboardingPanel";
 import { NetworkPanel } from "@/components/NetworkPanel";
-import { CallExtractionPanel } from "@/components/CallExtractionPanel";
+import { CallExtractionView } from "@/components/cargo/calls";
 import { CompanyName } from "@/components/CompanyName";
 import { appNow, cap, useOps } from "@/lib/useOps";
 import { formatDateTime, formatMoney } from "@/format";
@@ -45,7 +45,7 @@ const descriptions: Record<string, string> = {
   "Operational alerts": "The exceptions that need your attention.",
   Invoices: "Stay on top of receivables and payment follow-ups.",
   Loads: "Load offers matched to your fleet.",
-  "Call extraction": "Turn call recordings into reviewed load records.",
+  "Call extraction": "Turn driver and client calls into structured shipment updates.",
   "Connect email": "Connect a mailbox once; Ivan reads and analyzes new mail automatically.",
   "Connect systems": "Tell Ivan which ERP, GPS and email systems you use.",
   "Share profile": "Choose what your public capacity profile shares.",
@@ -240,7 +240,7 @@ export default function App() {
           )}
 
           {view === "Loads" && <Legacy><LoadsPanel /></Legacy>}
-          {view === "Call extraction" && <Legacy><CallExtractionPanel /></Legacy>}
+          {view === "Call extraction" && <CallExtractionView />}
           {view === "Connect email" && <Legacy><MailboxConnect onSynced={refresh} /></Legacy>}
           {view === "Connect systems" && <Legacy><OnboardingPanel /></Legacy>}
           {view === "Share profile" && <Legacy><NetworkPanel /></Legacy>}

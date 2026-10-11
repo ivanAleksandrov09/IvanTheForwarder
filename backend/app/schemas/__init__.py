@@ -63,12 +63,9 @@ COLLECTIONS: dict[str, tuple[type[ContractModel], str]] = {
     "drafts": (DraftMessage, "id"),
     "risk_profiles": (RiskProfile, "client_id"),
     "email_insights": (EmailInsight, "email_id"),
-<<<<<<< Updated upstream
     "company": (CompanyProfile, "id"),
-=======
     "call_recordings": (CallRecording, "id"),
     "call_extractions": (CallExtraction, "call_id"),
->>>>>>> Stashed changes
 }
 
 # Collections shipped as seed files in data/seed/<name>.json (derived data like events/drafts/risk is not seeded).
